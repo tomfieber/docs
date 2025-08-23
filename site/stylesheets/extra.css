@@ -1,0 +1,30 @@
+/* Custom styles for the documentation site */
+
+/* Sticky dynamic target input */
+#dynamic-target-container {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    top: calc(4rem + 1rem); /* Header height + larger margin */
+}
+
+/* Responsive header positioning */
+@media screen and (max-width: 76.25em) {
+    #dynamic-target-container {
+        top: calc(3.5rem + 1rem); /* Mobile header height + margin */
+    }
+}
+
+@media screen and (min-width: 76.25em) {
+    #dynamic-target-container {
+        top: calc(4rem + 1rem); /* Desktop header height + margin */
+    }
+}
+
+/* Smooth transition when sticky behavior kicks in */
+#dynamic-target-container {
+    transition: box-shadow 0.2s ease;
+}
+
+/* Add some breathing room to the main content when sticky input is present */
+.md-content__inner {
+    scroll-margin-top: 120px;
+}

