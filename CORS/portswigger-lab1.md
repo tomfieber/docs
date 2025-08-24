@@ -12,7 +12,7 @@ You can log in to your own account using the following credentials: `wiener:pet
 
 There is a API key leaked on the `accountDetails` endpoint
 
-![](attachments/Pasted%20image%2020250824081849.png)
+![](attachments/Pasted%20image%2020250824082441.png)
 
 Looking at this in the proxy shows the request and response.
 
