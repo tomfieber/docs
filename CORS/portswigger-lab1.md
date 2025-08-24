@@ -12,7 +12,8 @@ You can log in to your own account using the following credentials: `wiener:pet
 
 There is a API key leaked on the `accountDetails` endpoint
 
-![](../../../assets/screenshots/cors/Pasted%20image%2020250801141125.png)
+![](attachments/Pasted%20image%2020250824081849.png)
+
 Looking at this in the proxy shows the request and response.
 
 ```
@@ -54,7 +55,7 @@ Content-Length: 149
 
 If we send another request with an arbitrary Origin header, we see that the arbitrary value is reflected in the `Access-Control-Allow-Origin` response header. This means that a site on any origin can make requests to the vulnerable site and read the responses. 
 
-![](../../../assets/screenshots/cors/Pasted%20image%2020250801141507.png)
+![](attachments/Pasted%20image%2020250824081834.png)
 
 We can use the payload from Payloadsallthethings at https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/CORS%20Misconfiguration#origin-reflection
 
@@ -72,10 +73,10 @@ function reqListener() {
 
 Put this in the exploit server
 
-![](../../../assets/screenshots/cors/Pasted%20image%2020250801141839.png)
+![](attachments/Pasted%20image%2020250824081748.png)
 
 After clicking "Deliver exploit to victim", we can check the access log and find the administrator's API key.
 
-![](../../../assets/screenshots/cors/Pasted%20image%2020250801141937.png)
+![](attachments/Pasted%20image%2020250824081813.png)
 
 After submitting the admin's API key we finish the lab. 
