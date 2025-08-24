@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/blog/posts/tryhackme-annie.md",
+                "file": "CORS/portswigger-lab1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "tryhackme-annie"
+              "title": "portswigger-lab1"
             }
           }
         ]
@@ -170,5 +170,14 @@
     }
   },
   "active": "976c29d045c5e92c",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "CORS/cors.md",
+    "CORS/portswigger-lab1.md",
+    "CORS",
+    "docs/blog/posts/vulnlab-breach.md",
+    "docs/blog/posts/vulnlab-baby.md",
+    "docs/blog/posts/tryhackme-kenobi.md",
+    "docs/blog/posts/tryhackme-include.md",
+    "docs/blog/posts/tryhackme-annie.md"
+  ]
 }
